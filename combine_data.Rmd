@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-**Import data:**
+**Import Data:**
 
 ```{r}
 load("dm.RData")

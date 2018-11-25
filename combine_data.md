@@ -1,0 +1,66 @@
+The Association Between Tuberculosis and Type II Diabetes and Risk
+Factors in Shanghai, China
+================
+Rui Huang (rh2916), Hanbo Qiu (hq2163), Annie Yu (xy2404), Dana Zeng
+(dz2399), Coco Zou (xz2809)
+November 8, 2018
+
+**Import data:**
+
+``` r
+load("dm.RData")
+```
+
+``` r
+df_combine = dm_base %>% 
+  rename(
+    subject_id = JiBenCID,
+    glu_average = fastglu, 
+    weight_initial = tizhong_1st, 
+    weight_average = tizhong, 
+    height = ShenGao, 
+    glu_initial = kfxt_1st,
+    gender = xingbie,
+    district = GuanLiQX,
+    sys_pressure = Sbp,
+    dia_pressure = Dbp,
+    exercise_time = xiuxiansj,
+    exercise = xiuxiantl,
+    drug_insulin = insulin,
+    drug_oral_sulfo = sulfonylurea,
+    drug_oral_biguanide = biguanide,
+    drug_oral_glu = glu_inhib,
+    retina = reti, 
+    skin = derm, 
+    vessel = vesl, 
+    nerve = neur,
+    kidney = neph, 
+    depression = depress,
+    dmtime = quezhensj,
+    birthyear  = birth_year,
+    birthmon = birth_mon,
+    dmdatayear = rucu_year,
+    dmdatamon = rucu_mon,
+    dmdataage = rucuage) %>% 
+  mutate(
+    bmi_initial = weight_initial/(height/100)^2, 
+    bmi_average = weight_average/(height/100)^2, 
+    bmi_change = bmi_average - bmi_initial,
+    glu_change = glu_average - glu_initial,
+    tb = ifelse(censer == 1, "No", "Yes"),
+    exercise = as.factor(exercise),
+    drug_oral = case_when(drug_oral_biguanide == 0 & drug_oral_biguanide == 0 &     drug_oral_glu == 0 ~0, TRUE ~ 1),
+    drug = case_when(drug_oral == 0 & drug_insulin ==0 ~ 0,TRUE ~ 1),
+    retina = as.numeric(retina),
+    skin = as.numeric(skin),
+    vessel = as.numeric(vessel),
+    nerve = as.numeric(nerve),
+    kidney = as.numeric(kidney),
+    complications = retina + skin + vessel + nerve + kidney + depression,
+    complications = as.factor(complications)
+  )
+
+
+levels(df_combine$complications) <- list(none=0,one=1,more_than_two=c(2,6))
+levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
+```

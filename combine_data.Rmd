@@ -80,5 +80,95 @@ levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
 save(df_combine,file='./data/df_combine.RData')
 ```
 
+### Exercise and K-M plot
+
+Compare male and female mean for exercise by t.test
+
+```{r}
+male_exercise = df_combine %>% 
+  filter(gender == 1) %>% 
+  mutate(exercise = as.numeric(exercise))
+    
+female_exercise = df_combine %>% 
+  filter(gender == 2) %>% 
+  mutate(exercise = as.numeric(exercise))
+
+var.test(male_exercise$exercise,female_exercise$exercise, alternative = "two.sided")
+
+t.test(male_exercise$exercise,female_exercise$exercise, var.equal=FALSE, paired=FALSE) 
+```
+
+Compare male and female mean for exercise_time by t.test
+
+```{r}
+var.test(male_exercise$exercise_time,female_exercise$exercise_time, alternative = "two.sided")
+
+t.test(male_exercise$exercise_time,female_exercise$exercise_time, var.equal=FALSE, paired=FALSE) 
+```
+
+Compare male and female mean for exercise_time*exercise by t.test
+
+```{r}
+male_exercise = male_exercise %>% mutate(total_exercise = exercise * exercise_time)
+female_exercise = female_exercise %>% mutate(total_exerise = exercise * exercise_time)
+var.test(male_exercise$total_exerise,female_exercise$total_exerise, alternative = "two.sided")
+t.test(male_exercise$total_exerise,female_exercise$total_exerise, var.equal=FALSE, paired=FALSE) 
+```
+
+
+Make exercise distribution plot
+
+```{r}
+df_combine %>% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = total_exerise, color = gender)) +
+  geom_density()
+
+df_combine %>% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = gender, y = total_exerise, color = gender)) +
+  geom_boxplot()
+
+df_combine %>% 
+  mutate(exercise = as.numeric(exercise),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes( x = gender, y = exercise)) +
+  geom_violin()
+
+df_combine %>% 
+  mutate(gender = as.factor(gender)) %>% 
+  ggplot(aes( x = gender, y = exercise_time)) +
+  geom_violin()
+```
+
+Make tb vs exercise plot
+
+```{r}
+df_combine %>% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = tb, y = total_exercise, color = gender)) +
+  geom_boxplot() +
+  facet_grid(.~gender)
+
+```
+
+K-M plot
+
+```{r}
+df_combine$survival = with(df_combine, Surv(days, tb == "Yes"))
+
+km <- survfit(survival ~ 1, data = df_combine, conf.type = "log-log")
+km_by_gender <- survfit(survival ~ gender, data = df_combine, conf.type = "log-log")
+
+
+ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Probability of getting TB", ylim = c(0.9, 1.0), legend.labs = c("Male", "Female"))
+```
+
 
 

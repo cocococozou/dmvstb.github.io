@@ -75,7 +75,6 @@ df_combine = dm_base %>%
   )
 
 
-levels(df_combine$complications) <- list(none=0,one=1,more_than_one=c(2:6))
 levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
 
 save(df_combine,file='./data/df_combine.RData')

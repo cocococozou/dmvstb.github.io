@@ -244,7 +244,8 @@ $(document).ready(function () {
     birthmon = birth_mon,
     dmdatayear = rucu_year,
     dmdatamon = rucu_mon,
-    dmdataage = rucuage) %&gt;% 
+    dmdataage = rucuage,
+    drug_order = fuyaoqk) %&gt;% 
   mutate(
     bmi_initial = weight_initial/(height/100)^2, 
     bmi_average = weight_average/(height/100)^2, 
@@ -252,15 +253,23 @@ $(document).ready(function () {
     glu_change = glu_average - glu_initial,
     tb = ifelse(censer == 1, &quot;No&quot;, &quot;Yes&quot;),
     exercise = as.factor(exercise),
-    drug_oral = case_when(drug_oral_biguanide == 0 &amp; drug_oral_biguanide == 0 &amp;     drug_oral_glu == 0 ~0, TRUE ~ 1),
-    drug = case_when(drug_oral == 0 &amp; drug_insulin ==0 ~ 0,TRUE ~ 1),
+    drug_oral_name  = case_when(drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~ &quot;biguanide&quot;,
+                           drug_oral_glu == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_sulfo == &quot;0&quot; ~ &quot;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&amp;biguanide&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~ &quot;biguanide&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&amp;biguanide&quot;,
+                           TRUE ~ &quot;NA&quot;),
+    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
     retina = as.numeric(retina),
     skin = as.numeric(skin),
     vessel = as.numeric(vessel),
     nerve = as.numeric(nerve),
     kidney = as.numeric(kidney),
     complications = retina + skin + vessel + nerve + kidney + depression,
-    complications = as.factor(complications)
+    complications = as.factor(complications),
+    drug_order = as.factor(drug_order)
   )
 
 

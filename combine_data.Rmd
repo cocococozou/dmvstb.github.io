@@ -7,7 +7,11 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+install.packages("survminer")
+install.packages("survival")
 library(tidyverse)
+library(survminer)
+library(survival)
 ```
 
 **Import Data:**

@@ -218,7 +218,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>**Import <a href="Data:**" class="uri">Data:**</a></p>
+<p>**Import <a href="data:**" class="uri">data:**</a></p>
 <pre class="r"><code>load(&quot;dm.RData&quot;)</code></pre>
 <pre class="r"><code>df_combine = dm_base %&gt;% 
   rename(
@@ -281,6 +281,192 @@ $(document).ready(function () {
 levels(df_combine$exercise) &lt;- list(&#39;1&#39; = 1,  &#39;2&#39; = 2, &#39;3&#39; = c(3,4))
 
 save(df_combine,file=&#39;./data/df_combine.RData&#39;)</code></pre>
+<div id="exercise-and-k-m-plot" class="section level3">
+<h3>Exercise and K-M plot</h3>
+<p>Compare male and female mean for exercise by t.test</p>
+<pre class="r"><code>male_exercise = df_combine %&gt;% 
+  filter(gender == 1) %&gt;% 
+  mutate(exercise = as.numeric(exercise))
+    
+female_exercise = df_combine %&gt;% 
+  filter(gender == 2) %&gt;% 
+  mutate(exercise = as.numeric(exercise))
+
+var.test(male_exercise$exercise,female_exercise$exercise, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  male_exercise$exercise and female_exercise$exercise
+## F = 1.1286, num df = 69985, denom df = 100410, p-value &lt; 2.2e-16
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  1.113299 1.144108
+## sample estimates:
+## ratio of variances 
+##           1.128589</code></pre>
+<pre class="r"><code>t.test(male_exercise$exercise,female_exercise$exercise, var.equal=FALSE, paired=FALSE) </code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  male_exercise$exercise and female_exercise$exercise
+## t = 15.613, df = 144660, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.03253039 0.04187009
+## sample estimates:
+## mean of x mean of y 
+##  1.950747  1.913547</code></pre>
+<p>Compare male and female mean for exercise_time by t.test</p>
+<pre class="r"><code>var.test(male_exercise$exercise_time,female_exercise$exercise_time, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  male_exercise$exercise_time and female_exercise$exercise_time
+## F = 1.0195, num df = 69985, denom df = 100410, p-value = 0.005619
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  1.005646 1.033476
+## sample estimates:
+## ratio of variances 
+##           1.019458</code></pre>
+<pre class="r"><code>t.test(male_exercise$exercise_time,female_exercise$exercise_time, var.equal=FALSE, paired=FALSE) </code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  male_exercise$exercise_time and female_exercise$exercise_time
+## t = 6.8304, df = 149640, p-value = 8.503e-12
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.01453694 0.02623712
+## sample estimates:
+## mean of x mean of y 
+##  1.799360  1.778973</code></pre>
+<p>Compare male and female mean for exercise_time*exercise by t.test</p>
+<pre class="r"><code>male_exercise = male_exercise %&gt;% mutate(total_exercise = exercise * exercise_time)
+female_exercise = female_exercise %&gt;% mutate(total_exerise = exercise * exercise_time)
+var.test(male_exercise$total_exercise,female_exercise$total_exerise, alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  male_exercise$total_exercise and female_exercise$total_exerise
+## F = 1.1381, num df = 69985, denom df = 100410, p-value &lt; 2.2e-16
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  1.122712 1.153782
+## sample estimates:
+## ratio of variances 
+##           1.138131</code></pre>
+<pre class="r"><code>t.test(male_exercise$total_exercise,female_exercise$total_exercise, var.equal=FALSE, paired=FALSE) </code></pre>
+<pre><code>## Warning: Unknown or uninitialised column: &#39;total_exercise&#39;.</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  male_exercise$total_exercise
+## t = 532.22, df = 69985, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  3.642311 3.669237
+## sample estimates:
+## mean of x 
+##  3.655774</code></pre>
+<p>Make exercise distribution plot</p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = total_exercise, color = gender)) +
+  geom_density()</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = gender, y = total_exercise, color = gender)) +
+  geom_boxplot()</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(exercise = as.numeric(exercise),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes( x = gender, y = exercise)) +
+  geom_violin()</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-6-3.png" width="672" /></p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(gender = as.factor(gender)) %&gt;% 
+  ggplot(aes( x = gender, y = exercise_time)) +
+  geom_violin()</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-6-4.png" width="672" /></p>
+<p>Make tb vs exercise plot</p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = tb, y = total_exercise, color = gender)) +
+  geom_boxplot() +
+  facet_grid(.~gender)</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>K-M plot</p>
+<pre class="r"><code>df_combine$survival = with(df_combine, Surv(days, tb == &quot;Yes&quot;))
+
+km &lt;- survfit(survival ~ 1, data = df_combine, conf.type = &quot;log-log&quot;)
+km_by_gender &lt;- survfit(survival ~ gender, data = df_combine, conf.type = &quot;log-log&quot;)
+
+
+ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = &quot;Probability of getting TB&quot;, ylim = c(0.9, 1.0), legend.labs = c(&quot;Male&quot;, &quot;Female&quot;))</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_text).
+
+## Warning: Removed 1 rows containing missing values (geom_text).</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="incidence-of-tb" class="section level2">
+<h2>Incidence of tb…</h2>
+</div>
+<div id="compare-diabete-and-age" class="section level2">
+<h2>Compare diabete and age…</h2>
+<p>Make a diabete-age distribution plot</p>
+<pre class="r"><code>plot_dia_d&lt;-df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = dmage, fill= gender)) +
+  geom_density()+
+  facet_grid(.~gender)
+
+plot_dia_v&lt;-df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = gender, y= dmage, fill=gender)) +
+  geom_boxplot()
+
+plot_dia_d+plot_dia_v</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Make a tb-age distribution plot(QQQQQ)</p>
+<pre class="r"><code>df_tbage &lt;-df_combine %&gt;% 
+  na.omit(`_COL19`) %&gt;% 
+  rename(tbtime = `_COL19`) %&gt;% 
+  mutate(#separate(tbtime, into = c(&quot;tb_year&quot;, &quot;tb_month&quot;, &quot;tb_day&quot;), sep = &quot;-&quot;),
+         gender = as.factor(gender),
+         birthyear = as.numeric(birthyear)) 
+  
+ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
+ geom_violin()+
+  facet_grid(.~gender)</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Make a tb-diabete age distribution plot</p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         tb = as.factor(tb),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes( x=dmage,y=tb,group=gender) )+ 
+  scale_fill_brewer(palette = &quot;Spectral&quot;) + 
+  geom_col(aes(fill=gender))</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+ggplot(aes(x = tb, y = dmage, color = gender)) +
+  geom_boxplot()+
+  facet_grid(.~gender)</code></pre>
+<p><img src="combine_data_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+</div>
 
 
 

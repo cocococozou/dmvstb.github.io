@@ -8,6 +8,10 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(incidence)
+library(patchwork)
+library(survival)
+library(survminer)
 ```
 
 **Import data:**
@@ -111,8 +115,8 @@ Compare male and female mean for exercise_time*exercise by t.test
 ```{r}
 male_exercise = male_exercise %>% mutate(total_exercise = exercise * exercise_time)
 female_exercise = female_exercise %>% mutate(total_exerise = exercise * exercise_time)
-var.test(male_exercise$total_exerise,female_exercise$total_exerise, alternative = "two.sided")
-t.test(male_exercise$total_exerise,female_exercise$total_exerise, var.equal=FALSE, paired=FALSE) 
+var.test(male_exercise$total_exercise,female_exercise$total_exerise, alternative = "two.sided")
+t.test(male_exercise$total_exercise,female_exercise$total_exercise, var.equal=FALSE, paired=FALSE) 
 ```
 
 
@@ -123,14 +127,14 @@ df_combine %>%
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
          gender = as.factor(gender)) %>% 
-  ggplot(aes(x = total_exerise, color = gender)) +
+  ggplot(aes(x = total_exercise, color = gender)) +
   geom_density()
 
 df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
          gender = as.factor(gender)) %>% 
-  ggplot(aes(x = gender, y = total_exerise, color = gender)) +
+  ggplot(aes(x = gender, y = total_exercise, color = gender)) +
   geom_boxplot()
 
 df_combine %>% 
@@ -171,4 +175,67 @@ ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Pr
 ```
 
 
+## Incidence of tb...
+```{r}
+
+```
+
+
+##Compare diabete and age...
+
+Make a diabete-age distribution plot
+```{r}
+plot_dia_d<-df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = dmage, fill= gender)) +
+  geom_density()+
+  facet_grid(.~gender)
+
+plot_dia_v<-df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = gender, y= dmage, fill=gender)) +
+  geom_boxplot()
+
+plot_dia_d+plot_dia_v
+
+
+```
+
+Make a tb-age distribution plot(QQQQQ)
+```{r}
+df_tbage <-df_combine %>% 
+  na.omit(`_COL19`) %>% 
+  rename(tbtime = `_COL19`) %>% 
+  mutate(#separate(tbtime, into = c("tb_year", "tb_month", "tb_day"), sep = "-"),
+         gender = as.factor(gender),
+         birthyear = as.numeric(birthyear)) 
+  
+ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
+ geom_violin()+
+  facet_grid(.~gender)
+
+  
+  
+```
+
+
+Make a tb-diabete age distribution plot
+```{r}
+df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         tb = as.factor(tb),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes( x=dmage,y=tb,group=gender) )+ 
+  scale_fill_brewer(palette = "Spectral") + 
+  geom_col(aes(fill=gender))
+
+df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+ggplot(aes(x = tb, y = dmage, color = gender)) +
+  geom_boxplot()+
+  facet_grid(.~gender)
+```
 

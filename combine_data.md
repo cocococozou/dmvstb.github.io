@@ -1,11 +1,9 @@
-The Association Between Tuberculosis and Type II Diabetes and Risk
-Factors in Shanghai, China
+The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China
 ================
-Rui Huang (rh2916), Hanbo Qiu (hq2163), Annie Yu (xy2404), Dana Zeng
-(dz2399), Coco Zou (xz2809)
+Rui Huang (rh2916), Hanbo Qiu (hq2163), Annie Yu (xy2404), Dana Zeng (dz2399), Coco Zou (xz2809)
 November 8, 2018
 
-**Import data:**
+\*\*Import <data:**>
 
 ``` r
 load("dm.RData")
@@ -41,7 +39,8 @@ df_combine = dm_base %>%
     birthmon = birth_mon,
     dmdatayear = rucu_year,
     dmdatamon = rucu_mon,
-    dmdataage = rucuage) %>% 
+    dmdataage = rucuage,
+    drug_order = fuyaoqk) %>% 
   mutate(
     bmi_initial = weight_initial/(height/100)^2, 
     bmi_average = weight_average/(height/100)^2, 
@@ -49,18 +48,125 @@ df_combine = dm_base %>%
     glu_change = glu_average - glu_initial,
     tb = ifelse(censer == 1, "No", "Yes"),
     exercise = as.factor(exercise),
-    drug_oral = case_when(drug_oral_biguanide == 0 & drug_oral_biguanide == 0 &     drug_oral_glu == 0 ~0, TRUE ~ 1),
-    drug = case_when(drug_oral == 0 & drug_insulin ==0 ~ 0,TRUE ~ 1),
+    drug_oral_name  = case_when(drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "0" ~"sulfonylurea",
+                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "0" ~ "biguanide",
+                           drug_oral_glu == "1" & drug_oral_biguanide == "0" & drug_oral_sulfo == "0" ~ "glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "0" ~"sulfonylurea&biguanide",
+                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "1" ~ "biguanide&glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib&biguanide",
+                           TRUE ~ "NA"),
+    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
     retina = as.numeric(retina),
     skin = as.numeric(skin),
     vessel = as.numeric(vessel),
     nerve = as.numeric(nerve),
     kidney = as.numeric(kidney),
     complications = retina + skin + vessel + nerve + kidney + depression,
-    complications = as.factor(complications)
+    complications = as.factor(complications),
+    drug_order = as.factor(drug_order)
   )
 
 
-levels(df_combine$complications) <- list(none=0,one=1,more_than_two=c(2,6))
 levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
+
+save(df_combine,file='./data/df_combine.RData')
 ```
+
+### Exercise and K-M plot
+
+Compare male and female mean for exercise by t.test
+
+``` r
+male_exercise = df_combine %>% 
+  filter(gender == 1) %>% 
+  mutate(exercise = as.numeric(exercise))
+    
+female_exercise = df_combine %>% 
+  filter(gender == 2) %>% 
+  mutate(exercise = as.numeric(exercise))
+
+var.test(male_exercise$exercise,female_exercise$exercise, alternative = "two.sided")
+```
+
+    ## 
+    ##  F test to compare two variances
+    ## 
+    ## data:  male_exercise$exercise and female_exercise$exercise
+    ## F = 1.1286, num df = 69985, denom df = 100410, p-value < 2.2e-16
+    ## alternative hypothesis: true ratio of variances is not equal to 1
+    ## 95 percent confidence interval:
+    ##  1.113299 1.144108
+    ## sample estimates:
+    ## ratio of variances 
+    ##           1.128589
+
+``` r
+t.test(male_exercise$exercise,female_exercise$exercise, var.equal=FALSE, paired=FALSE) 
+```
+
+    ## 
+    ##  Welch Two Sample t-test
+    ## 
+    ## data:  male_exercise$exercise and female_exercise$exercise
+    ## t = 15.613, df = 144660, p-value < 2.2e-16
+    ## alternative hypothesis: true difference in means is not equal to 0
+    ## 95 percent confidence interval:
+    ##  0.03253039 0.04187009
+    ## sample estimates:
+    ## mean of x mean of y 
+    ##  1.950747  1.913547
+
+<!-- Compare male and female mean for exercise_time by t.test -->
+<!-- ```{r} -->
+<!-- var.test(male_exercise$exercise_time,female_exercise$exercise_time, alternative = "two.sided") -->
+<!-- t.test(male_exercise$exercise_time,female_exercise$exercise_time, var.equal=FALSE, paired=FALSE)  -->
+<!-- ``` -->
+<!-- Compare male and female mean for exercise_time*exercise by t.test -->
+<!-- ```{r} -->
+<!-- male_exercise = male_exercise %>% mutate(total_exercise = exercise * exercise_time) -->
+<!-- female_exercise = female_exercise %>% mutate(total_exerise = exercise * exercise_time) -->
+<!-- var.test(male_exercise$total_exerise,female_exercise$total_exerise, alternative = "two.sided") -->
+<!-- t.test(male_exercise$total_exerise,female_exercise$total_exerise, var.equal=FALSE, paired=FALSE)  -->
+<!-- ``` -->
+<!-- Make exercise distribution plot -->
+<!-- ```{r} -->
+<!-- df_combine %>%  -->
+<!--   mutate(exercise = as.numeric(exercise), -->
+<!--          total_exercise = exercise * exercise_time, -->
+<!--          gender = as.factor(gender)) %>%  -->
+<!--   ggplot(aes(x = total_exerise, color = gender)) + -->
+<!--   geom_density() -->
+<!-- df_combine %>%  -->
+<!--   mutate(exercise = as.numeric(exercise), -->
+<!--          total_exercise = exercise * exercise_time, -->
+<!--          gender = as.factor(gender)) %>%  -->
+<!--   ggplot(aes(x = gender, y = total_exerise, color = gender)) + -->
+<!--   geom_boxplot() -->
+<!-- df_combine %>%  -->
+<!--   mutate(exercise = as.numeric(exercise), -->
+<!--          gender = as.factor(gender)) %>%  -->
+<!--   ggplot(aes( x = gender, y = exercise)) + -->
+<!--   geom_violin() -->
+<!-- df_combine %>%  -->
+<!--   mutate(gender = as.factor(gender)) %>%  -->
+<!--   ggplot(aes( x = gender, y = exercise_time)) + -->
+<!--   geom_violin() -->
+<!-- ``` -->
+<!-- Make tb vs exercise plot -->
+<!-- ```{r} -->
+<!-- df_combine %>%  -->
+<!--   mutate(exercise = as.numeric(exercise), -->
+<!--          total_exercise = exercise * exercise_time, -->
+<!--          gender = as.factor(gender)) %>%  -->
+<!--   ggplot(aes(x = tb, y = total_exercise, color = gender)) + -->
+<!--   geom_boxplot() + -->
+<!--   facet_grid(.~gender) -->
+<!-- ``` -->
+<!-- K-M plot -->
+<!-- ```{r} -->
+<!-- df_combine$survival = with(df_combine, Surv(days, tb == "Yes")) -->
+<!-- km <- survfit(survival ~ 1, data = df_combine, conf.type = "log-log") -->
+<!-- km_by_gender <- survfit(survival ~ gender, data = df_combine, conf.type = "log-log") -->
+<!-- ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Probability of getting TB", ylim = c(0.9, 1.0), legend.labs = c("Male", "Female")) -->
+<!-- ``` -->

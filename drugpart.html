@@ -9,11 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Coco" />
 
-<meta name="date" content="2018-11-14" />
 
-<title>Drugpart</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -92,6 +89,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -207,13 +207,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Drugpart</h1>
-<h4 class="author"><em>Coco</em></h4>
-<h4 class="date"><em>11/14/2018</em></h4>
 
 </div>
 
 
+<div id="drugpart" class="section level1">
+<h1>Drugpart</h1>
+<p>Coco 11/14/2018</p>
 <pre class="r"><code>df_combine = dm_base %&gt;% 
   rename(
     subject_id = JiBenCID,
@@ -294,8 +294,9 @@ drug_model = df_drug %&gt;%
   select(drug_order,term,estimate,low_bond,high_bond,OR)</code></pre>
 <pre><code>## Waiting for profiling to be done...
 ## Waiting for profiling to be done...
-## Waiting for profiling to be done...</code></pre>
-<pre><code>## Warning: &#39;tidy.matrix&#39; is deprecated.
+## Waiting for profiling to be done...
+
+## Warning: &#39;tidy.matrix&#39; is deprecated.
 ## See help(&quot;Deprecated&quot;)
 
 ## Warning: &#39;tidy.matrix&#39; is deprecated.
@@ -309,7 +310,10 @@ drug_model = df_drug %&gt;%
   geom_point(aes(reorder(drug_order,OR), y = OR))+
   geom_errorbar(aes(x=drug_order, ymin = low_bond, ymax = high_bond))+
   theme(axis.text.x = element_text(angle = 90, hjust = 1))</code></pre>
-<p><img src="drugpart_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="figure">
+<img src="drugpart_files/figure-markdown_github/unnamed-chunk-2-1.png" />
+
+</div>
 <pre class="r"><code>pie_1 &lt;- ggplot(df_drug, aes(x = factor(1), fill = factor(drug_order))) + geom_bar(width = 1)+coord_polar(theta = &quot;y&quot;)
 pie_2 &lt;- df_drug %&gt;% 
   ggplot(aes(x = factor(1), fill = factor(drug_oral_name))) + geom_bar(width = 1)+coord_polar(theta = &quot;y&quot;)
@@ -334,8 +338,9 @@ drug_model_complex = df_drug %&gt;%
   select(drug_order,term,estimate,low_bond,high_bond,OR)</code></pre>
 <pre><code>## Waiting for profiling to be done...
 ## Waiting for profiling to be done...
-## Waiting for profiling to be done...</code></pre>
-<pre><code>## Warning: &#39;tidy.matrix&#39; is deprecated.
+## Waiting for profiling to be done...
+
+## Warning: &#39;tidy.matrix&#39; is deprecated.
 ## See help(&quot;Deprecated&quot;)
 
 ## Warning: &#39;tidy.matrix&#39; is deprecated.
@@ -349,12 +354,19 @@ drug_model_complex = df_drug %&gt;%
   geom_point(aes(reorder(drug_order,OR), y = OR))+
   geom_errorbar(aes(x=drug_order, ymin = low_bond, ymax = high_bond))+
   theme(axis.text.x = element_text(angle = 90, hjust = 1))</code></pre>
-<p><img src="drugpart_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<div class="figure">
+<img src="drugpart_files/figure-markdown_github/unnamed-chunk-2-2.png" />
+
+</div>
 <pre class="r"><code>df_drug %&gt;% 
   ggplot(aes(x = drug))+geom_density()+
   facet_grid(~factor(urban_rural)) + 
   viridis::scale_fill_viridis(discrete = TRUE)</code></pre>
-<p><img src="drugpart_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<div class="figure">
+<img src="drugpart_files/figure-markdown_github/unnamed-chunk-2-3.png" />
+
+</div>
+</div>
 
 
 

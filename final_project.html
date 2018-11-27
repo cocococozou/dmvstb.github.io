@@ -25,20 +25,37 @@ body {
 
 <body>
 
-<h1 id="complications_dz">complications_DZ</h1>
-<p>DZ<br />
-November 14, 2018</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">'./dm.Rdata'</span>)
-df &lt;-<span class="st"> </span>dm_base <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">retina =</span> reti, <span class="dt">skin =</span> derm, <span class="dt">vessel =</span> vesl, <span class="dt">nerve =</span> neur,<span class="dt">kidney =</span> neph, <span class="dt">depression =</span> depress ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">retina =</span> <span class="kw">as.numeric</span>(retina),
-         <span class="dt">skin =</span> <span class="kw">as.numeric</span>(skin),
-         <span class="dt">vessel =</span> <span class="kw">as.numeric</span>(vessel),
-         <span class="dt">nerve =</span> <span class="kw">as.numeric</span>(nerve),
-         <span class="dt">kidney =</span> <span class="kw">as.numeric</span>(kidney)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">complications =</span> retina <span class="op">+</span><span class="st"> </span>skin <span class="op">+</span><span class="st"> </span>vessel <span class="op">+</span><span class="st"> </span>nerve <span class="op">+</span><span class="st"> </span>kidney <span class="op">+</span><span class="st"> </span>depression) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">complications =</span> <span class="kw">as.factor</span>(complications))
-<span class="kw">levels</span>(df<span class="op">$</span>complications) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">none=</span><span class="dv">0</span>,<span class="dt">one=</span><span class="dv">1</span>,<span class="dt">more_than_two=</span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>))</code></pre></div>
+<h1 id="the-association-between-tuberculosis-and-type-ii-diabetes-and-risk-factors-in-shanghai-china">The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China</h1>
+<p>Rui Huang (rh2916), Hanbo Qiu (hq2163), Annie Yu (xy2404), Dana Zeng (dz2399), Coco Zou (xz2809)<br />
+November 8, 2018</p>
+<p>**Import <a href="data:**" class="uri">data:**</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;dm.RData&quot;</span>)</code></pre></div>
+<p><strong>apply data cleaning of variables including &quot;Initial BMI&quot;, &quot;BMI changed&quot;, &quot;Initial fasting glucose&quot;&quot; and &quot;Fasting glucose change&quot;:</strong></p>
+<p>Rename some predictor variables to meaningful ones.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hanbo =<span class="st"> </span>dm_base <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">glu_average =</span> fastglu, <span class="dt">weight_initial =</span> tizhong_1st, <span class="dt">weight_average =</span> tizhong, <span class="dt">height =</span> ShenGao, <span class="dt">glu_initial =</span> kfxt_1st)</code></pre></div>
+<p>Create new variables &quot;bmi_initial&quot;,&quot;bmi_average&quot; &quot;bmi_change&quot; and &quot;glu_change&quot;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hanbo =<span class="st"> </span>df_hanbo <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">bmi_initial =</span> weight_initial<span class="op">/</span>(height<span class="op">/</span><span class="dv">100</span>)<span class="op">^</span><span class="dv">2</span>, 
+    <span class="dt">bmi_average =</span> weight_average<span class="op">/</span>(height<span class="op">/</span><span class="dv">100</span>)<span class="op">^</span><span class="dv">2</span>, 
+    <span class="dt">bmi_change =</span> bmi_average <span class="op">-</span><span class="st"> </span>bmi_initial,
+    <span class="dt">glu_change =</span> glu_average <span class="op">-</span><span class="st"> </span>glu_initial
+  )</code></pre></div>
+<p>Rename outcome &quot;censor&quot; to &quot;tb_infection&quot; and inverse its value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hanbo =<span class="st"> </span>df_hanbo <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">tb_infection =</span> censer) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tb_infection =</span> <span class="kw">ifelse</span>(tb_infection <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</code></pre></div>
+<p>Rename other variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hanbo =<span class="st"> </span>df_hanbo <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">gender =</span> xingbie,
+    <span class="dt">district =</span> GuanLiQX,
+    <span class="dt">sys_pressure =</span> Sbp,
+    <span class="dt">dia_pressure =</span> Dbp
+  )</code></pre></div>
 
 </body>
 </html>

@@ -54,11 +54,13 @@ df_combine = dm_base %>%
     dmdataage = rucuage,
     drug_order = fuyaoqk) %>% 
   mutate(
+    district = as.factor(district),
+    glu_self_monitor = as.factor(celiangxtgl),
     bmi_initial = weight_initial/(height/100)^2, 
     bmi_average = weight_average/(height/100)^2, 
     bmi_change = bmi_average - bmi_initial,
     glu_change = glu_average - glu_initial,
-    tb = ifelse(censer == 1, "No", "Yes"),
+    tb = as.factor(ifelse(censer == 1, "No", "Yes")),
     exercise = as.factor(exercise),
     drug_oral_name  = case_when(drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "0" ~"sulfonylurea",
                            drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "0" ~ "biguanide",
@@ -81,6 +83,10 @@ df_combine = dm_base %>%
 
 
 levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
+
+levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Changning" = 310105, "Jingan" = 310106, "Putuo" = 310107, "Zhabei" = 310108, "Hongkou" = 310109, "Yangpu" = 310110, "Minhang" = 310112, "Baoshan" = 310113,  "Pudong" = c(310115, 10119), "Jiading" = 310114, "Jinshan" = 310116, "Songjiang" = 310117, "Qingpu" = 310118, "Fengxian" = 310120, "Chongming" = 310230)
+
+levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 
 save(df_combine,file='./data/df_combine.RData')
 ```

@@ -19,13 +19,3 @@ We may present tables to list key variables, use boxplots to compare the mean di
 
 Anticipated Timeline
 --------------------
-
-| ï..Time            | Goals                                                                          |
-|:-------------------|:-------------------------------------------------------------------------------|
-| November 1th-8th   | data selection and writing proposal document                                   |
-| November 9th-12th  | data cleaning, allocating specific tasks to team members, exploratory analyses |
-| November 12th-16th | project review meeting, alternative strategies                                 |
-| November 17th-20th | discussion of results and making plots.                                        |
-| November 21th-26th | writing reports                                                                |
-| November 27th-30th | creating a webpage summarizing our project                                     |
-| December 1th-6th   | creating a narrated screencast                                                 |

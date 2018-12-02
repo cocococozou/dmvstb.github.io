@@ -22,11 +22,7 @@ We may present tables to list key variables, use boxplots to compare the mean di
 
 ## Anticipated Timeline
 ```{r echo = FALSE}
-timeline_df <- read.csv(file = "./data/timeline.csv") %>% 
-  as.data.frame()
 
-timeline_df %>% 
-  knitr::kable(digits = 2)
 ```
 
 

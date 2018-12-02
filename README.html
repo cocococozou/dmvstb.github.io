@@ -9,11 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="DZ" />
 
-<meta name="date" content="2018-11-25" />
 
-<title>Cox Analysis and Visualization</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -212,74 +207,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Cox Analysis and Visualization</h1>
-<h4 class="author"><em>DZ</em></h4>
-<h4 class="date"><em>November 25, 2018</em></h4>
 
 </div>
 
 
-<p>Cox</p>
-<pre class="r"><code>load(&#39;./data/df_combine.RData&#39;)
-
-df &lt;- df_combine %&gt;% 
-  mutate(age = 2018-as.numeric(birthyear)) %&gt;% 
-  mutate(complications = as.numeric(complications)) %&gt;% 
-  mutate(exercise = as.numeric(exercise))
-
-cox &lt;- coxph(Surv(days, censer) ~ complications+gender+exercise+age+drug, data =df)
-broom::tidy(cox) %&gt;% 
-  mutate(exp_estimate = exp(estimate)) %&gt;% 
-  select(term,exp_estimate, std.error, statistic, p.value) %&gt;% 
-knitr::kable(digits = 3)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="right">exp_estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">complications</td>
-<td align="right">0.821</td>
-<td align="right">0.005</td>
-<td align="right">-37.852</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="even">
-<td align="left">gender</td>
-<td align="right">0.919</td>
-<td align="right">0.005</td>
-<td align="right">-17.172</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="odd">
-<td align="left">exercise</td>
-<td align="right">0.818</td>
-<td align="right">0.005</td>
-<td align="right">-37.195</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="even">
-<td align="left">age</td>
-<td align="right">0.999</td>
-<td align="right">0.000</td>
-<td align="right">-2.226</td>
-<td align="right">0.026</td>
-</tr>
-<tr class="odd">
-<td align="left">drug</td>
-<td align="right">0.909</td>
-<td align="right">0.002</td>
-<td align="right">-40.007</td>
-<td align="right">0.000</td>
-</tr>
-</tbody>
-</table>
+<div id="dmvstb.github.io" class="section level1">
+<h1>dmvstb.github.io</h1>
+</div>
 
 
 

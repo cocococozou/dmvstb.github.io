@@ -88,18 +88,6 @@ levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 ```
 
 
-## Incidence of tb...
-```{r}
-model.poisson <- glm(censer ~ days, family=poisson, data=df_combine)
-summary(model.poisson)
-
-exp(coef(model.poisson))
-exp(confint(model.poisson))
-
-```
-
-
-
 ##Compare diabete and age...
 
 Make a diabete-age distribution plot

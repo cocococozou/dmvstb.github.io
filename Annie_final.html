@@ -301,6 +301,38 @@ levels(df_combine$district) &lt;- list(&quot;Huangpu&quot; = 310101, &quot;Xuhui
 levels(df_combine$glu_self_monitor) &lt;- list(&quot;Yes&quot; = 1, &quot;No&quot; = 2:3)</code></pre>
 <div id="incidence-of-tb" class="section level2">
 <h2>Incidence of tb…</h2>
+<pre class="r"><code>model.poisson &lt;- glm(censer ~ days, family=poisson, data=df_combine)
+summary(model.poisson)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = censer ~ days, family = poisson, data = df_combine)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.41710   0.00250   0.00428   0.00738   0.00974  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -9.757e-03  4.784e-03  -2.040   0.0414 *
+## days         3.660e-06  2.933e-06   1.248   0.2120  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 1566.4  on 170398  degrees of freedom
+## Residual deviance: 1564.8  on 170397  degrees of freedom
+## AIC: 340797
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>exp(coef(model.poisson))</code></pre>
+<pre><code>## (Intercept)        days 
+##   0.9902906   1.0000037</code></pre>
+<pre class="r"><code>exp(confint(model.poisson))</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                 2.5 %    97.5 %
+## (Intercept) 0.9810404 0.9996108
+## days        0.9999979 1.0000094</code></pre>
 </div>
 <div id="compare-diabete-and-age" class="section level2">
 <h2>Compare diabete and age…</h2>

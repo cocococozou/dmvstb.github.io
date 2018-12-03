@@ -11,6 +11,7 @@ library(incidence)
 library(patchwork)
 library(survival)
 library(survminer)
+library(modelr)
 ```
 
 ```{r}
@@ -92,6 +93,7 @@ levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 ```
 
 
+
 ##Compare diabete and age...
 
 Make a diabete-age distribution plot
@@ -101,34 +103,28 @@ plot_dia_d<-df_combine %>%
          gender = as.factor(gender)) %>% 
   ggplot(aes(x = dmage, fill= gender)) +
   geom_density()+
-  facet_grid(.~gender)
+  facet_grid(.~gender)+
+  labs(
+    x = "the age of people with diabetes",
+    y = "gender"
+  )+
+  ggtitle('The age of people with diabetes(Male VS Female)')
+  
 
 plot_dia_v<-df_combine %>% 
   mutate(dmage = as.numeric(dmage),
          gender = as.factor(gender)) %>% 
   ggplot(aes(x = gender, y= dmage, fill=gender)) +
-  geom_boxplot()
+  geom_boxplot()+
+  labs(
+    x = "the age of people with diabetes",
+    y = "gender"
+  )+
+  ggtitle('The age of people with diabetes(Male VS Female)')
 
 plot_dia_d+plot_dia_v
 
 
-```
-
-Make a tb-age distribution plot(QQQQQ)
-```{r}
-df_tbage <-df_combine %>% 
-  na.omit(`_COL19`) %>% 
-  rename(tbtime = `_COL19`) %>% 
-  mutate(#separate(tbtime, into = c("tb_year", "tb_month", "tb_day"), sep = "-"),
-         gender = as.factor(gender),
-         birthyear = as.numeric(birthyear)) 
-  
-ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
- geom_violin()+
-  facet_grid(.~gender)
-
-  
-  
 ```
 
 
@@ -140,13 +136,49 @@ df_combine %>%
          gender = as.factor(gender)) %>% 
   ggplot(aes( x=dmage,y=tb,group=gender) )+ 
   scale_fill_brewer(palette = "Spectral") + 
-  geom_col(aes(fill=gender))
+  geom_col(aes(fill=gender))+
+  labs(
+    x = "the age of people with diabetes",
+    y = "tb"
+  )+
+  ggtitle('TB VS The age of people with diabetes')
 
 df_combine %>% 
   mutate(dmage = as.numeric(dmage),
          gender = as.factor(gender)) %>% 
 ggplot(aes(x = tb, y = dmage, color = gender)) +
   geom_boxplot()+
-  facet_grid(.~gender)
+  facet_grid(.~gender)+
+  labs(
+    x = "tb",
+    y = "the age of people with diabetes"
+  )+
+  ggtitle('The TB VS the age of people with diabetes')
+```
+
+
+# Want to explore whether there is an association for TB with gender, the diabete time and birthyear
+```{r}
+time_df <-df_combine %>% 
+  na.omit(`_COL19`) %>% 
+  rename(tbtime = `_COL19`) %>% 
+  select(tbtime, tb, gender, dmage, birthyear) %>% 
+  mutate(gender = as.numeric(gender),
+         birthyear = as.numeric(birthyear), 
+         dmage = as.numeric(dmage),
+         tb = as.numeric(tb),
+         tbtime = as.numeric(tbtime))
+
+model_time <- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())
+summary(model_time)
+
+model_time %>% 
+  broom::tidy() %>% 
+  mutate(OR = exp(estimate),
+         log_OR = estimate,
+         OR_lower = exp(estimate - std.error*1.96),
+         OR_upper = exp(estimate + std.error*1.96)) %>% 
+  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %>% 
+  knitr::kable()
 ```
 

@@ -310,28 +310,27 @@ levels(df_combine$glu_self_monitor) &lt;- list(&quot;Yes&quot; = 1, &quot;No&quo
          gender = as.factor(gender)) %&gt;% 
   ggplot(aes(x = dmage, fill= gender)) +
   geom_density()+
-  facet_grid(.~gender)
+  facet_grid(.~gender)+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;gender&quot;
+  )+
+  ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
+  
 
 plot_dia_v&lt;-df_combine %&gt;% 
   mutate(dmage = as.numeric(dmage),
          gender = as.factor(gender)) %&gt;% 
   ggplot(aes(x = gender, y= dmage, fill=gender)) +
-  geom_boxplot()
+  geom_boxplot()+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;gender&quot;
+  )+
+  ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
 
 plot_dia_d+plot_dia_v</code></pre>
 <p><img src="Annie_final_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Make a tb-age distribution plot(QQQQQ)</p>
-<pre class="r"><code>df_tbage &lt;-df_combine %&gt;% 
-  na.omit(`_COL19`) %&gt;% 
-  rename(tbtime = `_COL19`) %&gt;% 
-  mutate(#separate(tbtime, into = c(&quot;tb_year&quot;, &quot;tb_month&quot;, &quot;tb_day&quot;), sep = &quot;-&quot;),
-         gender = as.factor(gender),
-         birthyear = as.numeric(birthyear)) 
-  
-ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
- geom_violin()+
-  facet_grid(.~gender)</code></pre>
-<p><img src="Annie_final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Make a tb-diabete age distribution plot</p>
 <pre class="r"><code>df_combine %&gt;% 
   mutate(dmage = as.numeric(dmage),
@@ -339,15 +338,117 @@ ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
          gender = as.factor(gender)) %&gt;% 
   ggplot(aes( x=dmage,y=tb,group=gender) )+ 
   scale_fill_brewer(palette = &quot;Spectral&quot;) + 
-  geom_col(aes(fill=gender))</code></pre>
-<p><img src="Annie_final_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+  geom_col(aes(fill=gender))+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;tb&quot;
+  )+
+  ggtitle(&#39;TB VS The age of people with diabetes&#39;)</code></pre>
+<p><img src="Annie_final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>df_combine %&gt;% 
   mutate(dmage = as.numeric(dmage),
          gender = as.factor(gender)) %&gt;% 
 ggplot(aes(x = tb, y = dmage, color = gender)) +
   geom_boxplot()+
-  facet_grid(.~gender)</code></pre>
-<p><img src="Annie_final_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+  facet_grid(.~gender)+
+  labs(
+    x = &quot;tb&quot;,
+    y = &quot;the age of people with diabetes&quot;
+  )+
+  ggtitle(&#39;The TB VS the age of people with diabetes&#39;)</code></pre>
+<p><img src="Annie_final_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+</div>
+<div id="want-to-explore-whether-there-is-an-association-for-tb-with-gender-the-diabete-time-and-birthyear" class="section level1">
+<h1>Want to explore whether there is an association for TB with gender, the diabete time and birthyear</h1>
+<pre class="r"><code>time_df &lt;-df_combine %&gt;% 
+  na.omit(`_COL19`) %&gt;% 
+  rename(tbtime = `_COL19`) %&gt;% 
+  select(tbtime, tb, gender, dmage, birthyear) %&gt;% 
+  mutate(gender = as.numeric(gender),
+         birthyear = as.numeric(birthyear), 
+         dmage = as.numeric(dmage),
+         tb = as.numeric(tb),
+         tbtime = as.numeric(tbtime))
+
+model_time &lt;- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())</code></pre>
+<pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;family&#39; will be disregarded</code></pre>
+<pre class="r"><code>summary(model_time)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tb ~ gender + dmage + birthyear, data = time_df, 
+##     family = binomial())
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -4.10e-16 -2.91e-16 -2.25e-16 -8.20e-17  1.49e-13 
+## 
+## Coefficients:
+##               Estimate Std. Error   t value Pr(&gt;|t|)    
+## (Intercept)  2.000e+00  6.231e-14  3.21e+13   &lt;2e-16 ***
+## gender      -2.661e-16  4.363e-16 -6.10e-01    0.542    
+## dmage       -1.007e-18  3.150e-17 -3.20e-02    0.974    
+## birthyear   -5.836e-18  3.126e-17 -1.87e-01    0.852    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.338e-15 on 781 degrees of freedom
+## Multiple R-squared:  0.5003, Adjusted R-squared:  0.4984 
+## F-statistic: 260.6 on 3 and 781 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>model_time %&gt;% 
+  broom::tidy() %&gt;% 
+  mutate(OR = exp(estimate),
+         log_OR = estimate,
+         OR_lower = exp(estimate - std.error*1.96),
+         OR_upper = exp(estimate + std.error*1.96)) %&gt;% 
+  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">log_OR</th>
+<th align="right">OR</th>
+<th align="right">p.value</th>
+<th align="right">OR_lower</th>
+<th align="right">OR_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2</td>
+<td align="right">7.389056</td>
+<td align="right">0.0000000</td>
+<td align="right">7.389056</td>
+<td align="right">7.389056</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.5420792</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">dmage</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.9744966</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="even">
+<td align="left">birthyear</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.8519468</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

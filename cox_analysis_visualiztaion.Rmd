@@ -55,16 +55,15 @@ The p-value for gender is less than 2e-16, with a hazard ratio HR = exp(coef) = 
 The p-value for drug is less than 2e-16, with a hazard ratio HR = exp(coef) = 0.909, indicating a relationship between the number of andiabetic drugs that the patient takes and decreased risk of death. When holding the other covariates constant, taking four antidiabetic medications (drug=4) reduces the hazard by nearly 10%. We conclude that, taking antidiabetic medication is associated with good prognostic.
 
 ### Visualizing the estimated distribution of survival times
+
 ```{r}
-new_data <- cbind(
-  complications = mean(df$complications),
-  gender = mean(df$gender), 
-  exercise = mean(df$exercise) ,
-  age =mean(df$age) ,
-  drug = mean(df$drug)
-)
-ggsurvplot(survfit(cox), data =new_data, palette  = "#2E9FDF",conf.int = T,
-           ggtheme = theme_minimal() )+
-  ggtitle('Overall Survival curve')
+
+df_combine$survival = with(df_combine, Surv(days, tb == "Yes"))
+
+km <- survfit(survival ~ 1, data = df_combine, conf.type = "log-log")
+km_by_gender <- survfit(survival ~ gender, data = df_combine, conf.type = "log-log")
+
+
+ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Probability of getting TB", ylim = c(0.9, 1.0), legend.labs = c("Male", "Female"))
 ```
 

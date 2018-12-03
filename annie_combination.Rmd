@@ -1,5 +1,5 @@
 ---
-title: "combination"
+title: "Combination"
 author: "Annie Yu xy2404"
 date: "12/3/2018"
 output: github_document
@@ -13,6 +13,7 @@ library(survival)
 library(survminer)
 library(modelr)
 require(msm)
+
 ```
 
 ```{r}
@@ -86,18 +87,6 @@ levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Chang
 levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 
 ```
-
-
-## Incidence of tb...
-```{r}
-model.poisson <- glm(censer ~ days, family=poisson, data=df_combine)
-summary(model.poisson)
-
-exp(coef(model.poisson))
-exp(confint(model.poisson))
-
-```
-
 
 
 ##Compare diabete and age...
@@ -175,16 +164,8 @@ time_df <-df_combine %>%
          tb = as.numeric(tb),
          tbtime = as.numeric(tbtime))
 
-model_time <- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())
+model_time <- lm(tb ~ gender + dmage,data = time_df, family = binomial())
 summary(model_time)
 
-model_time %>% 
-  broom::tidy() %>% 
-  mutate(OR = exp(estimate),
-         log_OR = estimate,
-         OR_lower = exp(estimate - std.error*1.96),
-         OR_upper = exp(estimate + std.error*1.96)) %>% 
-  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %>% 
-  knitr::kable()
 ```
 

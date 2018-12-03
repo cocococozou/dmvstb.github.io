@@ -7,18 +7,146 @@ output: github_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(incidence)
+library(patchwork)
+library(survival)
+library(survminer)
 ```
 
 ```{r}
 load("dm.Rdata")
 
-df_final <- dm_base %>% 
-  janitor::clean_names() %>% 
-  rename(dmtime = quezhensj) %>% 
-  rename(birthyear  = birth_year) %>% 
-  rename(birthmon = birth_mon) %>% 
-  rename(dmdatayear = rucu_year) %>% 
-  rename(dmdatamon = rucu_mon) %>% 
-  rename(dmdataage = rucuage)
+df_combine = dm_base %>% 
+  rename(
+    subject_id = JiBenCID,
+    glu_average = fastglu, 
+    weight_initial = tizhong_1st, 
+    weight_average = tizhong, 
+    height = ShenGao, 
+    glu_initial = kfxt_1st,
+    gender = xingbie,
+    district = GuanLiQX,
+    sys_pressure = Sbp,
+    dia_pressure = Dbp,
+    exercise_time = xiuxiansj,
+    exercise = xiuxiantl,
+    drug_insulin = insulin,
+    drug_oral_sulfo = sulfonylurea,
+    drug_oral_biguanide = biguanide,
+    drug_oral_glu = glu_inhib,
+    retina = reti, 
+    skin = derm, 
+    vessel = vesl, 
+    nerve = neur,
+    kidney = neph, 
+    depression = depress,
+    dmtime = quezhensj,
+    birthyear  = birth_year,
+    birthmon = birth_mon,
+    dmdatayear = rucu_year,
+    dmdatamon = rucu_mon,
+    dmdataage = rucuage,
+    drug_order = fuyaoqk) %>% 
+  mutate(
+    gender = factor(gender, labels = c("Male", "Female")),
+    district = as.factor(district),
+    glu_self_monitor = as.factor(celiangxtgl),
+    bmi_initial = weight_initial/(height/100)^2, 
+    bmi_average = weight_average/(height/100)^2, 
+    bmi_change = bmi_average - bmi_initial,
+    glu_change = glu_average - glu_initial,
+    tb = as.factor(ifelse(censer == 1, "No", "Yes")),
+    exercise = as.factor(exercise),
+    drug_oral_name  = case_when(drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "0" ~"sulfonylurea",
+                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "0" ~ "biguanide",
+                           drug_oral_glu == "1" & drug_oral_biguanide == "0" & drug_oral_sulfo == "0" ~ "glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "0" ~"sulfonylurea&biguanide",
+                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "1" ~ "biguanide&glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib",
+                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib&biguanide",
+                           TRUE ~ "NA"),
+    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
+    retina = as.numeric(retina),
+    skin = as.numeric(skin),
+    vessel = as.numeric(vessel),
+    nerve = as.numeric(nerve),
+    kidney = as.numeric(kidney),
+    complications = retina + skin + vessel + nerve + kidney + depression,
+    complications = as.factor(complications),
+    drug_order = as.factor(drug_order)
+  )
+
+
+levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
+
+levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Changning" = 310105, "Jingan" = 310106, "Putuo" = 310107, "Zhabei" = 310108, "Hongkou" = 310109, "Yangpu" = 310110, "Minhang" = 310112, "Baoshan" = 310113,  "Pudong" = c(310115, 10119), "Jiading" = 310114, "Jinshan" = 310116, "Songjiang" = 310117, "Qingpu" = 310118, "Fengxian" = 310120, "Chongming" = 310230)
+
+levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
+
+```
+
+
+## Incidence of tb...
+```{r}
+
+```
+
+
+##Compare diabete and age...
+
+Make a diabete-age distribution plot
+```{r}
+plot_dia_d<-df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = dmage, fill= gender)) +
+  geom_density()+
+  facet_grid(.~gender)
+
+plot_dia_v<-df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes(x = gender, y= dmage, fill=gender)) +
+  geom_boxplot()
+
+plot_dia_d+plot_dia_v
+
+
+```
+
+Make a tb-age distribution plot(QQQQQ)
+```{r}
+df_tbage <-df_combine %>% 
+  na.omit(`_COL19`) %>% 
+  rename(tbtime = `_COL19`) %>% 
+  mutate(#separate(tbtime, into = c("tb_year", "tb_month", "tb_day"), sep = "-"),
+         gender = as.factor(gender),
+         birthyear = as.numeric(birthyear)) 
+  
+ggplot(df_tbage, aes(x= birthyear, y =tbtime, fill = gender)) +
+ geom_violin()+
+  facet_grid(.~gender)
+
+  
+  
+```
+
+
+Make a tb-diabete age distribution plot
+```{r}
+df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         tb = as.factor(tb),
+         gender = as.factor(gender)) %>% 
+  ggplot(aes( x=dmage,y=tb,group=gender) )+ 
+  scale_fill_brewer(palette = "Spectral") + 
+  geom_col(aes(fill=gender))
+
+df_combine %>% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %>% 
+ggplot(aes(x = tb, y = dmage, color = gender)) +
+  geom_boxplot()+
+  facet_grid(.~gender)
 ```
 

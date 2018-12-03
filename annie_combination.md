@@ -1,7 +1,7 @@
-Final\_virsion \_annie
+combination
 ================
-Annie Yu (xy2404)
-11/15/2018
+Annie Yu xy2404
+12/3/2018
 
 ``` r
 load("dm.Rdata")
@@ -155,7 +155,7 @@ plot_dia_v<-df_combine %>%
 plot_dia_d+plot_dia_v
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 Make a tb-diabete age distribution plot
 
@@ -174,7 +174,7 @@ df_combine %>%
   ggtitle('TB VS The age of people with diabetes')
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 ``` r
 df_combine %>% 
@@ -190,7 +190,7 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
   ggtitle('The TB VS the age of people with diabetes')
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-4-2.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-4-2.png)
 
 Want to explore whether there is an association for TB with gender, the diabete time and birthyear
 ==================================================================================================

@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Rui Huang" />
 
 
-<title>The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China</title>
+<title>map</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,9 +20,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -172,101 +170,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -323,29 +226,24 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China</h1>
+<h1 class="title toc-ignore">map</h1>
+<h4 class="author"><em>Rui Huang</em></h4>
+<h4 class="date"><em>December 3, 2018</em></h4>
 
 </div>
 
 
-<p><img src="image/tb1.jpg" style="width:44%"><img src="image/db1.png" style="width:48%"></p>
-<div id="why-are-we-doing-this" class="section level3">
-<h3>Why are we doing this?</h3>
-<p>Due to rapid urbanizations and lifestyles, type 2 diabetes (T2D) has become one of the most concerning public health issues in China. People with T2D are at risk of multiple complications including blindness, cardiovascular diseases, and becoming more susceptible to infectious diseases. As a result, researchers began to notice a higher tuberculosis (TB) incidence in the T2D positive population. Therefore, we would like to explore the association between TB and T2D and what potential risk factors contribute to this comorbidity, and hopefully, provide recommendations to control or decrease the prevalence of T2D and TB in China.</p>
-</div>
-<div id="what-have-we-done" class="section level3">
-<h3>What Have we done?</h3>
-<p><img src="image/lab1.jpg" style="width:52%"><img src="image/lab2.jpg" style="width:43%"></p>
-<p>Someone write something here lol</p>
-</div>
-<div id="what-have-we-found" class="section level3">
-<h3>What have we found?</h3>
-</div>
+<pre class="r"><code># Create new object called &quot;sh&quot; from &quot;shang_dis_merged&quot; shapefile
+# sh &lt;- readOGR(dsn = &quot;data&quot;, &quot;shang_dis_merged&quot;)
+# plot(sh) # plot the lnd object (not shown)
+# nrow(sh) 
+# 
+# tb_count &lt;- aggregate(tb ~ Borough, FUN = distirct, data = df_combine)
+# 
+# qtm(sh, &quot;tb_count&quot;) # plot the basic map</code></pre>
 
 
 
-</div>
-</div>
 
 </div>
 

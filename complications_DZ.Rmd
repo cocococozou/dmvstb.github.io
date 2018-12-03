@@ -11,6 +11,7 @@ library(tidyverse)
 library(ggplot2)
 library(ggthemes)
 theme_set(theme_classic())
+library(plotly)
 ```
 
 
@@ -30,18 +31,28 @@ levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
 ```
 
 ```{r}
-
-brks <- seq(-15000000, 15000000, 5000000)
-lbls = paste0(as.character(c(seq(15, 0, -5), seq(5, 15, 5))), "m")
-
-ggplot(df, aes(x = dmage, y = retina, fill = gender)) + 
-                              geom_bar(stat = "identity", width = .6) +   
-                              scale_y_continuous(breaks = brks,   
-                                                 labels = lbls) + 
-                              coord_flip() +  
+plot1<-ggplot(df, aes(x = dmage, y = retina, fill = gender)) + 
+                              geom_histogram(stat = "identity", width = .6) + 
                               labs(title="The complication of retina with diabetes age") +
                               theme_tufte() +  
                               theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank()) +  
-                              scale_fill_brewer(palette = "Dark2")
+                                    axis.ticks = element_blank())
+
+ggplotly(plot1)
+
+
+plot2<-ggplot(df, aes(x = dmage, y = skin, color=gender)) + 
+                              geom_histogram(stat = "identity", width = .6) + 
+                              facet_grid(. ~ gender)
+                              labs(title="The complication of retina with diabetes age") +
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+  
+ggplotly(plot2)
+
+
+
+
+  
+                  
 ```

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Annie Yu xy2404" />
+
+
+<title>combination</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">about</a>
+</li>
+<li>
+  <a href="drugpart.html">Drug</a>
+</li>
+<li>
+  <a href="complications_DZ.html">Complications</a>
+</li>
+<li>
+  <a href="bobo.html">bobo?</a>
+</li>
+<li>
+  <a href="cox_analysis_visualiztion.html">Cox Analysis</a>
+</li>
+<li>
+  <a href="mailto:&lt;zouxiaoke@hotmail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">combination</h1>
+<h4 class="author"><em>Annie Yu xy2404</em></h4>
+<h4 class="date"><em>12/3/2018</em></h4>
+
+</div>
+
+
+<pre class="r"><code>load(&quot;dm.Rdata&quot;)
+
+df_combine = dm_base %&gt;% 
+  rename(
+    subject_id = JiBenCID,
+    glu_average = fastglu, 
+    weight_initial = tizhong_1st, 
+    weight_average = tizhong, 
+    height = ShenGao, 
+    glu_initial = kfxt_1st,
+    gender = xingbie,
+    district = GuanLiQX,
+    sys_pressure = Sbp,
+    dia_pressure = Dbp,
+    exercise_time = xiuxiansj,
+    exercise = xiuxiantl,
+    drug_insulin = insulin,
+    drug_oral_sulfo = sulfonylurea,
+    drug_oral_biguanide = biguanide,
+    drug_oral_glu = glu_inhib,
+    retina = reti, 
+    skin = derm, 
+    vessel = vesl, 
+    nerve = neur,
+    kidney = neph, 
+    depression = depress,
+    dmtime = quezhensj,
+    birthyear  = birth_year,
+    birthmon = birth_mon,
+    dmdatayear = rucu_year,
+    dmdatamon = rucu_mon,
+    dmdataage = rucuage,
+    drug_order = fuyaoqk) %&gt;% 
+  mutate(
+    gender = factor(gender, labels = c(&quot;Male&quot;, &quot;Female&quot;)),
+    district = as.factor(district),
+    glu_self_monitor = as.factor(celiangxtgl),
+    bmi_initial = weight_initial/(height/100)^2, 
+    bmi_average = weight_average/(height/100)^2, 
+    bmi_change = bmi_average - bmi_initial,
+    glu_change = glu_average - glu_initial,
+    tb = as.factor(ifelse(censer == 1, &quot;No&quot;, &quot;Yes&quot;)),
+    exercise = as.factor(exercise),
+    drug_oral_name  = case_when(drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~ &quot;biguanide&quot;,
+                           drug_oral_glu == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_sulfo == &quot;0&quot; ~ &quot;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&amp;biguanide&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~ &quot;biguanide&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&amp;biguanide&quot;,
+                           TRUE ~ &quot;NA&quot;),
+    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
+    retina = as.numeric(retina),
+    skin = as.numeric(skin),
+    vessel = as.numeric(vessel),
+    nerve = as.numeric(nerve),
+    kidney = as.numeric(kidney),
+    complications = retina + skin + vessel + nerve + kidney + depression,
+    complications = as.factor(complications),
+    drug_order = as.factor(drug_order)
+  )
+
+
+levels(df_combine$exercise) &lt;- list(&#39;1&#39; = 1,  &#39;2&#39; = 2, &#39;3&#39; = c(3,4))
+
+levels(df_combine$district) &lt;- list(&quot;Huangpu&quot; = 310101, &quot;Xuhui&quot; = 310104, &quot;Changning&quot; = 310105, &quot;Jingan&quot; = 310106, &quot;Putuo&quot; = 310107, &quot;Zhabei&quot; = 310108, &quot;Hongkou&quot; = 310109, &quot;Yangpu&quot; = 310110, &quot;Minhang&quot; = 310112, &quot;Baoshan&quot; = 310113,  &quot;Pudong&quot; = c(310115, 10119), &quot;Jiading&quot; = 310114, &quot;Jinshan&quot; = 310116, &quot;Songjiang&quot; = 310117, &quot;Qingpu&quot; = 310118, &quot;Fengxian&quot; = 310120, &quot;Chongming&quot; = 310230)
+
+levels(df_combine$glu_self_monitor) &lt;- list(&quot;Yes&quot; = 1, &quot;No&quot; = 2:3)</code></pre>
+<div id="incidence-of-tb" class="section level2">
+<h2>Incidence of tb…</h2>
+<pre class="r"><code>model.poisson &lt;- glm(censer ~ days, family=poisson, data=df_combine)
+summary(model.poisson)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = censer ~ days, family = poisson, data = df_combine)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.41710   0.00250   0.00428   0.00738   0.00974  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -9.757e-03  4.784e-03  -2.040   0.0414 *
+## days         3.660e-06  2.933e-06   1.248   0.2120  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 1566.4  on 170398  degrees of freedom
+## Residual deviance: 1564.8  on 170397  degrees of freedom
+## AIC: 340797
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>exp(coef(model.poisson))</code></pre>
+<pre><code>## (Intercept)        days 
+##   0.9902906   1.0000037</code></pre>
+<pre class="r"><code>exp(confint(model.poisson))</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                 2.5 %    97.5 %
+## (Intercept) 0.9810404 0.9996108
+## days        0.9999979 1.0000094</code></pre>
+</div>
+<div id="compare-diabete-and-age" class="section level2">
+<h2>Compare diabete and age…</h2>
+<p>Make a diabete-age distribution plot</p>
+<pre class="r"><code>plot_dia_d&lt;-df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = dmage, fill= gender)) +
+  geom_density()+
+  facet_grid(.~gender)+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;gender&quot;
+  )+
+  ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
+  
+
+plot_dia_v&lt;-df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes(x = gender, y= dmage, fill=gender)) +
+  geom_boxplot()+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;gender&quot;
+  )+
+  ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
+
+plot_dia_d+plot_dia_v</code></pre>
+<p><img src="annie_combination_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Make a tb-diabete age distribution plot</p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         tb = as.factor(tb),
+         gender = as.factor(gender)) %&gt;% 
+  ggplot(aes( x=dmage,y=tb,group=gender) )+ 
+  scale_fill_brewer(palette = &quot;Spectral&quot;) + 
+  geom_col(aes(fill=gender))+
+  labs(
+    x = &quot;the age of people with diabetes&quot;,
+    y = &quot;tb&quot;
+  )+
+  ggtitle(&#39;TB VS The age of people with diabetes&#39;)</code></pre>
+<p><img src="annie_combination_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(dmage = as.numeric(dmage),
+         gender = as.factor(gender)) %&gt;% 
+ggplot(aes(x = tb, y = dmage, color = gender)) +
+  geom_boxplot()+
+  facet_grid(.~gender)+
+  labs(
+    x = &quot;tb&quot;,
+    y = &quot;the age of people with diabetes&quot;
+  )+
+  ggtitle(&#39;The TB VS the age of people with diabetes&#39;)</code></pre>
+<p><img src="annie_combination_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+</div>
+<div id="want-to-explore-whether-there-is-an-association-for-tb-with-gender-the-diabete-time-and-birthyear" class="section level1">
+<h1>Want to explore whether there is an association for TB with gender, the diabete time and birthyear</h1>
+<pre class="r"><code>time_df &lt;-df_combine %&gt;% 
+  na.omit(`_COL19`) %&gt;% 
+  rename(tbtime = `_COL19`) %&gt;% 
+  select(tbtime, tb, gender, dmage, birthyear) %&gt;% 
+  mutate(gender = as.numeric(gender),
+         birthyear = as.numeric(birthyear), 
+         dmage = as.numeric(dmage),
+         tb = as.numeric(tb),
+         tbtime = as.numeric(tbtime))
+
+model_time &lt;- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())</code></pre>
+<pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;family&#39; will be disregarded</code></pre>
+<pre class="r"><code>summary(model_time)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tb ~ gender + dmage + birthyear, data = time_df, 
+##     family = binomial())
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -4.10e-16 -2.91e-16 -2.25e-16 -8.20e-17  1.49e-13 
+## 
+## Coefficients:
+##               Estimate Std. Error   t value Pr(&gt;|t|)    
+## (Intercept)  2.000e+00  6.231e-14  3.21e+13   &lt;2e-16 ***
+## gender      -2.661e-16  4.363e-16 -6.10e-01    0.542    
+## dmage       -1.007e-18  3.150e-17 -3.20e-02    0.974    
+## birthyear   -5.836e-18  3.126e-17 -1.87e-01    0.852    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.338e-15 on 781 degrees of freedom
+## Multiple R-squared:  0.5003, Adjusted R-squared:  0.4984 
+## F-statistic: 260.6 on 3 and 781 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>model_time %&gt;% 
+  broom::tidy() %&gt;% 
+  mutate(OR = exp(estimate),
+         log_OR = estimate,
+         OR_lower = exp(estimate - std.error*1.96),
+         OR_upper = exp(estimate + std.error*1.96)) %&gt;% 
+  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">log_OR</th>
+<th align="right">OR</th>
+<th align="right">p.value</th>
+<th align="right">OR_lower</th>
+<th align="right">OR_upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">2</td>
+<td align="right">7.389056</td>
+<td align="right">0.0000000</td>
+<td align="right">7.389056</td>
+<td align="right">7.389056</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.5420792</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="odd">
+<td align="left">dmage</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.9744966</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr class="even">
+<td align="left">birthyear</td>
+<td align="right">0</td>
+<td align="right">1.000000</td>
+<td align="right">0.8519468</td>
+<td align="right">1.000000</td>
+<td align="right">1.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

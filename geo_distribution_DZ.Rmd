@@ -54,8 +54,8 @@ ggplotly(sh_map, tooltip = c('id'))
 sh_df_urb <- sh_df %>%
   mutate(urban = as.factor(id))%>% 
   mutate(urban = fct_collapse(urban, 
-                              Urban = c('Changning','Hongkou','Huangpu','Minhang','Putuo','Xuhui','Yangpu','Zhabei'),
-                              Suburban =  c('Baoshan','Jiading','Jinshan','Chongming','Qingpu','Songjiang','Fengxian'),
+                              Urban = c('Changning','Hongkou','Huangpu','Putuo','Xuhui','Yangpu','Zhabei'),
+                              Suburban =  c('Baoshan','Jiading','Jinshan','Minhang','Chongming','Qingpu','Songjiang','Fengxian'),
                               Pudong__New_District = 'Pudong'))
 
 sh_map_urb <- ggplot() + 

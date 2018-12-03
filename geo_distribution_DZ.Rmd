@@ -2,7 +2,7 @@
 title: "Geographical Dristribution"
 author: "DZ"
 date: "December 3, 2018"
-output: github_document
+output: html_document
 
 ---
 
@@ -15,23 +15,53 @@ library(rgeos)
 library(plotly)
 ```
 
-Data manipulation
+
 ```{r,warning=FALSE}
 load('./data/df_combine.Rdata')
 sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
+##Translating and Adding two missing two districts
 sh@data <- sh@data %>% 
-  mutate(Name = as.factor(Name)) %>% 
-  mutate(Name = fct_recode(Name, Jiading = '嘉定区', Fengxian = '奉贤区',
-                           Baoshan = '宝山区', Chongming = '崇明县',Xuhui = '徐汇区',
-                           Putuo ='普陀区',Yangpu = '杨浦区', Songjiang = '松江区',
-                           Pudong='浦东新区',Hongkou = '虹口区',Jinshan = '金山区',
-                           Changning = '长宁区', Minhang = '闵行区',Zhabei = '闸北区',
-                           Qingpu = '青浦区', Huangpu = '黄浦区'))
+  mutate(Name = as.factor(Name)) %>%
+  mutate(Name = fct_recode(Name, Jiading = '嘉定区',
+                           Fengxian = '奉贤区',
+                           Baoshan = '宝山区',
+                           Chongming = '崇明县',
+                           Xuhui = '徐汇区',
+                           Putuo ='普陀区',
+                           Yangpu = '杨浦区',
+                           Songjiang = '松江区',
+                           Pudong='浦东新区',
+                           Hongkou = '虹口区',
+                           Jinshan = '金山区',
+                           Changning = '长宁区',
+                           Minhang = '闵行区',
+                           Zhabei = '闸北区',
+                           Qingpu = '青浦区', 
+                           Huangpu = '黄浦区'))
+
+ 
 sh_df <- broom::tidy(sh, region='Name')
 sh_map <- ggplot() + 
   geom_polygon(data = sh_df, aes(x = long, y = lat, group = group,fill=id,alpha = .5), colour = "black")+
   ggtitle('The Map of Shanghai')
 
 ggplotly(sh_map, tooltip = c('id'))
+```
+
+### Urban/Suburban
+```{r}
+##Matching each district with zipcode and specify urban/suburban
+sh_df_urb <- sh_df %>%
+  mutate(urban = as.factor(id))%>% 
+  mutate(urban = fct_collapse(urban, 
+                              Urban = c('Changning','Hongkou','Huangpu','Minhang','Putuo','Xuhui','Yangpu','Zhabei'),
+                              Suburban =  c('Baoshan','Jiading','Jinshan','Chongming','Qingpu','Songjiang','Fengxian'),
+                              Pudong__New_District = 'Pudong'))
+
+sh_map_urb <- ggplot() + 
+  geom_polygon(data = sh_df_urb, aes(x = long, y = lat, group = group,fill=urban,alpha = .5), colour = "black")+
+  ggtitle('Urban/Suburban distribution')
+
+ggplotly(sh_map_urb, tooltip = c('i'))
 ```
 

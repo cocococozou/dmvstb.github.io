@@ -1,0 +1,26 @@
+---
+title: "K-M plot"
+author: "Rui Huang"
+date: "November 24, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(survminer)
+library(survival)
+library(tidyverse)
+```
+
+```{r}
+load('./data/df_combine.RData')
+
+df_combine$survival = with(df_combine, Surv(days, tb == "Yes"))
+
+km <- survfit(survival ~ 1, data = df_combine, conf.type = "log-log")
+km_by_gender <- survfit(survival ~ gender, data = df_combine, conf.type = "log-log")
+
+
+ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Probability of getting TB", ylim = c(0.9, 1.0), legend.labs = c("Male", "Female"))
+```
+

@@ -13,6 +13,11 @@ output:
 ```{r,include=F}
 require(rgdal)
 require(tidyverse)
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "80%"
+)
 ```
 
 

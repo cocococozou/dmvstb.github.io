@@ -8,6 +8,9 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_classic())
 ```
 
 
@@ -15,7 +18,7 @@ library(tidyverse)
 ```{r}
 load('./dm.Rdata')
 df <- dm_base %>% 
-  rename(retina = reti, skin = derm, vessel = vesl, nerve = neur,kidney = neph, depression = depress ) %>%
+  rename(retina = reti, skin = derm, vessel = vesl, nerve = neur,kidney = neph, depression = depress, gender = xingbie ) %>%
   mutate(retina = as.numeric(retina),
          skin = as.numeric(skin),
          vessel = as.numeric(vessel),
@@ -24,4 +27,21 @@ df <- dm_base %>%
   mutate(complications = retina + skin + vessel + nerve + kidney + depression) %>%
   mutate(complications = as.factor(complications))
 levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
+```
+
+```{r}
+
+brks <- seq(-15000000, 15000000, 5000000)
+lbls = paste0(as.character(c(seq(15, 0, -5), seq(5, 15, 5))), "m")
+
+ggplot(df, aes(x = dmage, y = retina, fill = gender)) + 
+                              geom_bar(stat = "identity", width = .6) +   
+                              scale_y_continuous(breaks = brks,   
+                                                 labels = lbls) + 
+                              coord_flip() +  
+                              labs(title="The complication of retina with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank()) +  
+                              scale_fill_brewer(palette = "Dark2")
 ```

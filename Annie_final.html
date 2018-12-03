@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Annie Yu (xy2404)" />
 
+<meta name="date" content="2018-11-15" />
 
-<title></title>
+<title>Final_virsion _annie</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +24,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -222,13 +227,13 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Final_virsion _annie</h1>
+<h4 class="author"><em>Annie Yu (xy2404)</em></h4>
+<h4 class="date"><em>11/15/2018</em></h4>
 
 </div>
 
 
-<div id="final_virsion-_annie" class="section level1">
-<h1>Final_virsion _annie</h1>
-<p>Annie Yu (xy2404) 11/15/2018</p>
 <pre class="r"><code>load(&quot;dm.Rdata&quot;)
 
 df_combine = dm_base %&gt;% 
@@ -327,9 +332,8 @@ summary(model.poisson)</code></pre>
 <pre><code>## (Intercept)        days 
 ##   0.9902906   1.0000037</code></pre>
 <pre class="r"><code>exp(confint(model.poisson))</code></pre>
-<pre><code>## Waiting for profiling to be done...
-
-##                 2.5 %    97.5 %
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                 2.5 %    97.5 %
 ## (Intercept) 0.9810404 0.9996108
 ## days        0.9999979 1.0000094</code></pre>
 </div>
@@ -343,8 +347,8 @@ summary(model.poisson)</code></pre>
   geom_density()+
   facet_grid(.~gender)+
   labs(
-    x = &quot;the age of people with diabetes&quot;,
-    y = &quot;gender&quot;
+    x = &quot;gender&quot;,
+    y = &quot;density of the age of people with diabetes&quot;
   )+
   ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
   
@@ -355,16 +359,13 @@ plot_dia_v&lt;-df_combine %&gt;%
   ggplot(aes(x = gender, y= dmage, fill=gender)) +
   geom_boxplot()+
   labs(
-    x = &quot;the age of people with diabetes&quot;,
-    y = &quot;gender&quot;
+    x = &quot;gender&quot;,
+    y = &quot;the age of people with diabetes&quot;
   )+
   ggtitle(&#39;The age of people with diabetes(Male VS Female)&#39;)
 
 plot_dia_d+plot_dia_v</code></pre>
-<div class="figure">
-<img src="Annie_final_files/figure-markdown_github/unnamed-chunk-3-1.png" />
-
-</div>
+<p><img src="Annie_final_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Make a tb-diabete age distribution plot</p>
 <pre class="r"><code>df_combine %&gt;% 
   mutate(dmage = as.numeric(dmage),
@@ -378,10 +379,7 @@ plot_dia_d+plot_dia_v</code></pre>
     y = &quot;tb&quot;
   )+
   ggtitle(&#39;TB VS The age of people with diabetes&#39;)</code></pre>
-<div class="figure">
-<img src="Annie_final_files/figure-markdown_github/unnamed-chunk-4-1.png" />
-
-</div>
+<p><img src="Annie_final_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>df_combine %&gt;% 
   mutate(dmage = as.numeric(dmage),
          gender = as.factor(gender)) %&gt;% 
@@ -393,11 +391,7 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
     y = &quot;the age of people with diabetes&quot;
   )+
   ggtitle(&#39;The TB VS the age of people with diabetes&#39;)</code></pre>
-<div class="figure">
-<img src="Annie_final_files/figure-markdown_github/unnamed-chunk-4-2.png" />
-
-</div>
-</div>
+<p><img src="Annie_final_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 </div>
 <div id="want-to-explore-whether-there-is-an-association-for-tb-with-gender-the-diabete-time-and-birthyear" class="section level1">
 <h1>Want to explore whether there is an association for TB with gender, the diabete time and birthyear</h1>

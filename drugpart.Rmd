@@ -2,7 +2,7 @@
 title: "Drugpart"
 author: "Coco"
 date: "11/14/2018"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}

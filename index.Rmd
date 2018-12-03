@@ -2,17 +2,21 @@
 title: "The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China"
 ---
 
-##Some Pictures Here
+<img src="./image/tb1.jpg" style="width:44%"><img src="./image/db1.png" style="width:48%">
+
+
 
 ###Why are we doing this? 
 
 Due to rapid urbanizations and lifestyles, type 2 diabetes (T2D) has become one of the most concerning public health issues in China. People with T2D are at risk of multiple complications including blindness, cardiovascular diseases, and becoming more susceptible to infectious diseases. As a result, researchers began to notice a higher tuberculosis (TB) incidence in the T2D positive population. Therefore, we would like to explore the association between TB and T2D and what potential risk factors contribute to this comorbidity, and hopefully, provide recommendations to control or decrease the prevalence of T2D and TB in China.
 
-##Another Picture Here
 
 ###What Have we done?
 
-##Another another picture Here
+<img src="./image/lab1.jpg" style="width:52%"><img src="./image/lab2.jpg" style="width:43%">
+
+Someone write something here lol 
+
 
 ###What have we found? 
 

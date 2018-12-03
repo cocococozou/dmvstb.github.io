@@ -58,16 +58,17 @@ The p-value for drug is less than 2e-16, with a hazard ratio HR = exp(coef) = 0.
 ### Visualizing the estimated distribution of survival times
 
 ``` r
-new_data <- cbind(
-  complications = mean(df$complications),
-  gender = mean(df$gender), 
-  exercise = mean(df$exercise) ,
-  age =mean(df$age) ,
-  drug = mean(df$drug)
-)
-ggsurvplot(survfit(cox), data =new_data, palette  = "#2E9FDF",conf.int = T,
-           ggtheme = theme_minimal() )+
-  ggtitle('Overall Survival curve')
+df_combine$survival = with(df_combine, Surv(days, tb == "Yes"))
+
+km <- survfit(survival ~ 1, data = df_combine, conf.type = "log-log")
+km_by_gender <- survfit(survival ~ gender, data = df_combine, conf.type = "log-log")
+
+
+ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = "Probability of getting TB", ylim = c(0.9, 1.0), legend.labs = c("Male", "Female"))
 ```
+
+    ## Warning: Removed 1 rows containing missing values (geom_text).
+
+    ## Warning: Removed 1 rows containing missing values (geom_text).
 
 ![](cox_analysis_visualiztaion_files/figure-markdown_github/unnamed-chunk-4-1.png)

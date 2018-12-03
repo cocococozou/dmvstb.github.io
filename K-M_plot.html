@@ -9,11 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Rui Huang" />
 
-<meta name="date" content="2018-11-24" />
 
-<title>K-M plot</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -204,7 +199,7 @@ $(document).ready(function () {
   <a href="geo_distribution_DZ.html">Maps</a>
 </li>
 <li>
-  <a href="cox_analysis_visualiztion.html">Cox Analysis</a>
+  <a href="https://dmvstb.shinyapps.io/survivalanalysis/">Cox Analysis</a>
 </li>
 <li>
   <a href="mailto:&lt;zouxiaoke@hotmail.com&gt;">
@@ -227,13 +222,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">K-M plot</h1>
-<h4 class="author"><em>Rui Huang</em></h4>
-<h4 class="date"><em>November 24, 2018</em></h4>
 
 </div>
 
 
+<div id="k-m-plot" class="section level1">
+<h1>K-M plot</h1>
+<p>Rui Huang November 24, 2018</p>
 <pre class="r"><code>load(&#39;./data/df_combine.RData&#39;)
 
 df_combine$survival = with(df_combine, Surv(days, tb == &quot;Yes&quot;))
@@ -246,7 +241,11 @@ ggsurvplot(km_by_gender, data = df_combine, risk.table = F, pval = T, ylab = &qu
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_text).
 
 ## Warning: Removed 1 rows containing missing values (geom_text).</code></pre>
-<p><img src="K-M_plot_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="figure">
+<img src="K-M_plot_files/figure-markdown_github/unnamed-chunk-1-1.png" />
+
+</div>
+</div>
 
 
 

@@ -1,4 +1,4 @@
-combination
+Combination
 ================
 Annie Yu xy2404
 12/3/2018
@@ -74,54 +74,6 @@ levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Chang
 levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 ```
 
-Incidence of tb...
-------------------
-
-``` r
-model.poisson <- glm(censer ~ days, family=poisson, data=df_combine)
-summary(model.poisson)
-```
-
-    ## 
-    ## Call:
-    ## glm(formula = censer ~ days, family = poisson, data = df_combine)
-    ## 
-    ## Deviance Residuals: 
-    ##      Min        1Q    Median        3Q       Max  
-    ## -1.41710   0.00250   0.00428   0.00738   0.00974  
-    ## 
-    ## Coefficients:
-    ##               Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept) -9.757e-03  4.784e-03  -2.040   0.0414 *
-    ## days         3.660e-06  2.933e-06   1.248   0.2120  
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## (Dispersion parameter for poisson family taken to be 1)
-    ## 
-    ##     Null deviance: 1566.4  on 170398  degrees of freedom
-    ## Residual deviance: 1564.8  on 170397  degrees of freedom
-    ## AIC: 340797
-    ## 
-    ## Number of Fisher Scoring iterations: 4
-
-``` r
-exp(coef(model.poisson))
-```
-
-    ## (Intercept)        days 
-    ##   0.9902906   1.0000037
-
-``` r
-exp(confint(model.poisson))
-```
-
-    ## Waiting for profiling to be done...
-
-    ##                 2.5 %    97.5 %
-    ## (Intercept) 0.9810404 0.9996108
-    ## days        0.9999979 1.0000094
-
 Compare diabete and age...
 --------------------------
 
@@ -155,7 +107,7 @@ plot_dia_v<-df_combine %>%
 plot_dia_d+plot_dia_v
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 Make a tb-diabete age distribution plot
 
@@ -174,7 +126,7 @@ df_combine %>%
   ggtitle('TB VS The age of people with diabetes')
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ``` r
 df_combine %>% 
@@ -190,7 +142,7 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
   ggtitle('The TB VS the age of people with diabetes')
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-4-2.png)
+![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-2.png)
 
 Want to explore whether there is an association for TB with gender, the diabete time and birthyear
 ==================================================================================================
@@ -206,7 +158,7 @@ time_df <-df_combine %>%
          tb = as.numeric(tb),
          tbtime = as.numeric(tbtime))
 
-model_time <- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())
+model_time <- lm(tb ~ gender + dmage,data = time_df, family = binomial())
 ```
 
     ## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
@@ -218,40 +170,20 @@ summary(model_time)
 
     ## 
     ## Call:
-    ## lm(formula = tb ~ gender + dmage + birthyear, data = time_df, 
-    ##     family = binomial())
+    ## lm(formula = tb ~ gender + dmage, data = time_df, family = binomial())
     ## 
     ## Residuals:
     ##       Min        1Q    Median        3Q       Max 
-    ## -4.10e-16 -2.91e-16 -2.25e-16 -8.20e-17  1.49e-13 
+    ## -3.78e-16 -2.75e-16 -2.35e-16 -7.60e-17  1.49e-13 
     ## 
     ## Coefficients:
-    ##               Estimate Std. Error   t value Pr(>|t|)    
-    ## (Intercept)  2.000e+00  6.231e-14  3.21e+13   <2e-16 ***
-    ## gender      -2.661e-16  4.363e-16 -6.10e-01    0.542    
-    ## dmage       -1.007e-18  3.150e-17 -3.20e-02    0.974    
-    ## birthyear   -5.836e-18  3.126e-17 -1.87e-01    0.852    
+    ##               Estimate Std. Error    t value Pr(>|t|)    
+    ## (Intercept)  2.000e+00  1.092e-15  1.831e+15   <2e-16 ***
+    ## gender      -2.620e-16  4.354e-16 -6.020e-01    0.548    
+    ## dmage        3.959e-18  1.685e-17  2.350e-01    0.814    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 5.338e-15 on 781 degrees of freedom
-    ## Multiple R-squared:  0.5003, Adjusted R-squared:  0.4984 
-    ## F-statistic: 260.6 on 3 and 781 DF,  p-value: < 2.2e-16
-
-``` r
-model_time %>% 
-  broom::tidy() %>% 
-  mutate(OR = exp(estimate),
-         log_OR = estimate,
-         OR_lower = exp(estimate - std.error*1.96),
-         OR_upper = exp(estimate + std.error*1.96)) %>% 
-  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %>% 
-  knitr::kable()
-```
-
-| term        |  log\_OR|        OR|    p.value|  OR\_lower|  OR\_upper|
-|:------------|--------:|---------:|----------:|----------:|----------:|
-| (Intercept) |        2|  7.389056|  0.0000000|   7.389056|   7.389056|
-| gender      |        0|  1.000000|  0.5420792|   1.000000|   1.000000|
-| dmage       |        0|  1.000000|  0.9744966|   1.000000|   1.000000|
-| birthyear   |        0|  1.000000|  0.8519468|   1.000000|   1.000000|
+    ## Residual standard error: 5.335e-15 on 782 degrees of freedom
+    ## Multiple R-squared:  0.5004, Adjusted R-squared:  0.4991 
+    ## F-statistic: 391.6 on 2 and 782 DF,  p-value: < 2.2e-16

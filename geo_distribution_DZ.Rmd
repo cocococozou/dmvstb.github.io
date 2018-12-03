@@ -1,0 +1,36 @@
+---
+title: "Geographical Dristribution"
+author: "DZ"
+date: "December 3, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rgdal)
+library(maptools)
+library(tidyverse)
+library(rgeos)
+library(plotly)
+```
+
+Data manipulation
+```{r,warning=FALSE}
+load('./data/df_combine.Rdata')
+sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
+sh@data <- sh@data %>% 
+  mutate(Name = as.factor(Name)) %>% 
+  mutate(Name = fct_recode(Name, Jiading = '嘉定区', Fengxian = '奉贤区',
+                           Baoshan = '宝山区', Chongming = '崇明县',Xuhui = '徐汇区',
+                           Putuo ='普陀区',Yangpu = '杨浦区', Songjiang = '松江区',
+                           Pudong='浦东新区',Hongkou = '虹口区',Jinshan = '金山区',
+                           Changning = '长宁区', Minhang = '闵行区',Zhabei = '闸北区',
+                           Qingpu = '青浦区', Huangpu = '黄浦区'))
+sh_df <- broom::tidy(sh, region='Name')
+sh_map <- ggplot() + 
+  geom_polygon(data = sh_df, aes(x = long, y = lat, group = group,fill=id,alpha = .5), colour = "black")+
+  ggtitle('The Map of Shanghai')
+
+ggplotly(sh_map, tooltip = c('id'))
+```
+

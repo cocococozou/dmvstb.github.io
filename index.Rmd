@@ -18,26 +18,21 @@ knitr::opts_chunk$set(
   fig.asp = .6,
   out.width = "80%"
 )
+
 ```
 
 
-###Why are we doing this? 
+### Why are we doing this? 
 
 Due to rapid urbanizations and lifestyles, type 2 diabetes (T2D) has become one of the most concerning public health issues in China. People with T2D are at risk of multiple complications including blindness, cardiovascular diseases, and becoming more susceptible to infectious diseases. As a result, researchers began to notice a higher tuberculosis (TB) incidence in the T2D positive population. Therefore, we would like to explore the association between TB and T2D and what potential risk factors contribute to this comorbidity, and hopefully, provide recommendations to control or decrease the prevalence of T2D and TB in China.
 
 
-###What Have we done?
+### What Have we done?
 
 <img src="./image/lab1.jpg" style="width:52%"><img src="./image/lab2.jpg" style="width:43%">
 
 Someone write something here lol 
 
 
-###What have we found? 
-
-####Dana' map 
-```{r,warning=F, echo=F, message=F}
-sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
-ggplot() + geom_polygon(data = sh, aes(x = long, y = lat, group = group), colour = "black", fill = NA)
-```
+### What have we found? 
 

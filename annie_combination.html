@@ -369,85 +369,29 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
          tb = as.numeric(tb),
          tbtime = as.numeric(tbtime))
 
-model_time &lt;- lm(tb ~ gender + dmage + birthyear,data = time_df, family = binomial())</code></pre>
+model_time &lt;- lm(tb ~ gender + dmage,data = time_df, family = binomial())</code></pre>
 <pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
 ##  extra argument &#39;family&#39; will be disregarded</code></pre>
 <pre class="r"><code>summary(model_time)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = tb ~ gender + dmage + birthyear, data = time_df, 
-##     family = binomial())
+## lm(formula = tb ~ gender + dmage, data = time_df, family = binomial())
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -4.10e-16 -2.91e-16 -2.25e-16 -8.20e-17  1.49e-13 
+## -3.78e-16 -2.75e-16 -2.35e-16 -7.60e-17  1.49e-13 
 ## 
 ## Coefficients:
-##               Estimate Std. Error   t value Pr(&gt;|t|)    
-## (Intercept)  2.000e+00  6.231e-14  3.21e+13   &lt;2e-16 ***
-## gender      -2.661e-16  4.363e-16 -6.10e-01    0.542    
-## dmage       -1.007e-18  3.150e-17 -3.20e-02    0.974    
-## birthyear   -5.836e-18  3.126e-17 -1.87e-01    0.852    
+##               Estimate Std. Error    t value Pr(&gt;|t|)    
+## (Intercept)  2.000e+00  1.092e-15  1.831e+15   &lt;2e-16 ***
+## gender      -2.620e-16  4.354e-16 -6.020e-01    0.548    
+## dmage        3.959e-18  1.685e-17  2.350e-01    0.814    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.338e-15 on 781 degrees of freedom
-## Multiple R-squared:  0.5003, Adjusted R-squared:  0.4984 
-## F-statistic: 260.6 on 3 and 781 DF,  p-value: &lt; 2.2e-16</code></pre>
-<pre class="r"><code>model_time %&gt;% 
-  broom::tidy() %&gt;% 
-  mutate(OR = exp(estimate),
-         log_OR = estimate,
-         OR_lower = exp(estimate - std.error*1.96),
-         OR_upper = exp(estimate + std.error*1.96)) %&gt;% 
-  select(c(term, log_OR, OR, p.value, OR_lower, OR_upper)) %&gt;% 
-  knitr::kable()</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">term</th>
-<th align="right">log_OR</th>
-<th align="right">OR</th>
-<th align="right">p.value</th>
-<th align="right">OR_lower</th>
-<th align="right">OR_upper</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">2</td>
-<td align="right">7.389056</td>
-<td align="right">0.0000000</td>
-<td align="right">7.389056</td>
-<td align="right">7.389056</td>
-</tr>
-<tr class="even">
-<td align="left">gender</td>
-<td align="right">0</td>
-<td align="right">1.000000</td>
-<td align="right">0.5420792</td>
-<td align="right">1.000000</td>
-<td align="right">1.000000</td>
-</tr>
-<tr class="odd">
-<td align="left">dmage</td>
-<td align="right">0</td>
-<td align="right">1.000000</td>
-<td align="right">0.9744966</td>
-<td align="right">1.000000</td>
-<td align="right">1.000000</td>
-</tr>
-<tr class="even">
-<td align="left">birthyear</td>
-<td align="right">0</td>
-<td align="right">1.000000</td>
-<td align="right">0.8519468</td>
-<td align="right">1.000000</td>
-<td align="right">1.000000</td>
-</tr>
-</tbody>
-</table>
+## Residual standard error: 5.335e-15 on 782 degrees of freedom
+## Multiple R-squared:  0.5004, Adjusted R-squared:  0.4991 
+## F-statistic: 391.6 on 2 and 782 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 
 

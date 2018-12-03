@@ -10,6 +10,11 @@ output:
 <img src="./image/tb1.jpg" style="width:44%"><img src="./image/db1.png" style="width:48%">
 
 
+```{r,include=F}
+require(rgdal)
+require(tidyverse)
+```
+
 
 ###Why are we doing this? 
 
@@ -26,3 +31,8 @@ Someone write something here lol
 ###What have we found? 
 
 ####Dana' map 
+```{r,warning=F, echo=F, message=F}
+sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
+ggplot() + geom_polygon(data = sh, aes(x = long, y = lat, group = group), colour = "black", fill = NA)
+```
+

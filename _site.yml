@@ -11,6 +11,8 @@ navbar:
       href: complications_DZ.html
     - text: "bobo?"
       href: bobo.html
+    - text: "Maps"
+      href: geo_distribution_DZ.html
     - text: "Cox Analysis"
       href: cox_analysis_visualiztion.html
     - icon: fa-envelope fa-lg

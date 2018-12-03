@@ -8,28 +8,35 @@
 #
 
 library(shiny)
+library(p8105.datasets)
+library(plotly)
+library(tidyverse)
+library(viridis)
+library(flexdashboard)
+
+data("nyc_airbnb")
+
+nyc_airbnb = 
+  nyc_airbnb %>% 
+  mutate(rating = review_scores_location / 2) %>%
+  select(boro = neighbourhood_group, neighbourhood, rating, price, room_type,
+         latitude, longitude) %>%
+  filter(!is.na(rating))
+boros = nyc_airbnb %>% distinct(boro) %>% pull()
+
+risk_vectors <- c("drug_level","comlications","exercise_level")
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
    
    # Application title
-   titlePanel("Old Faithful Geyser Data"),
+   titlePanel("K-M analysis"),
    
-   # Sidebar with a slider input for number of bins 
-   sidebarLayout(
-      sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30)
-      ),
-      
-      # Show a plot of the generated distribution
-      mainPanel(
-         plotOutput("distPlot")
-      )
-   )
+   selectInput("risk_factor", label = h3("Risk Factors"),
+               choices = risk_vectors, selected = "Manhattan")
+   
+   
 )
 
 # Define server logic required to draw a histogram

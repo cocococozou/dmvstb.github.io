@@ -14,7 +14,7 @@ navbar:
     - text: "Maps"
       href: geo_distribution_DZ.html
     - text: "Cox Analysis"
-      href: https://dmvstb.shinyapps.io/Kmanalysis/
+      href: https://dmvstb.shinyapps.io/survivalanalysis/
     - icon: fa-envelope fa-lg
       href: mailto:<zouxiaoke@hotmail.com>
     - icon: fa-github fa-lg

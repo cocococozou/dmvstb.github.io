@@ -10,6 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(survminer)
 library(survival)
+library(plotly)
+library(GGally)
+library(tmap)
+library(rgdal)
+library(maptools)
+library(rgeos)
 ```
 
 ### Cleaning data and rename variables
@@ -121,47 +127,112 @@ t.test(male_exercise$total_exercise,female_exercise$total_exercise, var.equal=FA
 ```
 
 
-Make exercise distribution plot
+### Incidence
 
 ```{r}
-df_combine %>% 
+df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
-         gender = as.factor(gender)) %>% 
-  ggplot(aes(x = total_exercise, color = gender)) +
-  geom_density()
+         gender = as.factor(gender))
+```
 
-df_combine %>% 
-  mutate(exercise = as.numeric(exercise),
-         total_exercise = exercise * exercise_time,
-         gender = as.factor(gender)) %>% 
-  ggplot(aes(x = gender, y = total_exercise, color = gender)) +
+
+```{r}
+df_incidence  <- df_exercise %>% 
+  mutate(tb = fct_recode(tb, '1'= 'Yes', '0'='No')) %>% 
+  mutate(tb=as.character(tb),
+         tb=as.numeric(tb)) %>% 
+  group_by(total_exercise) %>% 
+  summarise(tb_sum = sum(tb),
+           incidence = tb_sum/n()) %>% 
+  ungroup()
+```
+
+### K-M plot for different exercise people
+
+```{r}
+df_exercise = df_exercise %>% 
+  inner_join(df_incidence, by = "total_exercise")
+
+df_exercise$survival = with(df_exercise, Surv(days, tb == "Yes"))
+
+km <- survfit(survival ~ 1, data = df_exercise, conf.type = "log-log")
+km_by_exercise <- survfit(survival ~ exercise, data = df_exercise, conf.type = "log-log")
+
+km_by_exercise_time <- survfit(survival ~ exercise_time, data = df_exercise, conf.type = "log-log")
+
+plot_exercise_level <- GGally::ggsurv(km_by_exercise, main = "Kaplan-Meier Curve for getting TB of different exercise level")
+plotly::ggplotly(plot_exercise_level)
+
+plot_exercise_time <- GGally::ggsurv(km_by_exercise_time, main = "Kaplan-Meier Curve for getting TB of different exercise time")
+plotly::ggplotly(plot_exercise_time)
+
+```
+
+
+### Show exercise difference between gender
+
+```{r}
+plot_exer = ggplot(data = df_exercise, aes(x = gender, y = total_exercise, color = gender)) +
   geom_boxplot()
 
-df_combine %>% 
-  mutate(exercise = as.numeric(exercise),
-         gender = as.factor(gender)) %>% 
-  ggplot(aes( x = gender, y = exercise)) +
-  geom_violin()
+ggplotly(plot_exer)
 
-df_combine %>% 
-  mutate(gender = as.factor(gender)) %>% 
-  ggplot(aes( x = gender, y = exercise_time)) +
-  geom_violin()
 ```
 
-Make tb vs exercise plot
+
+
+### map
+
 
 ```{r}
-df_combine %>% 
-  mutate(exercise = as.numeric(exercise),
-         total_exercise = exercise * exercise_time,
-         gender = as.factor(gender)) %>% 
-  ggplot(aes(x = tb, y = total_exercise, color = gender)) +
-  geom_boxplot() +
-  facet_grid(.~gender)
+x = df_exercise %>% 
+  filter(district != "") %>%
+  group_by(district) %>% 
+  summarise(exercise_sum = sum(total_exercise)) %>% 
+  ungroup()
+
+levels(x$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Changning" = c(310105, 310106), "Putuo" = 310107, "Zhabei" = 310108, "Hongkou" = 310109, "Yangpu" = 310110, "Minhang" = 310112, "Baoshan" = 310113,  "Pudong" = c(310115, 310119), "Jiading" = 310114, "Jinshan" = 310116, "Songjiang" = 310117, "Qingpu" = 310118, "Fengxian" = 310120, "Chongming" = 310230)
+```
+
+```{r}
+sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
+##Translating and Adding two missing two districts
+sh@data <- sh@data %>% 
+  mutate(Name = as.factor(Name)) %>%
+  mutate(Name = fct_recode(Name, Jiading = '嘉定区',
+                           Fengxian = '奉贤区',
+                           Baoshan = '宝山区',
+                           Chongming = '崇明县',
+                           Xuhui = '徐汇区',
+                           Putuo ='普陀区',
+                           Yangpu = '杨浦区',
+                           Songjiang = '松江区',
+                           Pudong='浦东新区',
+                           Hongkou = '虹口区',
+                           Jinshan = '金山区',
+                           Changning = '长宁区',
+                           Minhang = '闵行区',
+                           Zhabei = '闸北区',
+                           Qingpu = '青浦区', 
+                           Huangpu = '黄浦区'))
+
 
 ```
+
+```{r}
+sh$exercise_sum <- x$exercise_sum
+
+qtm(sh, fill = "exercise_sum")
+```
+
+
+
+
+
+
+
+
 
 
 

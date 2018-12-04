@@ -68,51 +68,67 @@ ggplotly(plot_skin)
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_vess<-ggplot(df, aes(x = dmage, y = vessel, color=dmage)) + 
-                              geom_histogram(stat = "identity", width = .6) +
-                              facet_grid(. ~ gender)
-                              labs(title="The complication of Vessel with diabetes age") +
-                              theme_tufte() +  
-                              theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank())
+plot_vess<-ggplotly(ggplot(df, aes(x = dmage, y = vessel, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The complication of vessel with diabetes age",
+         x = "dmage") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold"))+
+          facet_wrap(~gender))
 ggplotly(plot_vess)
 ```
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_nerve<-ggplot(df, aes(x = dmage, y = nerve, color=dmage)) + 
-                              geom_bar(stat = "identity", width = .6) +
-                              facet_grid(. ~ gender)
-                              labs(title="The complication of Nerve with diabetes age") +
-                              theme_tufte() +  
-                              theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank())
+plot_nerve<-ggplotly(ggplot(df, aes(x = dmage, y = nerve, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The complication of Nerve with diabetes age",
+         x = "dmage") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold"))+
+          facet_wrap(~gender))
 ggplotly(plot_nerve)
 ```
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
-plot_kidney<-ggplot(df, aes(x = dmage, y = kidney, color=dmage)) + 
-                              geom_bar(stat = "identity", width = .6) +
-                              facet_grid(. ~ gender)
-                              labs(title="The complication of Kidney with diabetes age") +
-                              theme_tufte() +  
-                              theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank())
+plot_kidney<-ggplotly(ggplot(df, aes(x = dmage, y = kidney, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The complication of kidney with diabetes age",
+         x = "dmage") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold"))+
+          facet_wrap(~gender))
 ggplotly(plot_kidney)
 
 ```
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_depress<-ggplot(df, aes(x = dmage, y = depression, color=dmage)) + 
-                              geom_bar(stat = "identity", width = .6) +
-                              facet_grid(. ~ gender)
-                              labs(title="The complication of Depression with diabetes age") +
-                              theme_tufte() +  
-                              theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank())
+plot_depress<-ggplotly(ggplot(df, aes(x = dmage, y =depression, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The complication of Depression with diabetes age",
+         x = "dmage") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold"))+
+    facet_wrap(~gender))
 ggplotly(plot_depress)
 ```
 

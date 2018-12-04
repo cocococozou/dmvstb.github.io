@@ -9,8 +9,10 @@ library(tidyverse)
 library(rgeos)
 library(ggthemes)
 
-load('./data/df_combine.Rdata')
-sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
+
+
+load('./df_combine.Rdata')
+sh <- readOGR('./shanghai_shapefile/shang_dis_merged.shp',verbose = F)
 ##Translating and Adding two missing two districts
 sh@data <- sh@data %>% 
   mutate(Name = as.factor(Name)) %>%
@@ -37,7 +39,6 @@ sh_df <- sh_df %>%
                               Urban = c('Changning','Hongkou','Huangpu','Putuo','Xuhui','Yangpu','Zhabei'),
                               Suburban =  c('Baoshan','Jiading','Jinshan','Minhang','Chongming','Qingpu','Songjiang','Fengxian'),
                               Pudong__New_District = 'Pudong'))
-load('./data/df_combine.Rdata')
 x <- df_combine %>% 
   filter(district != "") %>% 
   mutate(tb = fct_recode(tb, '1'= 'Yes', '0'='No'),
@@ -48,19 +49,19 @@ x <- df_combine %>%
          exercise = as.numeric(as.character(exercise)),
          complications = as.numeric(as.character(complications)))%>% 
   group_by(district) %>% 
-  summarise(tb_sum = sum(tb),
-            incidence = tb_sum/n(),
-            exercise_rate = mean(exercise),
-            complications = mean(complications),
-            bmi_change = mean(bmi_change,na.rm = T),
-            glucose_ave = mean(glu_average),
-            glucose_freq = mean(celiangxtgl),
-            drug = mean(drug)) %>% 
-  rename(id=district)
+  summarise(TB_Total = sum(tb),
+            TB_Incidence = TB_Total/n(),
+            Exercise_Frequency = mean(exercise),
+            Complications = mean(complications),
+            BMI_Change = mean(bmi_change,na.rm = T),
+            Glucose_Average = mean(glu_average),
+            Glucose_Measure_Frequency = mean(celiangxtgl),
+            Medication = mean(drug)) %>% 
+  rename(id = district)
 
 sh_df <- sh_df %>% 
   inner_join(x,by='id') %>% 
-  gather(tb_sum :drug, key=parameter, value=value)
+  gather(TB_Total:Medication, key=parameter, value=value)
 
 choice=  sh_df %>% distinct(parameter) %>% pull()
 
@@ -68,10 +69,10 @@ choice=  sh_df %>% distinct(parameter) %>% pull()
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Geo-Analysis"),
+  titlePanel("Shanghai Geo-Analysis for Different Parameters"),
   sidebarPanel(
     selectInput("Parameter", label = h3("Parameters"),
-                choices = choice, selected = "tb_sum")
+                choices = choice, selected = "TB_Total")
   ),
   mainPanel(
     plotOutput('plot1')
@@ -83,15 +84,15 @@ ui <- fluidPage(
 server <- function(input, output) {
   output$plot1 <- renderPlot(
     sh_df%>%
-    filter(parameter == input$Parameter) %>%
-    ggplot()+
-    geom_polygon(aes(x = long, y = lat, group = group,fill=value,alpha = .5), 
-                 colour = "black"))
-     
-         
+      filter(parameter == input$Parameter) %>%
+      ggplot()+
+      geom_polygon(aes(x = long, y = lat, group = group,fill=value,alpha = .5), 
+                   colour = "black"))
   
-    }
   
+  
+}
+
 
 
 

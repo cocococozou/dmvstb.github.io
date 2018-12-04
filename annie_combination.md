@@ -74,8 +74,7 @@ levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Chang
 levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 ```
 
-Compare diabete and age...
---------------------------
+\#\#Compare diabete and age…
 
 Make a diabete-age distribution plot
 
@@ -107,7 +106,7 @@ plot_dia_v<-df_combine %>%
 plot_dia_d+plot_dia_v
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](annie_combination_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 Make a tb-diabete age distribution plot
 
@@ -126,7 +125,7 @@ df_combine %>%
   ggtitle('TB VS The age of people with diabetes')
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](annie_combination_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 df_combine %>% 
@@ -142,10 +141,9 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
   ggtitle('The TB VS the age of people with diabetes')
 ```
 
-![](annie_combination_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](annie_combination_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
-Want to explore whether there is an association for TB with gender, the diabete time and birthyear
-==================================================================================================
+# Want to explore whether there is an association for TB with gender, the diabete time and birthyear
 
 ``` r
 time_df <-df_combine %>% 

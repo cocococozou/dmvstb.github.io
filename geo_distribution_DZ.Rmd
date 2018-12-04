@@ -93,9 +93,9 @@ sh_df <- sh_df %>%
 ```
 
 ```{r}
-test <-  ggplot() + 
-  geom_polygon(data = sh_df, aes(x = long, y = lat, group = group,fill=incidence,alpha = .5), colour = "black")+
-  ggtitle('Urban/Suburban distribution')
-ggplotly(test)
+##test <-  ggplot() + 
+#  geom_polygon(data = sh_df, aes(x = long, y = lat, group = group,fill=incidence,alpha = .5), colour = "black")+
+ # ggtitle('Urban/Suburban distribution')
+#ggplotly(test)
 ```
 

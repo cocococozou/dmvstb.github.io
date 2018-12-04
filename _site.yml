@@ -9,6 +9,8 @@ navbar:
       href: drugpart.html
     - text: "Complications"
       href: complications_DZ.html
+    - text: "Exercise"
+      href: exercise.html
     - text: "bobo?"
       href: bobo.html
     - text: "Maps"

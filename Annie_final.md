@@ -74,8 +74,7 @@ levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Chang
 levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
 ```
 
-Incidence of tb...
-------------------
+## Incidence of tb…
 
 ``` r
 model.poisson <- glm(censer ~ days, family=poisson, data=df_combine)
@@ -122,8 +121,7 @@ exp(confint(model.poisson))
     ## (Intercept) 0.9810404 0.9996108
     ## days        0.9999979 1.0000094
 
-Compare diabete and age...
---------------------------
+\#\#Compare diabete and age…
 
 Make a diabete-age distribution plot
 
@@ -155,7 +153,7 @@ plot_dia_v<-df_combine %>%
 plot_dia_d+plot_dia_v
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](Annie_final_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 Make a tb-diabete age distribution plot
 
@@ -174,7 +172,7 @@ df_combine %>%
   ggtitle('TB VS The age of people with diabetes')
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](Annie_final_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 df_combine %>% 
@@ -190,10 +188,9 @@ ggplot(aes(x = tb, y = dmage, color = gender)) +
   ggtitle('The TB VS the age of people with diabetes')
 ```
 
-![](Annie_final_files/figure-markdown_github/unnamed-chunk-4-2.png)
+![](Annie_final_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
-Want to explore whether there is an association for TB with gender, the diabete time and birthyear
-==================================================================================================
+# Want to explore whether there is an association for TB with gender, the diabete time and birthyear
 
 ``` r
 time_df <-df_combine %>% 
@@ -249,9 +246,9 @@ model_time %>%
   knitr::kable()
 ```
 
-| term        |  log\_OR|        OR|    p.value|  OR\_lower|  OR\_upper|
-|:------------|--------:|---------:|----------:|----------:|----------:|
-| (Intercept) |        2|  7.389056|  0.0000000|   7.389056|   7.389056|
-| gender      |        0|  1.000000|  0.5420792|   1.000000|   1.000000|
-| dmage       |        0|  1.000000|  0.9744966|   1.000000|   1.000000|
-| birthyear   |        0|  1.000000|  0.8519468|   1.000000|   1.000000|
+| term        | log\_OR |       OR |   p.value | OR\_lower | OR\_upper |
+| :---------- | ------: | -------: | --------: | --------: | --------: |
+| (Intercept) |       2 | 7.389056 | 0.0000000 |  7.389056 |  7.389056 |
+| gender      |       0 | 1.000000 | 0.5420792 |  1.000000 |  1.000000 |
+| dmage       |       0 | 1.000000 | 0.9744966 |  1.000000 |  1.000000 |
+| birthyear   |       0 | 1.000000 | 0.8519468 |  1.000000 |  1.000000 |

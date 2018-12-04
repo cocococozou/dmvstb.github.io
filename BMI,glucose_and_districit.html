@@ -315,28 +315,28 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ggplot(aes(x = gender, y = glu_initial, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 15))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Since the range of initial glucose is quite large, we found median and quartiles are a little higher in tb patients than in non-tb.</p>
 <p>“average glucose” distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = glu_average, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits = c(0, 15))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>We found median and quartiles are higher in tb patients than in non-tb. Also the range of “average glucose” in follow-up periods for tb patients is wider.</p>
 <p>initial bmi distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = bmi_initial, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 40))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>We found median and quartiles are higher in non-tb patients than in tb.</p>
 <p>“average bmi” distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = bmi_average, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 40))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>We found median and quartiles of “average bmi” in follow-up periods are higher in non-tb patients than in tb.</p>
 </div>
 <div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-in-urban-or-rural-areas" class="section level3">
@@ -365,7 +365,7 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   scale_y_continuous(limits=c(0, 2))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t do keeping all other variables fixed in urban or rural area.</p>
 </div>
 <div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-within-different-districts" class="section level3">
@@ -394,7 +394,7 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(limits=c(0, 4))</code></pre>
-<p><img src="BMI,glucose_and_distrcit_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_districit_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t monitor glucose regularly keeping all other variables fixed.</p>
 </div>
 

@@ -135,8 +135,8 @@ plot_dia_d<-df_combine %>%
   geom_density()+
   facet_grid(.~gender)+
   labs(
-    x = "the age of people with diabetes",
-    y = "gender"
+    x = "gender",
+    y = "density of the age of people with diabetes"
   )+
   ggtitle('The age of people with diabetes(Male VS Female)')
   
@@ -147,8 +147,8 @@ plot_dia_v<-df_combine %>%
   ggplot(aes(x = gender, y= dmage, fill=gender)) +
   geom_boxplot()+
   labs(
-    x = "the age of people with diabetes",
-    y = "gender"
+    x = "gender",
+    y = "the age of people with diabetes"
   )+
   ggtitle('The age of people with diabetes(Male VS Female)')
 

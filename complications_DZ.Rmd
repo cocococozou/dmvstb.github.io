@@ -2,7 +2,7 @@
 title: "complications_DZ"
 author: "DZ"
 date: "November 14, 2018"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -28,7 +28,6 @@ df <- dm_base %>%
   mutate(complications = retina + skin + vessel + nerve + kidney + depression) %>%
   mutate(complications = as.factor(complications))
 
-levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
 ```
 
 
@@ -112,21 +111,7 @@ ggplotly(plot_depress)
 
 
 ```{r}
- 
-
-plot_com1<-ggplot(df, aes(x = dmage, y = complications, color=complications)) + 
-                              geom_bar(stat = "identity", width = .6) +
-                              facet_grid(. ~ gender)
-                              labs(title="The complications with diabetes age") +
-                              theme_tufte() +  
-                              theme(plot.title = element_text(hjust = .5), 
-                                    axis.ticks = element_blank())
-
-ggplotly(plot_com1)
-```
-
-
-```{r}
+levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
 freqtable <- table(df$complications)
 df_com<- as.data.frame.table(freqtable)
 head(df_com)

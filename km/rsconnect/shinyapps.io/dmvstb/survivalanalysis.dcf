@@ -5,8 +5,8 @@ account: dmvstb
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 601719
-bundleId: 1737275
+bundleId: 1738151
 url: https://dmvstb.shinyapps.io/survivalanalysis/
-when: 1543868130.09309
+when: 1543897544.98326
 asMultiple: FALSE
 asStatic: FALSE

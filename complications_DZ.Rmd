@@ -27,32 +27,116 @@ df <- dm_base %>%
          kidney = as.numeric(kidney)) %>% 
   mutate(complications = retina + skin + vessel + nerve + kidney + depression) %>%
   mutate(complications = as.factor(complications))
+
 levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
 ```
 
+
 ```{r}
-plot1<-ggplot(df, aes(x = dmage, y = retina, fill = gender)) + 
-                              geom_histogram(stat = "identity", width = .6) + 
+plot_ret<-ggplot(df, aes(x = dmage, y = retina, color=gender)) + 
+                              geom_histogram(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
                               labs(title="The complication of retina with diabetes age") +
                               theme_tufte() +  
                               theme(plot.title = element_text(hjust = .5), 
                                     axis.ticks = element_blank())
+                              
 
-ggplotly(plot1)
+ggplotly(plot_ret)
+```
 
 
-plot2<-ggplot(df, aes(x = dmage, y = skin, color=gender)) + 
-                              geom_histogram(stat = "identity", width = .6) + 
+```{r}
+
+plot_skin<-ggplot(df, aes(x = dmage, y = skin)) + 
+                              geom_histogram(stat = "identity", alpha = 0.5, 
+                             size = 1) + 
                               facet_grid(. ~ gender)
-                              labs(title="The complication of retina with diabetes age") +
+                              labs(title="The complication of skin with diabetes age") +
                               theme(plot.title = element_text(hjust = .5), 
                                     axis.ticks = element_blank())
   
-ggplotly(plot2)
+ggplotly(plot_skin)
 
-
-
-
-  
-                  
 ```
+
+
+```{r}
+plot_vess<-ggplot(df, aes(x = dmage, y = vessel, color=gender)) + 
+                              geom_histogram(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
+                              labs(title="The complication of Vessel with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+ggplotly(plot_vess)
+```
+
+
+```{r}
+plot_nerve<-ggplot(df, aes(x = dmage, y = nerve, color=gender)) + 
+                              geom_bar(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
+                              labs(title="The complication of Nerve with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+ggplotly(plot_nerve)
+```
+
+
+```{r}
+
+plot_kidney<-ggplot(df, aes(x = dmage, y = kidney, color=gender)) + 
+                              geom_bar(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
+                              labs(title="The complication of Kidney with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+ggplotly(plot_kidney)
+
+```
+
+
+```{r}
+plot_depress<-ggplot(df, aes(x = dmage, y = depression, color=gender)) + 
+                              geom_bar(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
+                              labs(title="The complication of Depression with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+ggplotly(plot_depress)
+```
+
+
+```{r}
+ 
+
+plot_com1<-ggplot(df, aes(x = dmage, y = complications, color=complications)) + 
+                              geom_bar(stat = "identity", width = .6) +
+                              facet_grid(. ~ gender)
+                              labs(title="The complications with diabetes age") +
+                              theme_tufte() +  
+                              theme(plot.title = element_text(hjust = .5), 
+                                    axis.ticks = element_blank())
+
+ggplotly(plot_com1)
+```
+
+
+```{r}
+freqtable <- table(df$complications)
+df_com<- as.data.frame.table(freqtable)
+head(df_com)
+plot_com2<-ggplot(df_com, aes(Var1,Freq,fill = Var1))+
+  geom_bar(stat="identity", width = 0.60) + 
+      labs(title="The Frequency of complications", 
+           x = "how many complications for diabetes patients",
+           y = "Frequency")
+      theme(axis.text.x = element_text(angle=65, vjust=0.6))
+      
+ggplotly(plot_com2)
+```
+

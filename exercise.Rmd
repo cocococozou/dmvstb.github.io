@@ -16,6 +16,7 @@ library(tmap)
 library(rgdal)
 library(maptools)
 library(rgeos)
+library(survivalAnalysis)
 ```
 
 ### Cleaning data and rename variables
@@ -93,39 +94,6 @@ levels(df_combine$complications) <- list(none=0,one=1,more_than_two=c(2,6))
 levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
 ```
 
-Compare male and female mean for exercise by t.test
-
-```{r}
-male_exercise = df_combine %>% 
-  filter(gender == 1) %>% 
-  mutate(exercise = as.numeric(exercise))
-    
-female_exercise = df_combine %>% 
-  filter(gender == 2) %>% 
-  mutate(exercise = as.numeric(exercise))
-
-var.test(male_exercise$exercise,female_exercise$exercise, alternative = "two.sided")
-
-t.test(male_exercise$exercise,female_exercise$exercise, var.equal=FALSE, paired=FALSE) 
-```
-
-Compare male and female mean for exercise_time by t.test
-
-```{r}
-var.test(male_exercise$exercise_time,female_exercise$exercise_time, alternative = "two.sided")
-
-t.test(male_exercise$exercise_time,female_exercise$exercise_time, var.equal=FALSE, paired=FALSE) 
-```
-
-Compare male and female mean for exercise_time*exercise by t.test
-
-```{r}
-male_exercise = male_exercise %>% mutate(total_exercise = exercise * exercise_time)
-female_exercise = female_exercise %>% mutate(total_exercise = exercise * exercise_time)
-var.test(male_exercise$total_exercise,female_exercise$total_exercise, alternative = "two.sided")
-t.test(male_exercise$total_exercise,female_exercise$total_exercise, var.equal=FALSE, paired=FALSE) 
-```
-
 
 ### Incidence
 
@@ -166,21 +134,31 @@ plotly::ggplotly(plot_exercise_level)
 
 plot_exercise_time <- GGally::ggsurv(km_by_exercise_time, main = "Kaplan-Meier Curve for getting TB of different exercise time")
 plotly::ggplotly(plot_exercise_time)
-
 ```
+
+The plot shows that people with lower exercise level have higher probability of getting TB, which show that exercise is important to preventing TB. However, people with over 2 hours exercise time have higher probability of getting TB. That may be because that people spending more time on exercise have more probability touching other people and getting infection.
 
 
 ### Show exercise difference between gender
 
+
 ```{r}
-plot_exer = ggplot(data = df_exercise, aes(x = gender, y = total_exercise, color = gender)) +
-  geom_boxplot()
-
+plot_exer<-ggplotly(ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The average exercise vs age",
+         x = "age") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold"))+
+    facet_wrap(~gender))
 ggplotly(plot_exer)
-
 ```
 
 
+Average exercise of female is slightly higher than male.
 
 ### map
 
@@ -226,6 +204,7 @@ sh$exercise_sum <- x$exercise_sum
 qtm(sh, fill = "exercise_sum")
 ```
 
+People from Minxing district has the highest exercise.
 
 
 

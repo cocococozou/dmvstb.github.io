@@ -7,7 +7,6 @@ output: github_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(incidence)
 library(patchwork)
 library(survival)
 library(survminer)

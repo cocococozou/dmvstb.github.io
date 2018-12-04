@@ -1,0 +1,12 @@
+name: geo_analysis_shiny
+title: geo_analysis_shiny
+username:
+account: danazenggg-p8105
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 602703
+bundleId: 1738529
+url: https://danazenggg-p8105.shinyapps.io/geo_analysis_shiny/
+when: 1543908256.24945
+asMultiple: FALSE
+asStatic: FALSE

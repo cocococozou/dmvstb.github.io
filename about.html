@@ -11,7 +11,7 @@
 
 
 
-<title>About</title>
+<title>Know more about this project</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -228,15 +228,57 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About</h1>
+<h1 class="title toc-ignore">Know more about this project</h1>
 
 </div>
 
 
-<div id="about-this-site" class="section level3">
-<h3>About this site</h3>
-<p>Maybe put a overall</p>
-</div>
+<blockquote>
+<h3 id="introduction">Introduction</h3>
+</blockquote>
+<p>Diabetes mellitus (DM) has been emerging as the most urgent global challenge. People with diabetes are at increased risks of developing a number of health problems, consistently high blood glucose levels lead to serious damage of heart and blood vessels, eyes, kidneys, nerves and teeth, and confer a higher risk for developing infections, among which, mycobacterium tuberculosis (TB) infection is a major one.TB remerges as one of the significant communicable diseases worldwide. In 2013, about 9 million people fell ill with TB and 1.5 million died from this disease globally. The comorbidity of these two diseases presents an eminent threat to global public health, in particular, among major developing countries. The dual burden of TB and DM has attracted much attention in the past decade as DM prevalence has increased dramatically worldwide.</p>
+<p style="text-align: center;">
+<img src="image/prevelance.jpg" style="width:100%">
+</p>
+<p>Chinese account for a quarter of all diabetic patients worldwide and every one out of 10 Chinese adults are with diabetes, and the prevalence of diabetes among adults in China is climbing without any sign of stopping in a foreseeable future. On the other hand, studies in the developed countries demonstrated that population attributable fraction of diabetes for pulmonary TB was higher for Asian population in comparison to other ethnicities.The heavy burden of TB and DM among Chinese population and a high comorbidity between TB and DM among Asian population call for an extensive effort to investigate the unique comorbidity between TB and DM among Chinese.</p>
+<p>As diabetes has been considered as a significant risk factor of TB, Shanghai meets a great challenge in controlling and preventing tuberculosis since the prevalence of diabetes in this megacity has reached up to 17.6% in 2013. Thus, the care and control of tuberculosis among diabetes patient should be highlighted in the process of implementing the END TB Strategy launched by WHO.</p>
+<p>Therefore, we gain accessible to this DM database to do some analysis. The specific aim of this study was to assess the risk of developing TB among adults with diabetes. We also evaluated the factors associated with an increased risk of TB, including body mass index (BMI), DM complications, medication status and lifestyle among adults with diabetes.</p>
+<blockquote>
+<h3 id="data-sources">Data Sources</h3>
+</blockquote>
+<p>The data used were from Shanghai community-based diabetes management system (SCDMS), a diabetes register system operated by the Shanghai Municipal Centers for Disease Control and Prevention (Shanghai-CDC). SCDMS covers more than 25% of confirmed DM cases in Shanghai identified through the following approaches: community-based DM screenings, routine physical examinations and self-reporting. Regardless of how the DM cases were identified, as parts of the initial assessments, the diagnosis must be verify by physicians in Community Health Centers (CHCs) using 1999 World Health Organization (WHO) criteria[9] before being registered. For confirmed DM cases, in-person interviews were conducted every 3 months after the initial assessment by CHC physicians to collect data on physical examination (including BMI and fasting blood glucose), complications, treatment modalities (categories and forms of medications used), lifestyle factors (including duration and intensity of physical activity in leisure time).</p>
+<p>This data also contains some variables from Shanghai Municipal TB Surveillance System (SMTSS), a mandatory TB reporting system managed by all CDCs at city and district level in Shanghai, we were able to trace DM participants’ TB status.</p>
+<blockquote>
+<h3 id="statistical-analyses">Statistical analyses</h3>
+</blockquote>
+<p>We explore some variables including drugs, the age of diagnosis of diabetes, BMI and glucose, stratified by gender and geographical areas. Make some discription of distribution of these variables among tuberculosis cases and non-tuberculosis cases.</p>
+<p>For patients with TB, follow-up assessments were limited with the period ending with the time when TB diagnosis was confirmed. For non-TB patients, follow-up assessments were extended to the end of study, i.e. December 31, 2014, unless missing or death occurred. Kaplan-Meier survival curves for TB infection were obtained to check the difference between male and female.</p>
+<p>Person-years contributed by each participant were calculated as the interval between the date of initial assessment and the date of TB diagnosis or last follow-up interview. Estimates of the crude and the adjusted hazard ratios (HRs) of being diagnosed with TB were derived from Cox proportional hazard regression models for individuals with different level of risk factors. The proportional hazards assumption was checked by visual inspection of plots of log [-log (S)] against time, where S was the estimated survival function.</p>
+<p>As the literatures repeatedly demonstrated a sex difference in risk factors of TB incident rate,we stratified our analysis by sex. All analyses were performed using R software.</p>
+<blockquote>
+<h3 id="main-results">Main Results</h3>
+</blockquote>
+<p>With an average following-up period of 3.8 year (range: 0 to 10.96 years), 785 TB cases were recorded among 170 381 T2DM patients from 654 977 person-years follow-up. The incident rate of TB was 168.29 per 100 000 person-years for men, and 38.54 per 100 000 person-years for women.</p>
+<p>There was a clear separation of Kaplan-Meier survival curves, men had a higher probability of being attacked by TB compared with women. The separation started from the beginning of the follow-up, and the diverging trend accelerated at the third year of the follow-up.</p>
+<p>For each district in Shanghai, we calculate the incidence of TB, estimate and confidence interval of the adjusted odds ratio for having TB comparing diabetes who regularly monitor glucose to those who don’t monitor glucose regularly keeping all other variables fixed. We also obtain odds ratio in different level of drugs.</p>
+<blockquote>
+<h3 id="referrence">Referrence</h3>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li><p>Chen, L., Magliano, D. J., &amp; Zimmet, P. Z. (2012). The worldwide epidemiology of type 2 diabetes mellitus–present and future perspectives. <em>Nature Reviews Endocrinology, 8</em>(4), 228-236. <a href="https://doi.org/10.1038/nrendo.2011.183">doi:10.1038/nrendo.2011.183</a></p></li>
+<li><p>Kumar, N. P., Moideen, K., George, P. J., Dolla, C., Kumaran, P., &amp; Babu, S. (2016). Impaired cytokine but enhanced cytotoxic marker expression in mycobacterium tuberculosis-induced CD8+ T cells in individuals with type 2 diabetes and latent mycobacterium tuberculosis infection. <em>The Journal of Infectious Diseases, 213</em>(5), 866-870. <a href="https://doi.org/10.1093/infdis/jiv484">doi:10.1093/infdis/jiv484</a></p></li>
+<li><p>Webb, E. A., Hesseling, A. C., Schaaf, H. S., Gie, R. P., Lombard, C. J., Spitaels, A., . . . Beyers, N. (2009). High prevalence of Mycobacterium tuberculosis infection and disease in children and adolescents with type 1 diabetes mellitus. <em>The International Journal of Tuberculosis and Lung Disease, 13</em>(7), 868-874. Retrieved from <a href="https://www.ingentaconnect.com/contentone/iuatld/ijtld/2009/00000013/00000007/art00013" class="uri">https://www.ingentaconnect.com/contentone/iuatld/ijtld/2009/00000013/00000007/art00013</a></p></li>
+<li><p>Martinez, N., &amp; Kornfeld, H. (2014). Diabetes and immunity to tuberculosis. <em>European Journal of Immunology, 44</em>(3), 617-626. <a href="https://doi.org/10.1002/eji.201344301">doi:10.1002/eji.201344301</a></p></li>
+<li><p>Sullivan, T., &amp; Ben Amor, Y. (2012). The co-management of tuberculosis and diabetes: challenges and opportunities in the developing world. <em>PLoS Medicine, 9</em>(7), e1001269. <a href="https://doi.org/10.1371/journal.pmed.1001269">doi:10.1371/journal.pmed.1001269</a></p></li>
+<li><p>Stevenson, C. R., Forouhi, N. G., Roglic, G., Williams, B. G., Lauer, J. A., Dye, C., &amp; Unwin, N. (2007). Diabetes and tuberculosis: the impact of the diabetes epidemic on tuberculosis incidence. <em>BMC Public Health, 7</em>, 234. <a href="https://doi.org/10.1186/1471-2458-7-234">doi:10.1186/1471-2458-7-234</a></p></li>
+<li><p>Zhou, M., Astell-Burt, T., Bi, Y., Feng, X., Jiang, Y., Li, Y., . . . Ning, G. (2015). Geographical variation in diabetes prevalence and detection in china: multilevel spatial analysis of 98,058 adults. <em>Diabetes Care, 38</em>(1), 72-81. <a href="https://doi.org/10.2337/dc14-1100">doi:10.2337/dc14-1100</a></p></li>
+<li><p>International Diabetes Federation. (2015). <em>IDF Diabetes Atlas</em> (7th edn). Retrieved from <a href="http://www.diabetesatlas.org" class="uri">http://www.diabetesatlas.org</a></p></li>
+<li><p>Walker, C., &amp; Unwin, N. (2010). Estimates of the impact of diabetes on the incidence of pulmonary tuberculosis in different ethnic groups in England. <em>Thorax, 65</em>(7), 578-581. <a href="https://doi.org/10.1136/thx.2009.128223">doi:10.1136/thx.2009.128223</a></p></li>
+<li><p>Qiu, H., Shi, Y., Li, Y., Shen, X., Li, R., Yang, Q., . . . Yan, F. (2017). Incident rate and risk factors for tuberculosis among patients with type 2 diabetes: retrospective cohort study in Shanghai, China. <em>Tropical Medicine &amp; International Health, 22</em>(7), 830-838. <a href="https://doi.org/10.1111/tmi.12884">doi:10.1111/tmi.12884</a></p></li>
+</ol>
+<p style="text-align: center;">
+<img src="image/endtb.png" style="width:20%">
+</p>
 
 
 

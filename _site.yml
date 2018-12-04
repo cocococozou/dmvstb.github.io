@@ -11,8 +11,8 @@ navbar:
       href: complications_DZ.html
     - text: "Exercise"
       href: exercise.html
-    - text: "bobo?"
-      href: bobo.html
+    - text: "Glucose management/BMI"
+      href: BMI,glucose_and_district.html
     - text: "Maps"
       href: geo_distribution_DZ.html
     - text: "Cox Analysis"

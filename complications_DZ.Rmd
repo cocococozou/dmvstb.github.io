@@ -1,7 +1,6 @@
 ---
-title: "complications_DZ"
-author: "DZ"
-date: "November 14, 2018"
+title: "Complications"
+date: "December 06, 2018"
 output: html_document
 ---
 
@@ -16,7 +15,7 @@ library(plotly)
 
 
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, echo=FALSE}
 load('./dm.Rdata')
 df <- dm_base %>% 
   rename(retina = reti, skin = derm, vessel = vesl, nerve = neur,kidney = neph, depression = depress, gender = xingbie ) %>%
@@ -31,7 +30,7 @@ df <- dm_base %>%
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 plot_ret<-ggplotly(ggplot(df, aes(x = dmage, y = retina, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of retina with diabetes age",
@@ -49,7 +48,7 @@ plot_ret
 
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE, collapse = TRUE}
 
 plot_skin<-ggplotly(ggplot(df, aes(x = dmage, y = skin, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
@@ -68,7 +67,7 @@ ggplotly(plot_skin)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 plot_vess<-ggplot(df, aes(x = dmage, y = vessel, color=dmage)) + 
                               geom_histogram(stat = "identity", width = .6) +
                               facet_grid(. ~ gender)
@@ -80,7 +79,7 @@ ggplotly(plot_vess)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 plot_nerve<-ggplot(df, aes(x = dmage, y = nerve, color=dmage)) + 
                               geom_bar(stat = "identity", width = .6) +
                               facet_grid(. ~ gender)
@@ -92,7 +91,7 @@ ggplotly(plot_nerve)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
 plot_kidney<-ggplot(df, aes(x = dmage, y = kidney, color=dmage)) + 
                               geom_bar(stat = "identity", width = .6) +
@@ -106,7 +105,7 @@ ggplotly(plot_kidney)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 plot_depress<-ggplot(df, aes(x = dmage, y = depression, color=dmage)) + 
                               geom_bar(stat = "identity", width = .6) +
                               facet_grid(. ~ gender)
@@ -118,12 +117,12 @@ ggplotly(plot_depress)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
 freqtable <- table(df$complications)
 df_com<- as.data.frame.table(freqtable) %>% 
   rename(complications = Var1)
-head(df_com)
+knitr::kable(df_com)
 
 plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Freq, fill=complications)) +
     geom_histogram(stat = "identity", width = .6) +

@@ -16,79 +16,9 @@ library(survminer)
 ###Import data:
 
 ```{r}
-load("./data/dm.RData")
+load('./data/df_combine.Rdata')
 ```
 
-```{r}
-df_combine = dm_base %>% 
-  rename(
-    subject_id = JiBenCID,
-    glu_average = fastglu, 
-    weight_initial = tizhong_1st, 
-    weight_average = tizhong, 
-    height = ShenGao, 
-    glu_initial = kfxt_1st,
-    gender = xingbie,
-    district = GuanLiQX,
-    sys_pressure = Sbp,
-    dia_pressure = Dbp,
-    exercise_time = xiuxiansj,
-    exercise = xiuxiantl,
-    drug_insulin = insulin,
-    drug_oral_sulfo = sulfonylurea,
-    drug_oral_biguanide = biguanide,
-    drug_oral_glu = glu_inhib,
-    retina = reti, 
-    skin = derm, 
-    vessel = vesl, 
-    nerve = neur,
-    kidney = neph, 
-    depression = depress,
-    dmtime = quezhensj,
-    birthyear  = birth_year,
-    birthmon = birth_mon,
-    dmdatayear = rucu_year,
-    dmdatamon = rucu_mon,
-    dmdataage = rucuage,
-    drug_order = fuyaoqk) %>% 
-  mutate(
-    gender = factor(gender, labels = c("Male", "Female")),
-    district = as.factor(district),
-    glu_self_monitor = as.factor(celiangxtgl),
-    bmi_initial = weight_initial/(height/100)^2, 
-    bmi_average = weight_average/(height/100)^2, 
-    bmi_change = bmi_average - bmi_initial,
-    glu_change = glu_average - glu_initial,
-    tb = as.factor(ifelse(censer == 1, "No", "Yes")),
-    exercise = as.factor(exercise),
-    drug_oral_name  = case_when(drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "0" ~"sulfonylurea",
-                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "0" ~ "biguanide",
-                           drug_oral_glu == "1" & drug_oral_biguanide == "0" & drug_oral_sulfo == "0" ~ "glu_inhib",
-                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "0" ~"sulfonylurea&biguanide",
-                           drug_oral_biguanide == "1" & drug_oral_sulfo == "0" & drug_oral_glu == "1" ~ "biguanide&glu_inhib",
-                           drug_oral_sulfo == "1" & drug_oral_biguanide == "0" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib",
-                           drug_oral_sulfo == "1" & drug_oral_biguanide == "1" & drug_oral_glu == "1" ~"sulfonylurea&glu_inhib&biguanide",
-                           TRUE ~ "NA"),
-    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
-    retina = as.numeric(retina),
-    skin = as.numeric(skin),
-    vessel = as.numeric(vessel),
-    nerve = as.numeric(nerve),
-    kidney = as.numeric(kidney),
-    complications = retina + skin + vessel + nerve + kidney + depression,
-    complications = as.factor(complications),
-    drug_order = as.factor(drug_order)
-  )
-
-
-levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))
-
-levels(df_combine$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Changning" = 310105, "Jingan" = 310106, "Putuo" = 310107, "Zhabei" = 310108, "Hongkou" = 310109, "Yangpu" = 310110, "Minhang" = 310112, "Baoshan" = 310113,  "Pudong" = c(310115, 10119), "Jiading" = 310114, "Jinshan" = 310116, "Songjiang" = 310117, "Qingpu" = 310118, "Fengxian" = 310120, "Chongming" = 310230)
-
-levels(df_combine$glu_self_monitor) <- list("Yes" = 1, "No" = 2:3)
-
-save(df_combine,file = './data/df_combine.RData')
-```
 
 ### Explore the glucose and BMI distribution between male and female and tb status.
 

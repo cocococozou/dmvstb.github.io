@@ -11,6 +11,7 @@
 
 <meta name="author" content="Hanbo Qiu (hq2163)" />
 
+<meta name="date" content="2018-11-08" />
 
 <title>The Association Between Tuberculosis and glucose management, bmi and district distribution in diabetes</title>
 
@@ -236,78 +237,8 @@ $(document).ready(function () {
 </div>
 
 
-<div id="import-data" class="section level3">
-<h3>Import data:</h3>
-<pre class="r"><code>load(&quot;./data/dm.RData&quot;)</code></pre>
-<pre class="r"><code>df_combine = dm_base %&gt;% 
-  rename(
-    subject_id = JiBenCID,
-    glu_average = fastglu, 
-    weight_initial = tizhong_1st, 
-    weight_average = tizhong, 
-    height = ShenGao, 
-    glu_initial = kfxt_1st,
-    gender = xingbie,
-    district = GuanLiQX,
-    sys_pressure = Sbp,
-    dia_pressure = Dbp,
-    exercise_time = xiuxiansj,
-    exercise = xiuxiantl,
-    drug_insulin = insulin,
-    drug_oral_sulfo = sulfonylurea,
-    drug_oral_biguanide = biguanide,
-    drug_oral_glu = glu_inhib,
-    retina = reti, 
-    skin = derm, 
-    vessel = vesl, 
-    nerve = neur,
-    kidney = neph, 
-    depression = depress,
-    dmtime = quezhensj,
-    birthyear  = birth_year,
-    birthmon = birth_mon,
-    dmdatayear = rucu_year,
-    dmdatamon = rucu_mon,
-    dmdataage = rucuage,
-    drug_order = fuyaoqk) %&gt;% 
-  mutate(
-    gender = factor(gender, labels = c(&quot;Male&quot;, &quot;Female&quot;)),
-    district = as.factor(district),
-    glu_self_monitor = as.factor(celiangxtgl),
-    bmi_initial = weight_initial/(height/100)^2, 
-    bmi_average = weight_average/(height/100)^2, 
-    bmi_change = bmi_average - bmi_initial,
-    glu_change = glu_average - glu_initial,
-    tb = as.factor(ifelse(censer == 1, &quot;No&quot;, &quot;Yes&quot;)),
-    exercise = as.factor(exercise),
-    drug_oral_name  = case_when(drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&quot;,
-                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~ &quot;biguanide&quot;,
-                           drug_oral_glu == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_sulfo == &quot;0&quot; ~ &quot;glu_inhib&quot;,
-                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&amp;biguanide&quot;,
-                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~ &quot;biguanide&amp;glu_inhib&quot;,
-                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&quot;,
-                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&amp;biguanide&quot;,
-                           TRUE ~ &quot;NA&quot;),
-    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
-    retina = as.numeric(retina),
-    skin = as.numeric(skin),
-    vessel = as.numeric(vessel),
-    nerve = as.numeric(nerve),
-    kidney = as.numeric(kidney),
-    complications = retina + skin + vessel + nerve + kidney + depression,
-    complications = as.factor(complications),
-    drug_order = as.factor(drug_order)
-  )
-
-
-levels(df_combine$exercise) &lt;- list(&#39;1&#39; = 1,  &#39;2&#39; = 2, &#39;3&#39; = c(3,4))
-
-levels(df_combine$district) &lt;- list(&quot;Huangpu&quot; = 310101, &quot;Xuhui&quot; = 310104, &quot;Changning&quot; = 310105, &quot;Jingan&quot; = 310106, &quot;Putuo&quot; = 310107, &quot;Zhabei&quot; = 310108, &quot;Hongkou&quot; = 310109, &quot;Yangpu&quot; = 310110, &quot;Minhang&quot; = 310112, &quot;Baoshan&quot; = 310113,  &quot;Pudong&quot; = c(310115, 10119), &quot;Jiading&quot; = 310114, &quot;Jinshan&quot; = 310116, &quot;Songjiang&quot; = 310117, &quot;Qingpu&quot; = 310118, &quot;Fengxian&quot; = 310120, &quot;Chongming&quot; = 310230)
-
-levels(df_combine$glu_self_monitor) &lt;- list(&quot;Yes&quot; = 1, &quot;No&quot; = 2:3)
-
-save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
-</div>
+<p>###Import data:</p>
+<pre class="r"><code>load(&#39;./data/df_combine.Rdata&#39;)</code></pre>
 <div id="explore-the-glucose-and-bmi-distribution-between-male-and-female-and-tb-status." class="section level3">
 <h3>Explore the glucose and BMI distribution between male and female and tb status.</h3>
 <p>initial glucose distribution</p>
@@ -315,28 +246,28 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ggplot(aes(x = gender, y = glu_initial, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 15))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Since the range of initial glucose is quite large, we found median and quartiles are a little higher in tb patients than in non-tb.</p>
 <p>“average glucose” distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = glu_average, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits = c(0, 15))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>We found median and quartiles are higher in tb patients than in non-tb. Also the range of “average glucose” in follow-up periods for tb patients is wider.</p>
 <p>initial bmi distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = bmi_initial, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 40))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>We found median and quartiles are higher in non-tb patients than in tb.</p>
 <p>“average bmi” distribution</p>
 <pre class="r"><code>df_combine %&gt;% 
   ggplot(aes(x = gender, y = bmi_average, fill = tb)) +
   geom_boxplot() +
   scale_y_continuous(limits=c(0, 40))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>We found median and quartiles of “average bmi” in follow-up periods are higher in non-tb patients than in tb.</p>
 </div>
 <div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-in-urban-or-rural-areas" class="section level3">
@@ -365,7 +296,7 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   scale_y_continuous(limits=c(0, 2))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t do keeping all other variables fixed in urban or rural area.</p>
 </div>
 <div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-within-different-districts" class="section level3">
@@ -394,7 +325,7 @@ save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_y_continuous(limits=c(0, 4))</code></pre>
-<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t monitor glucose regularly keeping all other variables fixed.</p>
 </div>
 

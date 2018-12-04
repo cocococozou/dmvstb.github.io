@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Hanbo Qiu (hq2163)" />
+
+
+<title>The Association Between Tuberculosis and glucose management, bmi and district distribution in diabetes</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">about</a>
+</li>
+<li>
+  <a href="drugpart.html">Drug</a>
+</li>
+<li>
+  <a href="complications_DZ.html">Complications</a>
+</li>
+<li>
+  <a href="exercise.html">Exercise</a>
+</li>
+<li>
+  <a href="BMI,glucose_and_district.html">Glucose management/BMI</a>
+</li>
+<li>
+  <a href="geo_distribution_DZ.html">Maps</a>
+</li>
+<li>
+  <a href="https://dmvstb.shinyapps.io/survivalanalysis/">Cox Analysis</a>
+</li>
+<li>
+  <a href="mailto:&lt;zouxiaoke@hotmail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Association Between Tuberculosis and glucose management, bmi and district distribution in diabetes</h1>
+<h4 class="author"><em>Hanbo Qiu (hq2163)</em></h4>
+<h4 class="date"><em>November 8, 2018</em></h4>
+
+</div>
+
+
+<div id="import-data" class="section level3">
+<h3>Import data:</h3>
+<pre class="r"><code>load(&quot;./data/dm.RData&quot;)</code></pre>
+<pre class="r"><code>df_combine = dm_base %&gt;% 
+  rename(
+    subject_id = JiBenCID,
+    glu_average = fastglu, 
+    weight_initial = tizhong_1st, 
+    weight_average = tizhong, 
+    height = ShenGao, 
+    glu_initial = kfxt_1st,
+    gender = xingbie,
+    district = GuanLiQX,
+    sys_pressure = Sbp,
+    dia_pressure = Dbp,
+    exercise_time = xiuxiansj,
+    exercise = xiuxiantl,
+    drug_insulin = insulin,
+    drug_oral_sulfo = sulfonylurea,
+    drug_oral_biguanide = biguanide,
+    drug_oral_glu = glu_inhib,
+    retina = reti, 
+    skin = derm, 
+    vessel = vesl, 
+    nerve = neur,
+    kidney = neph, 
+    depression = depress,
+    dmtime = quezhensj,
+    birthyear  = birth_year,
+    birthmon = birth_mon,
+    dmdatayear = rucu_year,
+    dmdatamon = rucu_mon,
+    dmdataage = rucuage,
+    drug_order = fuyaoqk) %&gt;% 
+  mutate(
+    gender = factor(gender, labels = c(&quot;Male&quot;, &quot;Female&quot;)),
+    district = as.factor(district),
+    glu_self_monitor = as.factor(celiangxtgl),
+    bmi_initial = weight_initial/(height/100)^2, 
+    bmi_average = weight_average/(height/100)^2, 
+    bmi_change = bmi_average - bmi_initial,
+    glu_change = glu_average - glu_initial,
+    tb = as.factor(ifelse(censer == 1, &quot;No&quot;, &quot;Yes&quot;)),
+    exercise = as.factor(exercise),
+    drug_oral_name  = case_when(drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;0&quot; ~ &quot;biguanide&quot;,
+                           drug_oral_glu == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_sulfo == &quot;0&quot; ~ &quot;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;0&quot; ~&quot;sulfonylurea&amp;biguanide&quot;,
+                           drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_sulfo == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~ &quot;biguanide&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;0&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&quot;,
+                           drug_oral_sulfo == &quot;1&quot; &amp; drug_oral_biguanide == &quot;1&quot; &amp; drug_oral_glu == &quot;1&quot; ~&quot;sulfonylurea&amp;glu_inhib&amp;biguanide&quot;,
+                           TRUE ~ &quot;NA&quot;),
+    drug = drug_oral_biguanide + drug_oral_biguanide + drug_oral_glu + drug_insulin,
+    retina = as.numeric(retina),
+    skin = as.numeric(skin),
+    vessel = as.numeric(vessel),
+    nerve = as.numeric(nerve),
+    kidney = as.numeric(kidney),
+    complications = retina + skin + vessel + nerve + kidney + depression,
+    complications = as.factor(complications),
+    drug_order = as.factor(drug_order)
+  )
+
+
+levels(df_combine$exercise) &lt;- list(&#39;1&#39; = 1,  &#39;2&#39; = 2, &#39;3&#39; = c(3,4))
+
+levels(df_combine$district) &lt;- list(&quot;Huangpu&quot; = 310101, &quot;Xuhui&quot; = 310104, &quot;Changning&quot; = 310105, &quot;Jingan&quot; = 310106, &quot;Putuo&quot; = 310107, &quot;Zhabei&quot; = 310108, &quot;Hongkou&quot; = 310109, &quot;Yangpu&quot; = 310110, &quot;Minhang&quot; = 310112, &quot;Baoshan&quot; = 310113,  &quot;Pudong&quot; = c(310115, 10119), &quot;Jiading&quot; = 310114, &quot;Jinshan&quot; = 310116, &quot;Songjiang&quot; = 310117, &quot;Qingpu&quot; = 310118, &quot;Fengxian&quot; = 310120, &quot;Chongming&quot; = 310230)
+
+levels(df_combine$glu_self_monitor) &lt;- list(&quot;Yes&quot; = 1, &quot;No&quot; = 2:3)
+
+save(df_combine,file = &#39;./data/df_combine.RData&#39;)</code></pre>
+</div>
+<div id="explore-the-glucose-and-bmi-distribution-between-male-and-female-and-tb-status." class="section level3">
+<h3>Explore the glucose and BMI distribution between male and female and tb status.</h3>
+<p>initial glucose distribution</p>
+<pre class="r"><code>df_combine %&gt;% 
+  ggplot(aes(x = gender, y = glu_initial, fill = tb)) +
+  geom_boxplot() +
+  scale_y_continuous(limits=c(0, 15))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Since the range of initial glucose is quite large, we found median and quartiles are a little higher in tb patients than in non-tb.</p>
+<p>“average glucose” distribution</p>
+<pre class="r"><code>df_combine %&gt;% 
+  ggplot(aes(x = gender, y = glu_average, fill = tb)) +
+  geom_boxplot() +
+  scale_y_continuous(limits = c(0, 15))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>We found median and quartiles are higher in tb patients than in non-tb. Also the range of “average glucose” in follow-up periods for tb patients is wider.</p>
+<p>initial bmi distribution</p>
+<pre class="r"><code>df_combine %&gt;% 
+  ggplot(aes(x = gender, y = bmi_initial, fill = tb)) +
+  geom_boxplot() +
+  scale_y_continuous(limits=c(0, 40))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We found median and quartiles are higher in non-tb patients than in tb.</p>
+<p>“average bmi” distribution</p>
+<pre class="r"><code>df_combine %&gt;% 
+  ggplot(aes(x = gender, y = bmi_average, fill = tb)) +
+  geom_boxplot() +
+  scale_y_continuous(limits=c(0, 40))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We found median and quartiles of “average bmi” in follow-up periods are higher in non-tb patients than in tb.</p>
+</div>
+<div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-in-urban-or-rural-areas" class="section level3">
+<h3>Explore whether diabetes who regularly monitor glucose can reduce the risk of having tb in urban or rural areas</h3>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(urban_rural = as.factor(urban_rural)) %&gt;% 
+  filter(!is.na(urban_rural)) %&gt;% 
+  group_by(urban_rural) %&gt;% 
+  nest() %&gt;% 
+  mutate(models = map(data, ~glm(tb ~ gender + dmage + glu_self_monitor, data = .x, family = binomial())),
+         ci = map(.x=models, ~confint(.x)),
+         or = map(models, broom::tidy),
+         ci = map(ci, broom::tidy)) %&gt;% 
+  select(-data,-models) %&gt;% 
+  unnest() %&gt;% 
+  filter(term == &quot;glu_self_monitorNo&quot;) %&gt;% 
+  select(urban_rural, or = estimate, ci_low = &quot;X2.5..&quot;, ci_high = &quot;X97.5..&quot;) %&gt;% 
+  mutate(or = exp(or), ci_low = exp(ci_low), ci_high = exp(ci_high), urban_rural = fct_reorder(urban_rural, or)) %&gt;% 
+  ggplot(aes(x = urban_rural, y = or)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high)) +
+  labs(
+    title = &quot;The estimated ORs and CIs for district in Shanghai&quot;,
+    x = &quot;District&quot;,
+    y = &quot;The estimated ORs and CIs&quot;
+  ) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_y_continuous(limits=c(0, 2))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t do keeping all other variables fixed in urban or rural area.</p>
+</div>
+<div id="explore-whether-diabetes-who-regularly-monitor-glucose-can-reduce-the-risk-of-having-tb-within-different-districts" class="section level3">
+<h3>Explore whether diabetes who regularly monitor glucose can reduce the risk of having tb within different districts</h3>
+<pre class="r"><code>df_combine %&gt;% 
+  mutate(urban_rural = as.factor(urban_rural)) %&gt;% 
+  filter(!is.na(district), !district %in% c(&quot;Xuhui&quot;, &quot;Qingpu&quot;, &quot;Jiading&quot;)) %&gt;% 
+  group_by(district) %&gt;% 
+  nest() %&gt;% 
+  mutate(models = map(data, ~glm(tb ~ gender + dmage + glu_self_monitor, data = .x, family = binomial())),
+         ci = map(.x=models, ~confint(.x)),
+         or = map(models, broom::tidy),
+         ci = map(ci, broom::tidy)) %&gt;% 
+  select(-data,-models) %&gt;% 
+  unnest() %&gt;% 
+  filter(term == &quot;glu_self_monitorNo&quot;) %&gt;% 
+  select(district, or = estimate, ci_low = &quot;X2.5..&quot;, ci_high = &quot;X97.5..&quot;) %&gt;% 
+  mutate(or = exp(or), ci_low = exp(ci_low), ci_high = exp(ci_high), district = fct_reorder(district, or)) %&gt;% 
+  ggplot(aes(x = district, y = or)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high)) +
+  labs(
+    title = &quot;The estimated ORs and CIs for district in Shanghai&quot;,
+    x = &quot;District&quot;,
+    y = &quot;The estimated ORs and CIs&quot;
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(limits=c(0, 4))</code></pre>
+<p><img src="BMI,glucose_and_district_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don’t monitor glucose regularly keeping all other variables fixed.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -90,7 +90,7 @@ df_combine = dm_base %>%
     complications = as.factor(complications),
     drug_order = as.factor(drug_order)
   ) %>% 
-  select(-celiangxtgl, -`_COL19`, -ZhiYe, -GuanLiJD, -ZhuZhiQX, -ZhuZhiJD, -JianCaQX, -JianCaJD)
+  select( -`_COL19`, -ZhiYe, -GuanLiJD, -ZhuZhiQX, -ZhuZhiJD, -JianCaQX, -JianCaJD)
 
 
 levels(df_combine$exercise) <- list('1' = 1,  '2' = 2, '3' = c(3,4))

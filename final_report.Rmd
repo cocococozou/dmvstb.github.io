@@ -43,7 +43,7 @@ The planned questions include what’s the incident rate of TB and its associate
 
 ## Data Source and Data Cleaning
 
-```{r}
+```{r, warning = F, message = F}
 load('./dm.Rdata')
 df_raw = dm_base %>%   
   rename(subject_id = JiBenCID,  
@@ -60,7 +60,7 @@ levels(df_raw$exercise) <- list("Mild" = 1,  "Medium" = 2,'heavy'=c(3,4))
 ```
 
 
-```{r}
+```{r, warning = F, message = F}
 df_combine = dm_base %>% 
   rename(
     subject_id = JiBenCID,
@@ -139,8 +139,7 @@ After the first step of analysis of the data set, we decided to mainly focus on 
 
 ### Descriptive Statistics
 
-```{r}
-load('./data/df_combine.Rdata')
+```{r, warning = F, message = F}
 df_descrip = df_combine %>% 
   filter(district != "") %>% 
   mutate(tb = fct_recode(tb, '1'= 'Yes', '0'='No')) %>% 
@@ -176,7 +175,7 @@ With an average following-up period of `r mean(df_descrip$days)/365` year (range
 
 ### Glucose Management
 
-```{r warning=FALSE,message=FALSE,echo=FALSE}
+```{r, warning = F, message = F}
 df_combine %>% 
   mutate(urban_rural = as.factor(urban_rural)) %>% 
   filter(!is.na(district), !district %in% c("Xuhui", "Qingpu", "Jiading")) %>% 
@@ -208,7 +207,7 @@ We explored whether diabetes who regularly monitor glucose can reduce the risk o
 
 ### BMI 
 
-```{r warning=FALSE,message=FALSE,echo=FALSE}
+```{r, warning = F, message = F}
 df_combine %>% 
   ggplot(aes(x = gender, y = bmi_initial, fill = tb)) +
   geom_boxplot() +
@@ -219,7 +218,7 @@ We found median and quartiles are higher in non-tb patients than in tb.
 
 ### Drug Usage level
 
-```{r message=FALSE, echo=FALSE, warning=FALSE}
+```{r, warning = F, message = F}
 df_drug = df_combine %>% 
   select(contains("drug"),censer,urban_rural,dmage,gender) 
 
@@ -240,7 +239,7 @@ drug_model = df_drug %>%
 
 ```
 
-```{r message=FALSE, echo=FALSE, warning=FALSE}
+```{r, warning = F, message = F}
 
 plot_names_2 <- c("1" = "Urban", "2" = "Rural")
 
@@ -262,7 +261,7 @@ In the drug part analysis, we first analyze the drug usage distribution in diffe
 
 ### Complications Level
 
-```{r}
+```{r, warning = F, message = F}
 df_complication <- df_combine %>% 
   mutate(retina = as.numeric(retina),
          skin = as.numeric(skin),
@@ -270,18 +269,17 @@ df_complication <- df_combine %>%
          nerve = as.numeric(nerve),
          kidney = as.numeric(kidney)) %>% 
   mutate(complications = retina + skin + vessel + nerve + kidney + depression) %>%
-  mutate(complications = as.factor(complications))
+  mutate(complications = as.character(complications),
+         complications = fct_collapse(complications, none='0',one='1',more_than_two= as.character(c(2:6))))
+  
+
+df_com<- df_complication %>% 
+  group_by(complications) %>% 
+  summarise(Frequency = n())
 ```
 
-```{r}
-levels(df_complication$complications) <- list(none=0,one=1,more_than_two=c(2:6))
-freqtable <- table(df_complication$complications)
-df_com<- as.data.frame.table(freqtable) %>% 
-  rename(complications = Var1,
-         Frequence = Freq)
-knitr::kable(df_com)
-
-plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequence, fill=complications)) +
+```{r, warning = F, message = F}
+plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequency, fill=complications)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The Frequency of complications",
           x = "How many complications for diabetes patients",
@@ -299,7 +297,7 @@ plot_com2
 
 ### Daily Exercise Level
 
-```{r}
+```{r, warning = F, message = F}
 df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
@@ -307,7 +305,7 @@ df_exercise = df_combine %>%
 ```
 
 
-```{r}
+```{r, warning = F, message = F}
 plot_exer = ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The average exercise vs age",
@@ -441,7 +439,7 @@ choice=  sh_df %>% distinct(parameter) %>% pull()
 
 ### Cox Regression
 
-```{r}
+```{r, warning = F, message = F}
 df_cox <- df_combine %>% 
   mutate(age = 2018-as.numeric(birthyear)) %>% 
   mutate(complications = as.numeric(complications)) %>% 
@@ -451,14 +449,14 @@ cox <- coxph(Surv(days, censer) ~ complications+gender+exercise+age+drug, data =
 ```
 
 ##### The global test statistic is given by:
-```{r}
+```{r, warning = F, message = F}
 broom::glance(cox) %>%
   select(statistic.log,p.value.log,statistic.sc,p.value.sc,statistic.wald,p.value.wald,r.squared) %>% 
   knitr::kable(digits = 3)
 ```
 
 ##### The summary of Cox Regression 
-```{r}
+```{r, warning = F, message = F}
 
 broom::tidy(cox) %>% 
   mutate(exp_estimate = exp(estimate)) %>% 

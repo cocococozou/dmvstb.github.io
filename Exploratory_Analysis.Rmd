@@ -1,0 +1,134 @@
+---
+title: "Exploratory Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(plotly)
+library(survminer)
+library(survival)
+library(GGally)
+library(tmap)
+library(rgdal)
+library(maptools)
+library(rgeos)
+library(survivalAnalysis)
+load("./data/df_combine.RData")
+
+```
+
+<div style="margin-bottom:50px;">
+</div>
+
+# Exploratory plots {.tabset .tabset-fade .tabset-pills}
+
+<div style="margin-bottom:30px;">
+</div>
+
+## Analysis of Medication Intake
+
+<div style="margin-bottom:20px;">
+</div>
+
+```{r,message=FALSE,warning=F,echo=F}
+df_drug = df_combine %>% 
+  select(contains("drug"),censer,urban_rural,dmage,gender) 
+
+
+
+p2 <- df_drug %>% 
+  ggplot(aes(x = drug))+geom_histogram(color="black", fill="blue")+
+  facet_grid(~factor(gender)) + 
+  viridis::scale_fill_viridis(discrete = TRUE)+
+  theme_classic()+
+  labs(
+    x = "Drug Level"
+  )
+ggplotly(p2)
+```
+
+## Analysis of Complications
+```{r,warning=F, message=F,echo=F}
+df_complication <- df_combine %>% 
+  mutate(retina = as.numeric(retina),
+         skin = as.numeric(skin),
+         vessel = as.numeric(vessel),
+         nerve = as.numeric(nerve),
+         kidney = as.numeric(kidney)) %>% 
+  mutate(complications = retina + skin + vessel + nerve + kidney + depression) %>%
+  mutate(complications = as.character(complications),
+         complications = fct_collapse(complications, none='0',one='1',more_than_two= as.character(c(2:6))))
+  
+
+df_com<- df_complication %>% 
+  group_by(complications) %>% 
+  summarise(Frequency = n())
+
+plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequency, fill=complications)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The Frequency of complications",
+          x = "How many complications for diabetes patients",
+           y = "Frequency") +
+    theme(axis.title.x =  element_blank(),
+          axis.text.x  =  element_blank(), 
+          axis.title.y = element_text(face="bold", size=12),
+          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
+          legend.title = element_text(size=12, face="bold"),
+          legend.text = element_text(size = 12, face = "bold")))
+plot_com2
+```
+
+## Analysis of Exercise
+```{r,echo=F,warning=F}
+df_exercise = df_combine %>% 
+  mutate(exercise = as.numeric(exercise),
+         total_exercise = exercise * exercise_time,
+         gender = as.factor(gender))
+plot_exer <- ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
+    geom_histogram(stat = "identity", width = .6) +
+    labs(title="The average exercise vs age",
+         x = "age") +facet_wrap(~gender)
+ggplotly(plot_exer)
+```
+
+## Initial BMI
+```{r,echo=F,warning=F}
+df_combine %>% 
+  ggplot(aes(x = gender, y = glu_initial, fill = tb)) +
+  geom_boxplot() +
+  scale_y_continuous(limits=c(0, 15))
+```
+Since the range of initial glucose is quite large, we found median and quartiles are a little higher in tb patients than in non-tb.
+
+## Glucose Management
+```{r,message=F,echo=F,warning=F}
+df_combine %>% 
+  mutate(urban_rural = as.factor(urban_rural)) %>% 
+  filter(!is.na(district), !district %in% c("Xuhui", "Qingpu", "Jiading")) %>% 
+  group_by(district) %>% 
+  nest() %>% 
+  mutate(models = map(data, ~glm(tb ~ gender + dmage + glu_self_monitor, data = .x, family = binomial())),
+         ci = map(.x=models, ~confint(.x)),
+         or = map(models, broom::tidy),
+         ci = map(ci, broom::tidy)) %>% 
+  select(-data,-models) %>% 
+  unnest() %>% 
+  filter(term == "glu_self_monitorNo") %>% 
+  select(district, or = estimate, ci_low = "X2.5..", ci_high = "X97.5..") %>% 
+  mutate(or = exp(or), ci_low = exp(ci_low), ci_high = exp(ci_high), district = fct_reorder(district, or)) %>% 
+  ggplot(aes(x = district, y = or)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high)) +
+  labs(
+    title = "The estimated ORs and CIs for district in Shanghai",
+    x = "District",
+    y = "The estimated ORs and CIs"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(limits=c(0, 4))
+```
+
+For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don't monitor glucose regularly keeping all other variables fixed. The results show Huangpu district has the highest OR and Baoshan district has the lowest OR.
+

@@ -19,6 +19,9 @@ knitr::opts_chunk$set(
   out.width = "80%"
 )
 
+library("htmltools")
+library("vembedr")
+
 ```
 
 
@@ -35,4 +38,10 @@ Someone write something here lol
 
 
 ### What have we found? 
+
+```{r echo=FALSE}
+embed_url("https://www.youtube.com/watch?v=pD03ZKy_cmM")
+```
+
+
 

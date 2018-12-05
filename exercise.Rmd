@@ -1,7 +1,5 @@
 ---
-title: "exercise"
-author: "Rui Huang"
-date: "November 14, 2018"
+title: "Exercise"
 output: html_document
 ---
 
@@ -19,16 +17,14 @@ library(rgeos)
 library(survivalAnalysis)
 ```
 
-### Download data
 
-```{r}
+```{r, message=F, warning=F, echo=F}
+# Download data
 load('./data/df_combine.Rdata')
 ```
 
 
-### Incidence
-
-```{r}
+```{r, message=F, warning=F, echo=F}
 df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
@@ -36,7 +32,8 @@ df_exercise = df_combine %>%
 ```
 
 
-```{r}
+```{r, message=F, warning=F, echo=F}
+# Incidence
 df_incidence  <- df_exercise %>% 
   mutate(tb = fct_recode(tb, '1'= 'Yes', '0'='No')) %>% 
   mutate(tb=as.character(tb),
@@ -49,7 +46,7 @@ df_incidence  <- df_exercise %>%
 
 ### K-M plot for different exercise people
 
-```{r}
+```{r, message=F, warning=F, echo=F}
 df_exercise = df_exercise %>% 
   inner_join(df_incidence, by = "total_exercise")
 
@@ -70,10 +67,10 @@ plotly::ggplotly(plot_exercise_time)
 The plot shows that people with lower exercise level have higher probability of getting TB, which show that exercise is important to preventing TB. However, people with over 2 hours exercise time have higher probability of getting TB. That may be because that people spending more time on exercise have more probability touching other people and getting infection.
 
 
-### Show exercise difference between gender
+### Show exercise difference among gender and age
 
 
-```{r}
+```{r, message=F, warning=F, echo=F}
 plot_exer<-ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The average exercise vs age",
@@ -94,7 +91,7 @@ Average exercise of female is slightly higher than male.
 ### map
 
 
-```{r}
+```{r, message=F, warning=F, echo=F}
 x = df_exercise %>% 
   group_by(district) %>% 
   summarise(exercise_sum = sum(total_exercise)) %>% 
@@ -103,7 +100,7 @@ x = df_exercise %>%
 levels(x$district) <- list("Huangpu" = 310101, "Xuhui" = 310104, "Changning" = c(310105, 310106), "Putuo" = 310107, "Zhabei" = 310108, "Hongkou" = 310109, "Yangpu" = 310110, "Minhang" = 310112, "Baoshan" = 310113,  "Pudong" = c(310115, 310119), "Jiading" = 310114, "Jinshan" = 310116, "Songjiang" = 310117, "Qingpu" = 310118, "Fengxian" = 310120, "Chongming" = 310230)
 ```
 
-```{r}
+```{r, message=F, warning=F, echo=F}
 sh <- readOGR('./data/shanghai_shapefile/shang_dis_merged.shp',verbose = F)
 ##Translating and Adding two missing two districts
 sh@data <- sh@data %>% 
@@ -128,7 +125,7 @@ sh@data <- sh@data %>%
 
 ```
 
-```{r}
+```{r, message=F, warning=F, echo=F}
 sh$exercise_sum <- x$exercise_sum
 
 qtm(sh, fill = "exercise_sum")

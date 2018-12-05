@@ -5,14 +5,8 @@ navbar:
   right:
     - text: "About"
       href: about.html
-    - text: "Drug"
-      href: drugpart.html
-    - text: "Complications"
-      href: complications_DZ.html
-    - text: "Exercise"
-      href: exercise.html
-    - text: "Glucose"
-      href: BMI_glucose_district.html
+    - text: "Exploratory Analysis"
+      href: Exploratory_Analysis.html
     - text: "Maps"
       href: https://danazenggg-p8105.shinyapps.io/geo_analysis_goodtogo/
     - text: "Cox Analysis"

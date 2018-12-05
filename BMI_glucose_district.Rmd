@@ -1,6 +1,6 @@
 ---
 title: "The Association Between Tuberculosis and glucose management, bmi and district distribution in diabetes"
-output: github_document
+output: html_document
 ---
 
 ```{r setup,include=FALSE,warning=FALSE,message=FALSE,echo=FALSE}

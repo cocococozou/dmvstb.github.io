@@ -1,6 +1,5 @@
 ---
 title: "Complications"
-date: "December 06, 2018"
 output: html_document
 ---
 
@@ -16,9 +15,9 @@ library(plotly)
 
 
 ```{r, warning=FALSE, echo=FALSE}
-load('./dm.Rdata')
-df <- dm_base %>% 
-  rename(retina = reti, skin = derm, vessel = vesl, nerve = neur,kidney = neph, depression = depress, gender = xingbie ) %>%
+load('./data/df_combine.Rdata')
+
+df <- df_combine %>% 
   mutate(retina = as.numeric(retina),
          skin = as.numeric(skin),
          vessel = as.numeric(vessel),
@@ -61,8 +60,9 @@ plot_skin<-ggplotly(ggplot(df, aes(x = dmage, y = skin, colour=dmage)) +
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold"))+
     facet_wrap(~gender))
-  
-ggplotly(plot_skin)
+
+plot_skin
+
 
 ```
 
@@ -79,7 +79,8 @@ plot_vess<-ggplotly(ggplot(df, aes(x = dmage, y = vessel, colour=dmage)) +
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold"))+
           facet_wrap(~gender))
-ggplotly(plot_vess)
+
+plot_vess
 ```
 
 
@@ -95,7 +96,8 @@ plot_nerve<-ggplotly(ggplot(df, aes(x = dmage, y = nerve, colour=dmage)) +
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold"))+
           facet_wrap(~gender))
-ggplotly(plot_nerve)
+
+plot_nerve
 ```
 
 
@@ -112,8 +114,8 @@ plot_kidney<-ggplotly(ggplot(df, aes(x = dmage, y = kidney, colour=dmage)) +
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold"))+
           facet_wrap(~gender))
-ggplotly(plot_kidney)
 
+plot_kidney
 ```
 
 
@@ -129,7 +131,8 @@ plot_depress<-ggplotly(ggplot(df, aes(x = dmage, y =depression, colour=dmage)) +
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold"))+
     facet_wrap(~gender))
-ggplotly(plot_depress)
+
+plot_depress
 ```
 
 
@@ -152,5 +155,8 @@ plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Freq, fill=complic
           legend.title = element_text(size=12, face="bold"),
           legend.text = element_text(size = 12, face = "bold")))
 plot_com2
+
+
 ```
+
 

@@ -22,7 +22,7 @@ load("./data/df_combine.RData")
 <div style="margin-bottom:50px;">
 </div>
 
-# Exploratory plots {.tabset .tabset-fade .tabset-pills}
+# Different Risk Factors {.tabset .tabset-fade .tabset-pills}
 
 <div style="margin-bottom:30px;">
 </div>

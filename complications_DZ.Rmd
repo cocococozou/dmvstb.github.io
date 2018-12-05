@@ -17,7 +17,7 @@ library(plotly)
 ```{r, warning=FALSE, echo=FALSE}
 load('./data/df_combine.Rdata')
 
-df <- df_combine %>% 
+df_complication <- df_combine %>% 
   mutate(retina = as.numeric(retina),
          skin = as.numeric(skin),
          vessel = as.numeric(vessel),
@@ -30,7 +30,7 @@ df <- df_combine %>%
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_ret<-ggplotly(ggplot(df, aes(x = dmage, y = retina, colour=dmage)) +
+plot_ret<-ggplotly(ggplot(df_complication, aes(x = dmage, y = retina, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of retina with diabetes age",
          x = "dmage") +
@@ -49,7 +49,7 @@ plot_ret
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE, collapse = TRUE}
 
-plot_skin<-ggplotly(ggplot(df, aes(x = dmage, y = skin, colour=dmage)) +
+plot_skin<-ggplotly(ggplot(df_complication, aes(x = dmage, y = skin, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of Skin with diabetes age",
          x = "dmage") +
@@ -68,7 +68,7 @@ plot_skin
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_vess<-ggplotly(ggplot(df, aes(x = dmage, y = vessel, colour=dmage)) +
+plot_vess<-ggplotly(ggplot(df_complication, aes(x = dmage, y = vessel, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of vessel with diabetes age",
          x = "dmage") +
@@ -85,7 +85,7 @@ plot_vess
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_nerve<-ggplotly(ggplot(df, aes(x = dmage, y = nerve, colour=dmage)) +
+plot_nerve<-ggplotly(ggplot(df_complication, aes(x = dmage, y = nerve, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of Nerve with diabetes age",
          x = "dmage") +
@@ -103,7 +103,7 @@ plot_nerve
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
-plot_kidney<-ggplotly(ggplot(df, aes(x = dmage, y = kidney, colour=dmage)) +
+plot_kidney<-ggplotly(ggplot(df_complication, aes(x = dmage, y = kidney, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of kidney with diabetes age",
          x = "dmage") +
@@ -120,7 +120,7 @@ plot_kidney
 
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-plot_depress<-ggplotly(ggplot(df, aes(x = dmage, y =depression, colour=dmage)) +
+plot_depress<-ggplotly(ggplot(df_complication, aes(x = dmage, y =depression, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The complication of Depression with diabetes age",
          x = "dmage") +
@@ -136,14 +136,17 @@ plot_depress
 ```
 
 
+
+
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
-levels(df$complications) <- list(none=0,one=1,more_than_two=c(2:6))
-freqtable <- table(df$complications)
+levels(df_complication$complications) <- list(none=0,one=1,more_than_two=c(2:6))
+freqtable <- table(df_complication$complications)
 df_com<- as.data.frame.table(freqtable) %>% 
-  rename(complications = Var1)
+  rename(complications = Var1,
+         Frequence = Freq)
 knitr::kable(df_com)
 
-plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Freq, fill=complications)) +
+plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequence, fill=complications)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The Frequency of complications",
           x = "How many complications for diabetes patients",

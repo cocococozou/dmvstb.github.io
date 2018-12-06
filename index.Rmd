@@ -39,23 +39,30 @@ After cleaning our database, we mainly focused on four main risk factors: diabet
 
 ### What have we found? 
 
+<img src="./image/cox.png" style="width:52%"><img src="./image/KM.png" style="width:43%">
+
+We estimated the incidence rate of TB within following-up period for different gender and found that male diabetes had a higher risk of TB. We also found the factors including the diagnosis age of diabetes, BMI, exercise, drug taking would also affact the risk of TB. Also, there was a clear separation of Kaplan–Meier survival
+curves which showed that people does not taking medicines have a higher probability of being infected with .
+
+
+### Screen Cast
+
+
 ```{r echo=FALSE}
 embed_url("https://www.youtube.com/watch?v=pD03ZKy_cmM")
 ```
 
-We estimated the incidence rate of TB within following-up period for different gender and found that male diabetes had a higher risk of TB. We also found the factors including the diagnosis age of diabetes, BMI, exercise, drug taking would affact the risk of TB when stratified by gender and district. Interestingly, those people who are compliant with home blood glucose monitoring might have a lower TB incidence. Also, there was a clear separation of Kaplan–Meier survival
-curves which proved men had a higher probability of being infected
-with TB than women.
 
-<p style="text-align: center;"> <img src="image/endtb.png" style="width:20%"> </p>
 
 ***
 
 #### Relevant Links: 
 
-[Data Source](https://drive.google.com/open?id=1GPXa4-lAR7s1kYu0m6uMAxWKNmOVekh-) | [Data Discription](VariableDictionary.html) | [Final Report] | [Screen Cast](https://www.youtube.com/watch?v=pD03ZKy_cmM) 
+[Data Source](https://drive.google.com/open?id=1GPXa4-lAR7s1kYu0m6uMAxWKNmOVekh-) | [Data Discription](VariableDictionary.html) | [Final Report](https://github.com/danazenggg/shiny/blob/master/Final_Report.md) | [Screen Cast](https://www.youtube.com/watch?v=pD03ZKy_cmM) 
 
 #### Contact Us:
 [Annie Yu](mailto:xy2404@cumc.columbia.edu) | [Coco Zou](mailto:xz2809@cumc.columbia.edu) | [Dana Zeng](mailto:dz2399@cumc.columbia.edu) | [Hanbo Qiu](mailto:hq2103@cumc.columbia.edu) | [Rui Huang](mailto:rh2916@cumc.columbia.edu) 
 
 ***
+
+<p style="text-align: center;"> <img src="image/endtb.png" style="width:20%"> </p>

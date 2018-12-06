@@ -11,8 +11,6 @@ navbar:
       href: https://danazenggg-p8105.shinyapps.io/geo_analysis_goodtogo/
     - text: "KM Analysis"
       href: https://dmvstb.shinyapps.io/survivalanalysis/
-    - icon: fa-envelope fa-lg
-      href: mailto:zouxiaoke@hotmail.com
     - icon: fa-youtube fa-lg
       href: https://www.youtube.com/watch?v=pD03ZKy_cmM
     - icon: fa-github fa-lg

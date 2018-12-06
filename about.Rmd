@@ -38,7 +38,28 @@ The Cox regression was fitted with covariates of complications, daily exercise l
 
 >###Main Results
 
-With an average following-up period of 3.8 year (range: 0 to 10.96 years), 785 TB cases were recorded among 170 381 T2DM patients from 654 977 person-years follow-up. The incident rate of TB was 168.29 per 100 000 person-years for men, and 38.54 per 100 000 person-years for women. 
+```{r, warning = F, message = F, echo=F}
+library(tidyverse)
+load('./data/df_combine.Rdata')
+
+df_descrip = df_combine %>% 
+  filter(district != "") %>% 
+  mutate(tb = fct_recode(tb, '1'= 'Yes', '0'='No')) %>% 
+  mutate(tb=as.character(tb),
+         tb=as.numeric(tb)) 
+
+# male incidence
+df_male = df_descrip %>% filter(gender == 'Male')
+male_incidence = sum(df_male$tb)/(sum(df_male$days)/365)
+
+# female incidence
+df_female = df_descrip %>% filter(gender == 'Female')
+female_incidence = sum(df_female$tb)/(sum(df_female$days)/365)
+
+```
+
+
+With an average following-up period of `r (mean(df_descrip$days)/365) %>% round(3)` year , `r (sum(df_descrip$tb)) %>% round(3)` TB cases were recorded among `r nrow(df_descrip)` T2DM patients from `r (sum(df_descrip$days)/365) %>% round(3)` person-years follow-up. The incident rate of TB was `r (100000*(sum(df_male$tb)/(sum(df_male$days)/365))) %>% round(3)` per 100 000 person-years for men, and `r (100000*(sum(df_female$tb)/(sum(df_female$days)/365))) %>% round(3)` per 100 000 person-years for women.
      
 For Kaplan-Meier survival curves, gender and drug taking have effects on the probability of getting TB while exercise and complication have no significant effect. 
 

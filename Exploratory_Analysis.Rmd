@@ -44,10 +44,13 @@ p2 <- df_drug %>%
   viridis::scale_fill_viridis(discrete = TRUE)+
   theme_classic()+
   labs(
-    x = "Drug Level"
+    x = "Drug Level",
+    y = "Number of People"
   )
 ggplotly(p2)
 ```
+
+The plot is showing that among all the people with Type II diabetes, Females are more likely to following medical orders to take medicines. The x axis shows the kinds of medicine that drug using, while y axis is the number of people. 
 
 ## Analysis of Complications
 ```{r,warning=F, message=F,echo=F}
@@ -76,11 +79,15 @@ plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequency, fill=co
           axis.title.y = element_text(face="bold", size=12),
           axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
           legend.title = element_text(size=12, face="bold"),
-          legend.text = element_text(size = 12, face = "bold")))
+          legend.text = element_text(size = 12, face = "bold"))+
+      theme_classic())
 plot_com2
 ```
 
+This plot shows the distribution of number of complications among poeple with Type II Diabetes. The Y axis shows that Frequency while X axis shows the number of complications that each sample has. We could see that most of the people does not have complications at all and only a few percent of Type II Diabetes carry more than two complications. 
+
 ## Analysis of Exercise
+
 ```{r,echo=F,warning=F}
 df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
@@ -89,20 +96,33 @@ df_exercise = df_combine %>%
 plot_exer <- ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
     labs(title="The average exercise vs age",
-         x = "age") +facet_wrap(~gender)
+         x = "age") +facet_wrap(~gender)+
+  theme_classic()+
+  labs(
+    y = "Exercise Level"
+  )
 ggplotly(plot_exer)
 ```
 
+This plots shows the distribution of exercise amount among different ages. The exercise Level reaches 
+
 ## Initial BMI
+
 ```{r,echo=F,warning=F}
 df_combine %>% 
   ggplot(aes(x = gender, y = glu_initial, fill = tb)) +
   geom_boxplot() +
-  scale_y_continuous(limits=c(0, 15))
+  scale_y_continuous(limits=c(0, 15)) +
+  theme_classic()+
+  labs(
+    y = "Initial Glucose Level"
+  )
 ```
-Since the range of initial glucose is quite large, we found median and quartiles are a little higher in tb patients than in non-tb.
+
+This plots shows the range of initial glucose level of different genders. The red box represents the individuals without tuberculosis while the green box represents the ones who have the disease. The median and the third quartiles of the initial glucose level are higher in TB individuals than those of samples without TB.
 
 ## Glucose Management
+
 ```{r,message=F,echo=F,warning=F}
 df_combine %>% 
   mutate(urban_rural = as.factor(urban_rural)) %>% 
@@ -127,7 +147,8 @@ df_combine %>%
     y = "The estimated ORs and CIs"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(limits=c(0, 4))
+  scale_y_continuous(limits=c(0, 4))+
+  theme_classic()
 ```
 
 For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don't monitor glucose regularly keeping all other variables fixed. The results show Huangpu district has the highest OR and Baoshan district has the lowest OR.

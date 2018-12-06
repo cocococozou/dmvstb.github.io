@@ -231,35 +231,34 @@ $(document).ready(function () {
 
 
 <blockquote>
-<p>###Introduction</p>
+<h3 id="introduction">Introduction</h3>
 </blockquote>
 <p>Diabetes mellitus (DM) has been developed to the most urgent global challenge, which is a life-long disease that prevents your body from properly using the energy from the food you eat. The type II diabete affects the ability of production of insulin secretion by pancreas. People with diabetes are confering a higher risk for developing infections which is mycobacterium tuberculosis (TB) infection. TB is also called contagious infection because of it attacks the lungs. It spreads through cold or the flu, like some TB patients whose coughs, sneezes or taking with other healthy people, it has higher probability to get infected. In China, it developed to the major public health problem becasue there were 1.56 million new TB cases and 51.52 thousand people death in 2015[10].</p>
 <p style="text-align: center;">
 <img src="image/prevelance.jpg" style="width:100%">
 </p>
-<p>The planned questions include what’s the incident rate of TB and its associates among adults with type 2 diabetes in Shanghai, China between 2004-2014, and geographical distribution of TB infection among these specific populations. We intend to explore which variables might affect the TB incidence in people with type 2 diabetes. The potential factors would conclude gender, sociodemographic factor (i.e. age at diagnosis of T2D), clinical parameters (BMI, fasting glucose), complications of T2D, choice of antidiabetic medication, mode of exercises and geographical location. Most of these questions were answered in our project. Over the course of the project, we found it’s necessary to further analyze their interaction, like analyzing exercises distribution and glucose management odds ratios in different districts. Also, we come up with a new question that we might further explore the multilevel analysis on TB cases if more data is accessible. For example, we can analyze the individual, street and district levels respectively to check whether there is any difference in influencing the number of TB cases.</p>
+<p>The planned questions include what’s the incident rate of TB among people type 2 diabetes in Shanghai, China between 2004-2014, and geographical distribution of TB infection among these specific populations. We intend to explore which variables might affect the TB incidence in people with type 2 diabetes. The potential factors would conclude gender, sociodemographic factor (i.e. age at diagnosis of T2D), clinical parameters (BMI, fasting glucose), complications of T2D, choice of antidiabetic medication, mode of exercises and geographical location. Most of these questions were answered in our project. Over the course of the project, we found it’s necessary to further analyze their interaction, like analyzing exercises distribution and glucose management odds ratios in different districts. Also, we come up with a new question that we might further explore the multilevel analysis on TB cases if more data is accessible. For example, we can analyze the individual, street and district levels respectively to check whether there is any difference in influencing the number of TB cases.</p>
 <p>Therefore, we would like to explore the incidence rate of TB among people with Type II diabetes and what potential risk factors contribute to this comorbidity, and hopefully, provide recommendations to control or decrease the prevalence of TB among people with Type II diabetes in China.</p>
 <blockquote>
-<p>###Data Sources</p>
+<h3 id="data-sources">Data Sources</h3>
 </blockquote>
 <p>The diabetes data was from the Shanghai community-based diabetes management system (SCDMS), which was a diabetes register system operated by the Shanghai Municipal Centers for Disease Control and Prevention (Shanghai-CDC).</p>
 <p>Tuberculosis data was from Shanghai Municipal TB Surveillance System (SMTSS).</p>
 <p>We obtained the administrative map from the ArcGIS website, with the link: <a href="https://www.arcgis.com/home/item.html?id=105f92bd1fe54d428bea35eade65691b" class="uri">https://www.arcgis.com/home/item.html?id=105f92bd1fe54d428bea35eade65691b</a>,</p>
 <blockquote>
-<p>###Statistical analyses</p>
+<h3 id="statistical-analyses">Statistical analyses</h3>
 </blockquote>
-<p>We explore some variables including drugs, the age of diagnosis of diabetes, BMI and glucose, stratified by gender and geographical areas. Make some discription of distribution of these variables among tuberculosis cases and non-tuberculosis cases.</p>
-<p>After the first step of analysis of the data set, we decided to mainly focus on four main risk factors: glucose level, drug usage level, complications level, and daily exercise level. When doing the analysis, for each risk factors, we looked for the different distributions of different levels by gender, by district, and by age. Because we are investigating the incidence of tuberculosis among Type II diabetes patients, we also analyzed the odds of tuberculosis in different levels of risk factors. We have explored histograms, density plot and odds ratio comparing plot to analyze different distributions.</p>
+<p>At the beginning of the cleaning data, we renamed some variable names and deleted some useless variables to tidy this dataset. After the first step of analysis of the data set, we decided to mainly focus on four main risk factors: glucose level, drug usage level, complications level, and daily exercise level. When doing the analysis, for each risk factors, we looked for the different distributions of different levels by gender, by district, and by age. Because we are investigating the incidence of tuberculosis among Type II diabetes patients, we also analyzed the odds of tuberculosis in different levels of risk factors. We have explored histograms, density plot and odds ratio comparing plot to analyze different distributions.</p>
 <p>We also did additional analysis, like Cox regression, Survival analysis and Geo analysis.</p>
 <p>The Cox regression was fitted with covariates of complications, daily exercise level, drug taking, and gender. Using the P-value to indicate whether the model is significant or not. The survial analysis could visualize how different risk factors affect the time of getting TB among people with Type II diabetes. The K-M survial curve are shown on the website. The Geo analytics could display the magitude for each parameter, which shows the living area for patients recorded to the datasets.</p>
 <blockquote>
-<p>###Main Results</p>
+<h3 id="main-results">Main Results</h3>
 </blockquote>
 <p>With an average following-up period of 3.844 year , 785 TB cases were recorded among 170377 T2DM patients from 6.549486510^{5} person-years follow-up. The incident rate of TB was 224.207 per 100 000 person-years for men, and 51.345 per 100 000 person-years for women.</p>
 <p>For Kaplan-Meier survival curves, gender and drug taking have effects on the probability of getting TB while exercise and complication have no significant effect.</p>
 <p>We have calculated the incidence of TB, estimate and confidence interval of the adjusted odds ratio for people with diabetes and TB who regularly monitor glucose to those comparing with people without when we keeped all other variables fixed for each district in Shanghai. The results of odds ratio in different level of drugs is shown on the website.</p>
 <blockquote>
-<p>###Referrence</p>
+<h3 id="referrence">Referrence</h3>
 </blockquote>
 <ol style="list-style-type: decimal">
 <li><p>Chen, L., Magliano, D. J., &amp; Zimmet, P. Z. (2012). The worldwide epidemiology of type 2 diabetes mellitus–present and future perspectives. <em>Nature Reviews Endocrinology, 8</em>(4), 228-236. <a href="https://doi.org/10.1038/nrendo.2011.183">doi:10.1038/nrendo.2011.183</a></p></li>

@@ -29,6 +29,7 @@ df_complication <- df_combine %>%
 ```
 
 
+
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 plot_ret<-ggplotly(ggplot(df_complication, aes(x = dmage, y = retina, colour=dmage)) +
     geom_histogram(stat = "identity", width = .6) +
@@ -159,6 +160,13 @@ plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequence, fill=co
           legend.text = element_text(size = 12, face = "bold")))
 plot_com2
 
+
+```
+
+```{r}
+ggplot(df_complication, aes(x = complications, y = dmage, hue = gender)) + 
+  geom_violin(aes(fill = gender), color = "blue", alpha = .5) + 
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4)
 
 ```
 

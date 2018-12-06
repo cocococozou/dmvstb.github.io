@@ -65,23 +65,9 @@ df_complication <- df_combine %>%
          complications = fct_collapse(complications, none='0',one='1',more_than_two= as.character(c(2:6))))
   
 
-df_com<- df_complication %>% 
-  group_by(complications) %>% 
-  summarise(Frequency = n())
-
-plot_com2<-ggplotly(ggplot(df_com, aes(x = complications, y = Frequency, fill=complications)) +
-    geom_histogram(stat = "identity", width = .6) +
-    labs(title="The Frequency of complications",
-          x = "How many complications for diabetes patients",
-           y = "Frequency") +
-    theme(axis.title.x =  element_blank(),
-          axis.text.x  =  element_blank(), 
-          axis.title.y = element_text(face="bold", size=12),
-          axis.text.y  = element_text(angle=0, vjust=0.5, size=10),
-          legend.title = element_text(size=12, face="bold"),
-          legend.text = element_text(size = 12, face = "bold"))+
-      theme_classic())
-plot_com2
+ggplot(df_complication, aes(x = complications, y = dmage, hue = gender)) + 
+  geom_violin(aes(fill = gender), color = "blue", alpha = .5) + 
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4)
 ```
 
 This plot shows the distribution of number of complications among poeple with Type II Diabetes. The Y axis shows that Frequency while X axis shows the number of complications that each sample has. We could see that most of the people does not have complications at all and only a few percent of Type II Diabetes carry more than two complications. 

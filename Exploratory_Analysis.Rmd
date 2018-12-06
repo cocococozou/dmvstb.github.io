@@ -92,16 +92,21 @@ This plot shows the distribution of number of complications among poeple with Ty
 df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
-         gender = as.factor(gender))
-plot_exer <- ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
-    geom_histogram(stat = "identity", width = .6) +
+         gender = as.factor(gender),
+         urban_rural = ifelse(urban_rural== 1, "Urban", "Rural"))
+
+plot_exer = df_exercise %>% 
+  group_by(gender, urban_rural, dmage) %>% 
+  summarize(total_exercise = mean(total_exercise)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = dmage, y =total_exercise, color=urban_rural)) +
+    geom_line() +
     labs(title="The average exercise vs age",
-         x = "age") +facet_wrap(~gender)+
-  theme_classic()+
-  labs(
-    y = "Exercise Level"
-  )
-ggplotly(plot_exer)
+         x = "Age",
+         y = "Exercise")+
+  theme_classic() 
+
+ggplotly(plot_exer) 
 ```
 
 This plots shows the distribution of exercise amount among different ages. The exercise Level reaches 

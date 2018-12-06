@@ -71,11 +71,20 @@ The plot shows that people with lower exercise level have higher probability of 
 
 
 ```{r, message=F, warning=F, echo=F}
-plot_exer = ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
-    geom_histogram(stat = "identity", width = .6) +
+df_exercise$urban_rural <- ifelse(df_exercise$urban_rural== 1, "Urban", "Rural")
+
+plot_exer = df_exercise %>% 
+  group_by(gender, urban_rural, dmage) %>% 
+  summarize(total_exercise = mean(total_exercise)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = dmage, y =total_exercise, color=urban_rural)) +
+    geom_line() +
     labs(title="The average exercise vs age",
-         x = "age") +facet_wrap(~gender)
-ggplotly(plot_exer)
+         x = "Age",
+         y = "Exercise")+
+  theme_classic() 
+
+ggplotly(plot_exer) 
 
 
 box_exercise = df_exercise %>% 

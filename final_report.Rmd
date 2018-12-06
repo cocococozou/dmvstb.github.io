@@ -301,16 +301,24 @@ plot_com2
 df_exercise = df_combine %>% 
   mutate(exercise = as.numeric(exercise),
          total_exercise = exercise * exercise_time,
-         gender = as.factor(gender))
+         gender = as.factor(gender),
+         urban_rural = ifelse(urban_rural== 1, "Urban", "Rural"))
 ```
 
 
 ```{r, warning = F, message = F}
-plot_exer = ggplot(df_exercise, aes(x = dmage, y =total_exercise, colour=dmage)) +
-    geom_histogram(stat = "identity", width = .6) +
+plot_exer = df_exercise %>% 
+  group_by(gender, urban_rural, dmage) %>% 
+  summarize(total_exercise = mean(total_exercise)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = dmage, y =total_exercise, color=urban_rural)) +
+    geom_line() +
     labs(title="The average exercise vs age",
-         x = "age") +facet_wrap(~gender)
-ggplotly(plot_exer)
+         x = "Age",
+         y = "Exercise")+
+  theme_classic() 
+
+ggplotly(plot_exer) 
 ```
 
 We compare the average exercise level between gender, age distribution and TB status and find that the average exercise level for females is slightly higher than male. Exercise level is highest in Nanhui District.  As age increases, the average exercise level increases first then decreases. From the boxplot, participants who develop TB have slightly lower average exercise level than those who did not develop TB, however, it cannot be represented in the K-M curve. 

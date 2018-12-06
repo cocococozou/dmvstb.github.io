@@ -1,0 +1,15 @@
+---
+title: "Variable Dictionary"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r, echo=FALSE}
+variable_dic <- readxl::read_xlsx('./data/Variables names.xlsx')
+knitr::kable(variable_dic)
+```
+

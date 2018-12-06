@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Variable Dictionary</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="Exploratory_Analysis.html">Exploratory Analysis</a>
+</li>
+<li>
+  <a href="https://danazenggg-p8105.shinyapps.io/geo_analysis_goodtogo/">Maps</a>
+</li>
+<li>
+  <a href="https://dmvstb.shinyapps.io/survivalanalysis/">KM Analysis</a>
+</li>
+<li>
+  <a href="mailto:zouxiaoke@hotmail.com">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.youtube.com/watch?v=pD03ZKy_cmM">
+    <span class="fa fa-youtube fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/cocococozou/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Variable Dictionary</h1>
+
+</div>
+
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable Name</th>
+<th align="left">Unit</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">subject_id</td>
+<td align="left">NA</td>
+<td align="left">patient’s ID</td>
+</tr>
+<tr class="even">
+<td align="left">retina</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - retinopathy; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="odd">
+<td align="left">skin</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - Skin infections; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="even">
+<td align="left">vessel</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - Vascular lesions; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="odd">
+<td align="left">nerve</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - Neuropathy; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="even">
+<td align="left">kidney</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - Renal lesions; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="odd">
+<td align="left">depression</td>
+<td align="left">NA</td>
+<td align="left">Diabetic complications - Depression; 1= Has this complication; 0 = don’t have this complication</td>
+</tr>
+<tr class="even">
+<td align="left">drug_order</td>
+<td align="left">NA</td>
+<td align="left">the information of dose of mediction taking; 1= taking medicine regularly; 2 = taking medicine irregularly; 3 = Not taking medicine</td>
+</tr>
+<tr class="odd">
+<td align="left">celiangxtgl</td>
+<td align="left">NA</td>
+<td align="left">result of blood pressure test; 1= testing regularly; 2 = testing irrgularly; 3 = not testing</td>
+</tr>
+<tr class="even">
+<td align="left">exercise</td>
+<td align="left">NA</td>
+<td align="left">activity intensity； 1= little avtiviey(watching movies, reading books, ect); 2 = light activity(cultivate, housekeeping,etc); 3 = highly activity(running, dancing, playing badminton, etc)</td>
+</tr>
+<tr class="odd">
+<td align="left">exercise_time</td>
+<td align="left">NA</td>
+<td align="left">activity time；1 = in one hour; 2 = one hour to two hours; 3= above two hours</td>
+</tr>
+<tr class="even">
+<td align="left">censer</td>
+<td align="left">NA</td>
+<td align="left">TB infection; 0 = has TB; 1= don’t have TB</td>
+</tr>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="left">NA</td>
+<td align="left">Male VS Female</td>
+</tr>
+<tr class="even">
+<td align="left">glu_average</td>
+<td align="left">mg/dl</td>
+<td align="left">The average of fasting blood glucose</td>
+</tr>
+<tr class="odd">
+<td align="left">drug_insulin</td>
+<td align="left">NA</td>
+<td align="left">insulin injection; 1= inject; 0= not inject</td>
+</tr>
+<tr class="even">
+<td align="left">dmtime</td>
+<td align="left">NA</td>
+<td align="left">the year of diagonsis of Diabetes</td>
+</tr>
+<tr class="odd">
+<td align="left">drug_oral_sulfo</td>
+<td align="left">NA</td>
+<td align="left">Diabetic oral drug - sulfonylurea; 1 = taking; 0 = not taking</td>
+</tr>
+<tr class="even">
+<td align="left">drug_oral_biguanide</td>
+<td align="left">NA</td>
+<td align="left">Diabetic oral drug - metformin; 1 = taking; 0 = not taking</td>
+</tr>
+<tr class="odd">
+<td align="left">drug_oral_glu</td>
+<td align="left">NA</td>
+<td align="left">Diabetic oral drug - A-glycosidase inhibitors; 1 = taking; 0 = not taking</td>
+</tr>
+<tr class="even">
+<td align="left">weight_initial</td>
+<td align="left">kg</td>
+<td align="left">Initial weight recorded in the diabetes database</td>
+</tr>
+<tr class="odd">
+<td align="left">weight_average</td>
+<td align="left">kg</td>
+<td align="left">The average of weight</td>
+</tr>
+<tr class="even">
+<td align="left">height</td>
+<td align="left">cm</td>
+<td align="left">height</td>
+</tr>
+<tr class="odd">
+<td align="left">glu_initial</td>
+<td align="left">mg/dl</td>
+<td align="left">the initial fasting blood glucose</td>
+</tr>
+<tr class="even">
+<td align="left">birthday</td>
+<td align="left">NA</td>
+<td align="left">the year of birth</td>
+</tr>
+<tr class="odd">
+<td align="left">birthmon</td>
+<td align="left">NA</td>
+<td align="left">the month of birth</td>
+</tr>
+<tr class="even">
+<td align="left">dmdatayear</td>
+<td align="left">NA</td>
+<td align="left">Years recorded in the diabetes database</td>
+</tr>
+<tr class="odd">
+<td align="left">dmdatamon</td>
+<td align="left">NA</td>
+<td align="left">Months recorded in the diabetes database</td>
+</tr>
+<tr class="even">
+<td align="left">dmage</td>
+<td align="left">NA</td>
+<td align="left">Ages of diagonsis of diabetes</td>
+</tr>
+<tr class="odd">
+<td align="left">dmdatage</td>
+<td align="left">NA</td>
+<td align="left">Ages recorded in the diabetes database</td>
+</tr>
+<tr class="even">
+<td align="left">last_yr</td>
+<td align="left">NA</td>
+<td align="left">year of last follow-up</td>
+</tr>
+<tr class="odd">
+<td align="left">last_m</td>
+<td align="left">NA</td>
+<td align="left">month of last follow-up</td>
+</tr>
+<tr class="even">
+<td align="left">last_d</td>
+<td align="left">NA</td>
+<td align="left">day of last follow-up</td>
+</tr>
+<tr class="odd">
+<td align="left">tb_date</td>
+<td align="left">NA</td>
+<td align="left">Date of diagnosis of TB; NA = don’t have TB</td>
+</tr>
+<tr class="even">
+<td align="left">days</td>
+<td align="left">NA</td>
+<td align="left">how many days to follow-up</td>
+</tr>
+<tr class="odd">
+<td align="left">district</td>
+<td align="left">NA</td>
+<td align="left">the distinct of patients’ living in Shanghai</td>
+</tr>
+<tr class="even">
+<td align="left">urban_rural</td>
+<td align="left">NA</td>
+<td align="left">patient’s live in urban or rural; 1= living in urban; 2= living in rural</td>
+</tr>
+<tr class="odd">
+<td align="left">sys_pressure</td>
+<td align="left">mmHg</td>
+<td align="left">Systolic blood pressure(SBP)</td>
+</tr>
+<tr class="even">
+<td align="left">dia_pressure</td>
+<td align="left">mmHg</td>
+<td align="left">diastolic blood pressure(DBP)</td>
+</tr>
+<tr class="odd">
+<td align="left">glu_self_monitor</td>
+<td align="left">mg/dl</td>
+<td align="left">result of blood pressure test; 1= testing regularly; 2 = testing irrgularly; 3 = not testing</td>
+</tr>
+<tr class="even">
+<td align="left">bmi_initial</td>
+<td align="left">kg/m2</td>
+<td align="left">initial BMI recorded in the diabetes database</td>
+</tr>
+<tr class="odd">
+<td align="left">bmi_average</td>
+<td align="left">kg/m2</td>
+<td align="left">The average of BMI</td>
+</tr>
+<tr class="even">
+<td align="left">bmi_change</td>
+<td align="left">kg/m2</td>
+<td align="left">The change of BMI between initial and end of following up</td>
+</tr>
+<tr class="odd">
+<td align="left">glu_change</td>
+<td align="left">mg/dl</td>
+<td align="left">The change of fasting blood glucose between initial and end of following up</td>
+</tr>
+<tr class="even">
+<td align="left">tb</td>
+<td align="left">NA</td>
+<td align="left">TB infection; No&amp;NA = don’t have TB ; Yes= have TB</td>
+</tr>
+<tr class="odd">
+<td align="left">drug_oral_name</td>
+<td align="left">NA</td>
+<td align="left">Names of diabetic oral drug; NA = no medicine used</td>
+</tr>
+<tr class="even">
+<td align="left">drug</td>
+<td align="left">NA</td>
+<td align="left">how many kinds of diabetes oral drug used; 0 = not used; 1 = one kind of medicine used; 2= two kinds of medicine used; 3 = three kinds of medicine used</td>
+</tr>
+<tr class="odd">
+<td align="left">complications</td>
+<td align="left">NA</td>
+<td align="left">How many complications patients had; 0 = non-complications; 1 = one complication; 2 = two or more complications</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

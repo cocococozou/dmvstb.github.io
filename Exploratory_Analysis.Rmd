@@ -75,7 +75,7 @@ ggplot(df_complication, aes(x = complications, y = dmage, hue = gender)) +
   )
 ```
 
-In this plot we can show that the distribution of none, one, and 'more than two' complication groups do not differ that much across age and gender. This indicates that we have much more none and one complication observations compare to 'more than two' complications group, since 'more than two' is the observation sum of three to six complications. 
+This plot shows the number of complications among poeple with Type II Diabetes in different ages and different genders. The Y axis shows age while X axis shows the number of complications that each sample has. We could see that number of complications is similar distributed among participants from different age and different gender. 
 
 ## Analysis of Exercise
 

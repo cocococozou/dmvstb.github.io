@@ -1,5 +1,5 @@
 ---
-title: "The Association Between Tuberculosis and Type II Diabetes and Risk Factors in Shanghai, China"
+title: "The Incidence rate of Tuberculosis among people with Type II diabetes in Shanghai, China"
 output:
   html_document:
     toc: true

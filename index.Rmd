@@ -47,12 +47,10 @@ curves which showed that people does not taking medicines have a higher probabil
 
 ### Screen Cast
 
-
-```{r echo=FALSE}
-embed_url("https://www.youtube.com/watch?v=pD03ZKy_cmM")
-```
-
-
+<div align="center">
+  <iframe width="640" height="360" src="https://www.youtube.com/embed/pD03ZKy_cmM" frameborder="0" align="middle" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  </iframe>
+</div>
 
 ***
 
@@ -61,7 +59,7 @@ embed_url("https://www.youtube.com/watch?v=pD03ZKy_cmM")
 [Data Source](https://drive.google.com/open?id=1GPXa4-lAR7s1kYu0m6uMAxWKNmOVekh-) | [Data Discription](VariableDictionary.html) | [Final Report](https://github.com/danazenggg/shiny/blob/master/Final_Report.md) | [Screen Cast](https://www.youtube.com/watch?v=pD03ZKy_cmM) 
 
 #### Contact Us:
-[Annie Yu](mailto:xy2404@cumc.columbia.edu) | [Coco Zou](mailto:xz2809@cumc.columbia.edu) | [Dana Zeng](mailto:dz2399@cumc.columbia.edu) | [Hanbo Qiu](mailto:hq2103@cumc.columbia.edu) | [Rui Huang](mailto:rh2916@cumc.columbia.edu) 
+[Annie Yu](mailto:xy2404@cumc.columbia.edu) | [Coco Zou](mailto:xz2809@cumc.columbia.edu) | [Dana Zeng](mailto:dz2399@cumc.columbia.edu) | [Hanbo Qiu](mailto:hq2163@cumc.columbia.edu) | [Rui Huang](mailto:rh2916@cumc.columbia.edu) 
 
 ***
 

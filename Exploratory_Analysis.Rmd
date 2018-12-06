@@ -109,7 +109,7 @@ plot_exer = df_exercise %>%
 ggplotly(plot_exer) 
 ```
 
-This plots shows the distribution of exercise amount among different ages. The exercise Level reaches 
+This plots shows the distribution of exercise amount along with different ages. Between age 25 to 80, which represents the most of samples, people from rural district has more exercise amout than urban people. The noise within below 25 range and above 80 range is probabily because the number of samples from these two ranges are too small to show a trend. 
 
 ## Initial BMI
 
@@ -151,9 +151,9 @@ df_combine %>%
     x = "District",
     y = "The estimated ORs and CIs"
   ) +
+  theme_classic()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(limits=c(0, 4))+
-  theme_classic()
+  scale_y_continuous(limits=c(0, 4))
 ```
 
 For each district in Shanghai, obtain the estimate and confidence interval of the adjusted odds ratio for having tb comparing diabetes who regularly monitor glucose to those who don't monitor glucose regularly keeping all other variables fixed. The results show Huangpu district has the highest OR and Baoshan district has the lowest OR.

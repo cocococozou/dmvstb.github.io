@@ -34,7 +34,7 @@ Due to rapid urbanizations and lifestyles, type 2 diabetes (T2D) has become one 
 
 <img src="./image/lab1.jpg" style="width:52%"><img src="./image/lab2.jpg" style="width:43%">
 
-After cleaning our database,we mainly focused on four main risk factors: glucose management, drug usage level, complications level, and daily exercise level. When doing the analysis, for each risk factors, we looked for the different distributions of different levels by gender, by district, and by age. we also analyzed the odds of tuberculosis in different levels of risk factors. We have explored histograms, density plot and odds ratio comparing plot to analyze different distributions. Furthermore, we applied some advanced statistical model like Cox Regression and made survival analysis.
+After cleaning our database, we mainly focused on four main risk factors: diabetes diagnosis age, glucose management, drug usage level, complications level, and daily exercise level. When doing the analysis, for each risk factors, we looked for the different distributions of different levels by gender, by district, and by age. we also analyzed the odds of tuberculosis in different levels of risk factors. We have explored histograms, density plot and odds ratio comparing plot to analyze different distributions. Furthermore, we applied "shiny" to create interactive graphics and web-like applications and fitted an advanced statistical model "Cox Regression" and made survival analysis.
 
 
 ### What have we found? 

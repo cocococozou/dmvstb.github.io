@@ -48,3 +48,14 @@ curves which proved men had a higher probability of being infected
 with TB than women.
 
 <p style="text-align: center;"> <img src="image/endtb.png" style="width:20%"> </p>
+
+***
+
+#### Relevant Links: 
+
+[Data Source](https://drive.google.com/open?id=1GPXa4-lAR7s1kYu0m6uMAxWKNmOVekh-) | [Data Discription](VariableDictionary.html) | [Final Report] | [Screen Cast](https://www.youtube.com/watch?v=pD03ZKy_cmM) 
+
+#### Contact Us
+[Annie Yu](xy2404@cumc.columbia.edu) | [Coco Zou](xz2809@cumc.columbia.edu) | [Dana Zeng](dz2399@cumc.columbia.edu) | [Hanbo Qiu](hq2103@cumc.columbia.edu) | [Rui Huang](rh2916@cumc.columbia.edu) 
+
+***

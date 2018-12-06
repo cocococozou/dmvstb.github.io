@@ -67,10 +67,15 @@ df_complication <- df_combine %>%
 
 ggplot(df_complication, aes(x = complications, y = dmage, hue = gender)) + 
   geom_violin(aes(fill = gender), color = "blue", alpha = .5) + 
-  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4)
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4) +
+  theme_classic()+
+  labs(
+    x = "Number of Complication",
+    y = "Age"
+  )
 ```
 
-This plot shows the distribution of number of complications among poeple with Type II Diabetes. The Y axis shows that Frequency while X axis shows the number of complications that each sample has. We could see that most of the people does not have complications at all and only a few percent of Type II Diabetes carry more than two complications. 
+In this plot we can show that the distribution of none, one, and 'more than two' complication groups do not differ that much across age and gender. This indicates that we have much more none and one complication observations compare to 'more than two' complications group, since 'more than two' is the observation sum of three to six complications. 
 
 ## Analysis of Exercise
 
